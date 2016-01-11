@@ -1,0 +1,271 @@
+body{
+    margin: 0;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;
+    font-family: segoe ui, arial;
+    font-size: 14px;
+}
+
+html {
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+button:focus {outline:0;}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0
+}
+
+#canvas_container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 95%;
+    background-image: url("img/sfondob.png");
+    /*background-position: center;
+    background-size: cover;*/
+}
+
+#canvas_container text{
+    cursor: default;
+}
+
+/*line:hover {
+    stroke: red;
+}
+line:active {
+    stroke: green;
+}*/
+
+.diagram_btn {
+    position: absolute;
+    top: 20%;
+    height: 40px;
+    border-style: none;
+    background-color: pink;
+    /*background-image: url('img/test.png');*/
+    background-repeat: no-repeat;
+    background-position: center;
+    color: mediumblue;
+}
+.diagram_btn:hover {
+    border: 1px solid cornflowerblue;
+    background-color: hotpink;
+}
+.diagram_btn:active {
+    border: 1px solid royalblue;
+    background-color: deeppink;
+}
+.diagram_btn.diagram_btn_pressed {
+    border: 1px solid royalblue;
+    background-color: deeppink;
+}
+.diagram_btn.diagram_btn_pressed:hover {
+    border: 1px solid cornflowerblue;
+    background-color: hotpink;
+}
+.diagram_btn.diagram_btn_pressed:active {
+    border: 1px solid royalblue;
+    background-color: deeppink;
+}
+
+#btnD1 {
+    left: 150px;
+}
+#btnD2 {
+    left: 300px;
+}
+#btnD3 {
+    left: 450px;
+}
+
+
+.mybuttonall {
+    position: absolute;
+    width: 45px;
+    height: 30px;
+    border-style: none;
+    background-color: pink;
+    color: mediumblue;
+}
+.mybuttonall:hover {
+    border: 1px solid #c6c6c6;
+    background-color: hotpink;
+}
+.mybuttonall:active {
+    border: 1px solid #a0a0a0;
+    background-color: deeppink;
+}
+.mybuttonall.btn_pressed {
+    border: 1px solid skyblue;
+    background-color: deeppink;
+}
+.mybuttonall.btn_pressed:hover {
+    border: 1px solid #c6c6c6;
+    background-color: hotpink;
+}
+.mybuttonall.btn_pressed:active {
+    border: 1px solid #a0a0a0;
+    background-color: deeppink;
+}
+#p {
+    left: 7px;
+    top: 75px;  }
+#canc {
+    left: 60px;
+    top: 75px;  }
+
+
+.mybutton {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-style: none;
+    background-color: royalblue;
+    /*background-image: url('img/test.png');*/
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+.mybutton:hover {
+     border: 1px solid #c6c6c6;
+     background-color: powderblue;
+     color: royalblue;
+ }
+.mybutton:active {
+    border: 1px solid #a0a0a0;
+    background-color: dodgerblue;
+    color: white;
+}
+.mybutton.btn_pressed {
+    border: 1px solid skyblue;
+    background-color: dodgerblue;
+    color: white;
+}
+.mybutton.btn_pressed:hover {
+    border: 1px solid #c6c6c6;
+    background-color: cornflowerblue;
+    color: royalblue;
+}
+.mybutton.btn_pressed:active {
+    border: 1px solid #a0a0a0;
+    background-color: dodgerblue;
+    color: white;
+}
+
+#btn11 {
+    left: 7px;
+    top: 130px;  }
+#btn12 {
+    left: 60px;
+    top: 130px;  }
+#btn13 {
+    left: 7px;
+    top: 185px;  }
+#btn14 {
+     left: 60px;
+     top: 185px;  }
+#btn15 {
+    left: 7px;
+    top: 240px;  }
+#btn16 {
+    left: 60px;
+    top: 240px;  }
+#btn17 {
+    left: 7px;
+    top: 295px;  }
+#btn18 {
+    left: 60px;
+    top: 295px;  }
+#btn19 {
+    left: 7px;
+    top: 350px;  }
+#btn110 {
+    left: 60px;
+    top: 350px;  }
+
+
+#btn21 {
+    left: 7px;
+    top: 130px;  }
+
+
+#btn31 {
+    left: 7px;
+    top: 130px;  }
+
+
+#container_vert {
+    width:120px;
+    height:100%;
+    background: white;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color: midnightblue;
+    border-right: 2px solid royalblue;
+}
+#container_orizz {
+    width:100%;
+    height:61px;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color: powderblue;
+    border-top: 1px solid blueviolet;
+    border-bottom: 2px solid blueviolet;
+}
+
+#setProp {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#bg {
+    position:absolute;
+    background-color: rgb(64,64,64);
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100%;
+    opacity: 0.5;
+}
+#mybox {
+    background-color: #f3f3f3;
+    border: 1px solid #777777;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    height: auto;
+    padding: 20px;
+    position: absolute;
+    left: 37%;
+    top: 37%;
+}
+.box_btn {
+    margin-top: 20px;
+    text-align: right;
+}
+
+#textbox {
+    position:absolute;
+    background-color: transparent;
+    border: none;
+    width:400px;
+    font-size: 95%;
+}
+textarea:focus, input:focus{
+    outline: 0;
+}

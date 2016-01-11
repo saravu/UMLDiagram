@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>UMLActivityDiagram</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="btn_gen.js"></script>
+
+    <script type="text/javascript" src="btnall.js"></script>
+    <script type="text/javascript" src="btn11.js"></script>
+    <script type="text/javascript" src="btn12.js"></script>
+    <script type="text/javascript" src="btn13_4_9.js"></script>
+    <script type="text/javascript" src="btn15_6.js"></script>
+    <script type="text/javascript" src="btn17_8.js"></script>
+
+    <script type="text/javascript" src="btnD1.js"></script>
+    <script type="text/javascript" src="btnD2.js"></script>
+
+</head>
+
+<body>
+    <div id="canvas_container">
+        <svg pointer-events="all" id="mysvg" width="100%" height="100%">
+            <defs>
+                <marker id="markerCircle" markerWidth="8" markerHeight="8" refX="5" refY="5">
+                    <circle cx="5" cy="5" r="3" style="stroke: none; fill:mediumblue;"/>
+                </marker>
+                <marker id="arrowFlow" markerWidth="13" markerHeight="13" refX="8" refY="6" orient="auto">
+                    <path id="AFp" d="M2,2 L10,6 L2,10" style="stroke:mediumblue; fill:none" />
+                </marker>
+            </defs>
+
+        </svg>
+
+       <div id="container_vert">
+            <div id="choice">
+                <p>Scegliere un Diagramma</p>
+            </div>
+
+            <div id="all" style="display: none">
+                <button id="p" type="button" class="mybuttonall" title="puntatore (P)" accesskey="p">punt</button>
+                <button id="canc" type="button" class="mybuttonall" title="delete (C)" accesskey="c" style = "display: none">canc</button>
+            </div>
+
+            <div id="DAtt" style = "display: none">
+                <button id="btn11" type="button" class="mybutton" title="Control flow (L)" accesskey="l">line</button>
+                <button id="btn12" type="button" class="mybutton" title="Action (A)" accesskey="a">act</button>
+                <button id="btn13" type="button" class="mybutton" title="Initial node (I)" accesskey="i">start</button>
+                <button id="btn14" type="button" class="mybutton" title="Final node (E)" accesskey="e">end</button>
+                <button id="btn15" type="button" class="mybutton" title="Fork (F)" accesskey="f">fork</button>
+                <button id="btn16" type="button" class="mybutton" title="Join (J)" accesskey="j">join</button>
+                <button id="btn17" type="button" class="mybutton" title="Decision (D)" accesskey="d">dec</button>
+                <button id="btn18" type="button" class="mybutton" title="Merge (M)" accesskey="m">merge</button>
+                <button id="btn19" type="button" class="mybutton" title="Final flow (X)" accesskey="x">final</button>
+                <button id="btn110" type="button" class="mybutton" title="Send signal (S)" accesskey="s">s sig</button>
+                <button id="btn111" type="button" class="mybutton" title="Accept signal ()" accesskey="">a sig</button>
+            </div>
+
+           <div id="DClassi" style = "display: none">
+               <button id="btn21" type="button" class="mybutton" title="bottone (B)" accesskey="b">line</button>
+           </div>
+
+           <div id="MStati" style = "display: none">
+               <button id="btn31" type="button" class="mybutton" title="bottone (B)" accesskey="b">line</button>
+           </div>
+
+        </div>
+
+        <div id="container_orizz">
+            <p style="margin: 20px 10px; color: midnightblue"><b>Diagrammi UML</b></p>
+            <button id="btnD1" type="button" class="diagram_btn" title="diagramma di attività (A)" accesskey="a">D di Attività</button>
+            <button id="btnD2" type="button" class="diagram_btn" title="diagramma delle classi (C)" accesskey="c">D delle Classi</button>
+            <button id="btnD3" type="button" class="diagram_btn" title="macchina a stati (M)" accesskey="m">Macchina a Stati</button>
+        </div>
+
+    </div>
+
+    <div id="setProp">
+        <div id="bg"></div>
+        <div id="mybox">
+            <table>
+                <tr id="text">
+                    <td>Testo:</td>
+                    <td><input type="text" id="textval" maxlength="15" /></td>
+                </tr>
+                <tr id="Input">
+                    <td>N Input:</td>
+                    <td>
+                        <select id="selectIn">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="Output">
+                    <td>N Output:</td>
+                    <td>
+                        <select id="selectOut">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="box_btn">
+                <button id="delete" type="button" class="box_btn" title="Annulla">Annulla</button>
+                <button id="ok" type="button" class="box_btn" title="Conferma">OK</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
