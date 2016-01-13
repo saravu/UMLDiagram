@@ -15,25 +15,19 @@ window.addEventListener("load", function(e) {
         var myline1, myline2, myline3= null;
         var bcr1, bcr2, bcr3 = null;        //bounding client rectangle della linea - aggiungerli alla fine
         var mytext = null;
+        var lin1x1, lin1y1, lin1x2, lin1y2, lin3x1, lin3y1, lin3x2, lin3y2 = null;
+        var tx, ty;
+        var draggedline = null;
+        var offx, offy;
 
+        this.mytype = "line";
+        this.elemento0=null;
+        this.elemento1=null;
         this.myline1 = null;
         this.myline2 = null;
         this.myline3 = null;
         this.mytext = mytext;
-        this.myRes = null;
-
-        var lin1x1, lin1y1, lin1x2, lin1y2, lin3x1, lin3y1, lin3x2, lin3y2 = null;
-        var tx, ty;
-
-        var draggedline = null;
-        var offx, offy;
-
-        this.type = "line";
-
-        this.elemento0=null;
-        this.elemento1=null;
-
-        this.initX = null;
+        this.myRes = null;this.initX = null;
         this.initY = null;
         this.endX = null;
         this.endY = null;
@@ -253,7 +247,8 @@ window.addEventListener("load", function(e) {
         };
 
         this.dragObj = function(mx, my) {
-            var deltax, deltay = 0;
+            var deltax = 0;
+            var deltay = 0;
             /*if (draggedline == 1) {
                 deltax = (mx - lin1x1) + offx;
                 deltay = (my - lin1y1) + offy;
@@ -282,9 +277,9 @@ window.addEventListener("load", function(e) {
             updateLine(myline1, lin1x1, lin1y1, lin1x2, lin1y2);
             updateLine(myline2, lin1x2, lin1y2, lin3x1, lin3y1);
             updateLine(myline3, lin3x1, lin3y1, lin3x2, lin3y2);
-            updateRect(bcr1, (lin1x1-5), (lin1y1-5), (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
-            updateRect(bcr2, (lin1x2-5), (lin1y2-5), (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
-            updateRect(bcr3, (lin3x1-5), (lin3y1-5), (lin3x2-lin3x1+10), (lin3y2-lin3y1+10));
+            updateRect(bcr1, (lin1x1-5), (lin1y1-5), Math.abs(lin1x2-lin1x1+10), Math.abs(lin1y2-lin1y1+10));
+            updateRect(bcr2, (lin1x2-5), (lin1y2-5), Math.abs(lin3x1-lin1x2+10), Math.abs(lin3y1-lin1y2+10));
+            updateRect(bcr3, (lin3x1-5), (lin3y1-5), Math.abs(lin3x2-lin3x1+10), Math.abs(lin3y2-lin3y1+10));
             tx = tx + deltax;
             ty = ty + deltay;
             mytext.setAttributeNS(null, "x", tx.toString());
@@ -396,7 +391,7 @@ window.addEventListener("load", function(e) {
                 //if (elementcorreleted == null) console.log("SECONDO elemento correlato NULL");
 
                 if (line.elemento0 != null && elementcorreleted != null) {
-                    //test el0 != el1 ?? TODO ma è possibile
+                    //test el0 != el1 ?? ma è possibile
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;
                     var r0 = setDownUp(line.elemento0, mDx, mDy);
@@ -432,7 +427,6 @@ window.addEventListener("load", function(e) {
         function onmouseenterbar(e) {
             if (mybtn.classList.contains("btn_pressed")) {
                 if (drawing) {
-                    //TODO delete?
                     deletelastsvgel("line", false);
                     deletelastsvgel("line", false);
                     deletelastsvgel("line", false);

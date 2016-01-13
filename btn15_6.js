@@ -28,10 +28,6 @@ window.addEventListener("load", function(e){
         var myx1, myy1, myx2, myy2 = null;
         var offx, offy;
 
-        //this.type = "fork";
-        var elementiIn = new Array();
-        var elementiOut = new Array();
-
         this.newLine = function(x1, y1, x2, y2) {
             myf = document.createElementNS(svgNS, "line");
             myf.setAttributeNS(null, "style", "stroke-width:5; opacity:0.3");

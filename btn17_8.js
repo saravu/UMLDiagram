@@ -34,9 +34,6 @@ window.addEventListener("load", function(e){
         var myd = stdh;
         var offx, offy;
 
-        var elementiIn = new Array();
-        var elementiOut = new Array();
-
         function ondblclickDM() {
             drag = false;
             if (selection) {

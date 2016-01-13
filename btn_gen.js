@@ -60,11 +60,14 @@
                 if(drawline) {
                     myconn.setAttributeNS(null, "fill", "white");
                     myconn.setAttributeNS(null, "style", "opacity:1");
-                    //e.stopPropagation();
+                    e.stopPropagation();
                 }
             };
             myconn.onmouseout = function(e) {
-                if(drawline) myconn.setAttributeNS(null, "style", "opacity:0");  e.stopPropagation();
+                if(drawline) {
+                    myconn.setAttributeNS(null, "style", "opacity:0");
+                    e.stopPropagation();
+                }
             }
         };
 
@@ -262,6 +265,15 @@
     }
 
 
+//cambiare lo stile del cursore
+    function setCursorByID(id,cursorStyle) {
+        var elem;
+        if (document.getElementById &&
+            (elem=document.getElementById(id)) ) {
+            if (elem.style) elem.style.cursor=cursorStyle;
+        }
+    }
+
 //al dbl click - settare testo, num ingressi, num uscite
     function setProp(b_text, b_in, b_out, myc) {
         if (selection && elementsel!=null) {
@@ -280,7 +292,7 @@
             }
             else
                 document.getElementById("text").style.display="none";
-            //TODO aggiungi num iniziale
+            //TODO aggiungi num iniziale?
             if(b_in)
                 document.getElementById("Input").style.display="table-row";
             else
@@ -305,7 +317,6 @@
             var textval = document.getElementById("textval");
             var In = document.getElementById("selectIn");
             var Out = document.getElementById("selectOut");
-            //console.log("output value " + Out.options[Out.selectedIndex].value);
             callback(textval.value, In.options[In.selectedIndex].value, Out.options[Out.selectedIndex].value);
         }
     }

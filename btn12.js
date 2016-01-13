@@ -288,24 +288,6 @@ window.addEventListener("load", function(e){
             }
         };
 
-      /*  mysvg.onmouseout = function(e) {
-            console.log("uscito da svg?");
-            onmouseleavesvg(e);
-        };
-        function onmouseleavesvg(e) {
-            var contv = parseInt(document.getElementById("container_vert").style.width.replace("px", ""));
-            var conto = parseInt(document.getElementById("container_orizz").style.height.replace("px", ""));
-            if (e.clientX < contv || e.clientY < conto) {
-                console.log("uscito davverooooo");
-                var rects = document.getElementsByTagName("rect");
-                if (rects.length > 0 && !fixed ) {
-                    var last_r = rects[rects.length - 1];
-                    last_r.parentNode.removeChild(last_r);
-                }
-                fixed = true;
-            }
-        };
-    */
         function onmouseenterbar() {
             if (mybtn.classList.contains("btn_pressed")) {
                 deletelastsvgel("rect", fixed);
