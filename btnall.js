@@ -1,8 +1,6 @@
 /**
  * Created by Sara on 11/12/2015.
  */
-
-
 window.addEventListener("load", function(e) {
 
     var svgNS = "http://www.w3.org/2000/svg";
@@ -20,27 +18,29 @@ window.addEventListener("load", function(e) {
 
         selection = true;
 
-        mysvg.onmousedown = function(e){
+        mysvg.onmousedown = function(e) {
             if(elementsel!=null) {
                 elementsel.setColor(standardcolor);
+                elementsel.hideResize();        //TODO VERIFICA
+                resize = false;
                 elementsel = null;
                 drag = false;
             }
         };
 
         mysvg.onmousemove = function(e) {
-            ondrag(e);
+            if(selection && elementsel!=null && drag) ondrag(e);
+            if(resize && elementsel!=null) onresize(e);
         };
 
         mysvg.onmouseup = function(e) {
             drag = false;
+            resize = false;
         };
-
 
     }
 
     p.onclick=("click", click_btnp);
-
 
 
 //cancellazione
@@ -57,4 +57,3 @@ window.addEventListener("load", function(e) {
     c.onclick=("click", click_btnc);
 
 });
-

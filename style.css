@@ -186,10 +186,16 @@ line:active {
     top: 295px;  }
 #btn19 {
     left: 7px;
-    top: 350px;  }
+    top: 405px;  }
 #btn110 {
+    left: 7px;
+    top: 350px;  }
+#btn111 {
     left: 60px;
     top: 350px;  }
+#btn112 {
+    left: 60px;
+    top: 405px;  }
 
 
 #btn21 {

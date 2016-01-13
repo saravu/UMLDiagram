@@ -34,23 +34,13 @@ window.addEventListener("load", function(e){
             if (fixed) {
                 mycircle = document.createElementNS(svgNS, "circle");
                 fixed = false;
-                mycircle.setAttributeNS(null, "stroke", "mediumblue");
                 mycircle.setAttributeNS(null, "fill", "blue");
                 mycircle.setAttributeNS(null, "style", "stroke-width:2;opacity:0.3");
                 mycircle.setAttributeNS(null, "r", r.toString());
                 mysvg.appendChild(mycircle);
                 this.myfig = mycircle;
-
-                c1 = new Connection(_this);
-                mysvg.appendChild(c1.myfig);
-                c2 = new Connection(_this);
-                mysvg.appendChild(c2.myfig);
-                c3 = new Connection(_this);
-                mysvg.appendChild(c3.myfig);
-                c4 = new Connection(_this);
-                mysvg.appendChild(c4.myfig);
+                this.setColor(standardcolor);
             }
-
             this.setPoint(x, y);
 
             mycircle.onmousedown = function(e) {
@@ -64,23 +54,32 @@ window.addEventListener("load", function(e){
                 //correlate(e, _this);
             };
         };
+        this.updateCircle = function(x1, y1) {
+            this.setPoint(x1, y1);
+            c1 = new Connection(_this);
+            mysvg.appendChild(c1.myfig);
+            c2 = new Connection(_this);
+            mysvg.appendChild(c2.myfig);
+            c3 = new Connection(_this);
+            mysvg.appendChild(c3.myfig);
+            c4 = new Connection(_this);
+            mysvg.appendChild(c4.myfig);
+            this.setConn();
+            fixed = true;
+            mycircle.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+        };
 
         this.setPoint = function(x, y) {
             myx = x;
             myy = y;
             mycircle.setAttributeNS(null, "cx", x.toString());
             mycircle.setAttributeNS(null, "cy", y.toString());
-
+        };
+        this.setConn = function () {
             c1.updateConnection(myx - cdim/2, myy - r - cdim/2);
             c2.updateConnection(myx + r - cdim/2, myy - cdim/2);
             c3.updateConnection(myx - cdim/2, myy + r - cdim/2);
             c4.updateConnection(myx - r - cdim/2, myy - cdim/2);
-        };
-
-        this.updateCircle = function(x1, y1) {
-            this.setPoint(x1, y1);
-            fixed = true;
-            mycircle.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -107,6 +106,7 @@ window.addEventListener("load", function(e){
 
         this.dragNode = function(x, y) {
             this.setPoint(x, y);
+            this.setConn();
         };
 
         this.dragObj = function(mx, my) {
@@ -271,7 +271,21 @@ window.addEventListener("load", function(e){
                 //correlate(e, _this);
             };
         };
-
+        this.updateCircle = function(x1, y1) {
+            this.setPoint(x1, y1);
+            c1 = new Connection(_this);
+            mysvg.appendChild(c1.myfig);
+            c2 = new Connection(_this);
+            mysvg.appendChild(c2.myfig);
+            c3 = new Connection(_this);
+            mysvg.appendChild(c3.myfig);
+            c4 = new Connection(_this);
+            mysvg.appendChild(c4.myfig);
+            this.setConn();
+            fixed = true;
+            myest.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            myint.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+        };
         this.setPoint = function(x, y) {
             myx = x;
             myy = y;
@@ -279,17 +293,13 @@ window.addEventListener("load", function(e){
             myest.setAttributeNS(null, "cy", y.toString());
             myint.setAttributeNS(null, "cx", x.toString());
             myint.setAttributeNS(null, "cy", y.toString());
+
+        };
+        this.setConn = function() {
             c1.updateConnection(myx - cdim/2, myy - re - cdim/2);
             c2.updateConnection(myx + re - cdim/2, myy - cdim/2);
             c3.updateConnection(myx - cdim/2, myy + re - cdim/2);
             c4.updateConnection(myx - re - cdim/2, myy - cdim/2);
-        };
-
-        this.updateCircle = function(x1, y1) {
-            this.setPoint(x1, y1);
-            fixed = true;
-            myest.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            myint.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -316,6 +326,7 @@ window.addEventListener("load", function(e){
 
         this.dragNode = function(x, y) {
             this.setPoint(x, y);
+            this.setConn();
         };
 
         this.dragObj = function(mx, my) {
@@ -434,15 +445,6 @@ window.addEventListener("load", function(e){
                 p4.setAttributeNS(null, "style", "opacity:0.3");
                 mysvg.appendChild(p4);
 
-                c1 = new Connection(_this);
-                mysvg.appendChild(c1.myfig);
-                c2 = new Connection(_this);
-                mysvg.appendChild(c2.myfig);
-                c3 = new Connection(_this);
-                mysvg.appendChild(c3.myfig);
-                c4 = new Connection(_this);
-                mysvg.appendChild(c4.myfig);
-
                 this.setColor(standardcolor);
             }
             this.setPoint(x, y);
@@ -458,6 +460,24 @@ window.addEventListener("load", function(e){
                 //correlate(e, _this);
             };
         };
+        this.updateCircle = function(x1, y1) {
+            this.setPoint(x1, y1);
+            fixed = true;
+            myc.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            p1.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            p2.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            p3.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            p4.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            c1 = new Connection(_this);
+            mysvg.appendChild(c1.myfig);
+            c2 = new Connection(_this);
+            mysvg.appendChild(c2.myfig);
+            c3 = new Connection(_this);
+            mysvg.appendChild(c3.myfig);
+            c4 = new Connection(_this);
+            mysvg.appendChild(c4.myfig);
+            this.setConn();
+        };
 
         this.setPoint = function(x, y) {
             myx = x;
@@ -472,20 +492,12 @@ window.addEventListener("load", function(e){
             p3.setAttributeNS(null, "d", linx3);
             linx4 = "M " + myx + "," + y + " L " + (myx + r*Math.cos(45)) + "," + (myy - r*Math.sin(45));
             p4.setAttributeNS(null, "d", linx4);
-            c1.updateConnection(myx - cdim/2, myy - r - cdim/2);
-            c2.updateConnection(myx + r - cdim/2, myy - cdim/2);
-            c3.updateConnection(myx - cdim/2, myy + r - cdim/2);
-            c4.updateConnection(myx - r - cdim/2, myy - cdim/2);
         };
-
-        this.updateCircle = function(x1, y1) {
-            this.setPoint(x1, y1);
-            fixed = true;
-            myc.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p1.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p2.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p3.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p4.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+        this.setConn = function() {
+            c1.updateConnection(myx - cdim/2, myy - re - cdim/2);
+            c2.updateConnection(myx + re - cdim/2, myy - cdim/2);
+            c3.updateConnection(myx - cdim/2, myy + re - cdim/2);
+            c4.updateConnection(myx - re - cdim/2, myy - cdim/2);
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -516,6 +528,7 @@ window.addEventListener("load", function(e){
         };
         this.dragNode = function(x, y) {
             this.setPoint(x, y);
+            this.setConn();
         };
         this.dragObj = function(mx, my) {
             var deltax, deltay, i, l;

@@ -5,9 +5,13 @@
     var svgNS = "http://www.w3.org/2000/svg";
     var standardcolor = "mediumblue";
     var selectioncolor = "red";
+    var stdw = 70;
+    var stdh = 30;
 
     var selection = false;      //è attiva la selezione del puntatore
     var elementsel = null;      //elemento selezionato - oggetto
+    var resize = false;
+    var numresize = 0;
     var drag = false;           //sto trascinando l'el selezionato
     var dragX = null;
     var dragY = null;
@@ -59,7 +63,7 @@
                     myconn.setAttributeNS(null, "fill", "white");
                     myconn.setAttributeNS(null, "style", "opacity:1");
                     //myconn.setAttributeNS(null, "fill", selectioncolor);
-                    e.stopPropagation();
+                    //e.stopPropagation();
                 }
             };
             myconn.onmouseout = function(e) {
@@ -82,15 +86,71 @@
         };
     }
 
+//oggetto per ridimesonare rect, rombo, signal, lineFJ?
+    function Resize(el, n) {
+        this.myelement = el;
+        var _this = this;
+        var myr = document.createElementNS(svgNS, "rect");
+        myr.setAttributeNS(null, "stroke", standardcolor);
+        myr.setAttributeNS(null, "fill", "white");
+        myr.setAttributeNS(null, "style", "stroke-width:2;opacity:0");
+        myr.setAttributeNS(null, "width", cdim.toString());
+        myr.setAttributeNS(null, "height", cdim.toString());
+        var myx, myy;
+        this.myfig = myr;
+        this.mytype = "resize";
+        this.mynum = n;
+
+        this.updateResize = function (x, y) {
+            myx = x;
+            myy = y;
+            myr.setAttributeNS(null, "x", x.toString());
+            myr.setAttributeNS(null, "y", y.toString());
+
+            myr.onmousedown = function (e) {
+                elementsel = _this.myelement; //--dovrebbe essere già l'el selezionato, am non vedo i ResizeObj
+                resize = true;
+                numresize = _this.mynum;
+                myr.setAttributeNS(null, "fill", "red");
+                e.stopPropagation();
+            };
+            myr.onmouseup = function (e) {
+                //elementsel = null;
+                resize = false;
+                e.stopPropagation();
+            };
+            myr.onmouseover = function(e) {
+                myr.setAttributeNS(null, "fill", "red");
+            };
+            myr.onmouseout = function(e) {
+                myr.setAttributeNS(null, "fill", "white");
+            }
+        };
+
+        this.setColor = function (c) {
+            myr.setAttributeNS(null, "stroke", c);
+        };
+        this.visible = function (v) {
+            if (v)
+                myr.setAttributeNS(null, "style", "opacity:1");
+            else
+                myr.setAttributeNS(null, "style", "opacity:0");
+        };
+        this.removeme = function () {
+            myr.parentNode.removeChild(myr);
+        };
+    }
 
     function reset_var() {
         selection = false;
+        resize = false;
         drag = false;
         drawline = false;
         elementcorreleted = null;
 
         if (elementsel!=null) {
             elementsel.setColor(standardcolor);
+            elementsel.hideResize();        //TODO verificare che contenga il metoso, am eccezione
             elementsel = null;
         }
     }
@@ -127,11 +187,17 @@
         }
     }
 
-//principlamente c'è il controllo
+//principlamente cè il controllo
     function ondrag(e) {
         if(selection && elementsel!=null && drag) {
             //calcola offset x e y
             elementsel.dragObj(e.clientX, e.clientY);
+        }
+    }
+    function onresize(e) {
+        if(resize && elementsel!= null) {
+            //calco la offset x e y
+            elementsel.resizeObj(e.clientX, e.clientY);
         }
     }
 
@@ -140,6 +206,7 @@
         if (selection) {
             if (elementsel!=null) {
                 elementsel.setColor(standardcolor);
+                elementsel.hideResize();        //TODO verifica
             }
             elementsel = t;
             elementsel.setColor(selectioncolor);
@@ -183,7 +250,7 @@
             box.style.visibility = "visible";
             box.style.opacity = 1;
 
-            if(b_text){
+            if(b_text) {
                 var oldtext = elementsel.mytext.textContent;
                 if(oldtext!=null)
                     document.getElementById("textval").value = oldtext;
@@ -193,6 +260,7 @@
             }
             else
                 document.getElementById("text").style.display="none";
+            //TODO aggiungi num iniziale
             if(b_in)
                 document.getElementById("Input").style.display="table-row";
             else

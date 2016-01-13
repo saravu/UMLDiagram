@@ -6,20 +6,20 @@ window.addEventListener("load", function(e){
 
     var mybtn = document.getElementById("btn12");
     var mysvg = document.getElementById("mysvg");
-    var mDx, mDy, mMx, mMy = 0;
+    var mMx, mMy = 0;
     var idA = 0;
     var fixed = true;
     var drawing = false;
-    var tmptext;
 
     function Rect() {
         var _this = this;
         var myrect = null;
         var mytext = null;
-        var myx, myy, tx, ty;
-        var offx, offy;
-        var w = 80;
-        var h = 50;
+        var myx, myy, tx, ty = 0;
+        var offx, offy = 0;
+        var myw = stdw;
+        var myh = stdh;
+        var r1, r2, r3, r4 = null;
 
         this.myfig = null;  //metter a tutti lo stesso nome
         this.mytext = null;
@@ -36,18 +36,20 @@ window.addEventListener("load", function(e){
                 myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:0.3");
                 myrect.setAttributeNS(null, "rx", "10");
                 myrect.setAttributeNS(null, "ry", "10");
-                myrect.setAttributeNS(null, "width", w.toString());
-                myrect.setAttributeNS(null, "height", h.toString());
+
                 mysvg.appendChild(myrect);
                 this.myfig = myrect;
             }
             myx = x;
             myy = y;
+            myrect.setAttributeNS(null, "width", myw.toString());
+            myrect.setAttributeNS(null, "height", myh.toString());
             myrect.setAttributeNS(null, "x", x.toString());
             myrect.setAttributeNS(null, "y", y.toString());
 
             myrect.onmousedown = function(e) {
                 select(e, _this);
+                _this.seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
                 correlate(e, _this);
@@ -62,34 +64,55 @@ window.addEventListener("load", function(e){
                                              });
             };
         };
+        this.updateRect = function(x, y, w, h) {
+            if (w >= stdw) {
+                myx = x;
+                myw = w;
+                myrect.setAttributeNS(null, "x", myx.toString());
+                myrect.setAttributeNS(null, "width", myw.toString());
+            }
+            if (h >= stdh) {
+                myy = y;
+                myh = h;
+                myrect.setAttributeNS(null, "y", myy.toString());
+                myrect.setAttributeNS(null, "height", myh.toString());
+            }
+            if (!fixed) {
+                r1 = new Resize(this, 1);
+                mysvg.appendChild(r1.myfig);
+                r2 = new Resize(this, 2);
+                mysvg.appendChild(r2.myfig);
+                r3 = new Resize(this, 3);
+                mysvg.appendChild(r3.myfig);
+                r4 = new Resize(this, 4);
+                mysvg.appendChild(r4.myfig);
 
-        this.updateRect = function(x1, y1) {
-            myx = x1;
-            myy = y1;
-            myrect.setAttributeNS(null, "x", x1.toString());
-            myrect.setAttributeNS(null, "y", y1.toString());
-            fixed = true;
-            myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+                fixed = true;
+                myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            }
         };
 
+        this.setText = function() {
+            tx = myx + myw/6;
+            ty = myy + myh/2;
+            mytext.setAttributeNS(null, "x", tx.toString());
+            mytext.setAttributeNS(null, "y", ty.toString());
+        };
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             idA++;
             mytext.textContent = "Action " + idA;
             //centrare il testo
             //var w = mytext.getComputedStyle().        TODO
-            tx = myx + 8;
-            ty = myy + 30;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            this.setText();
             mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
             mytext.setAttributeNS(null, "fill", standardcolor);
-
             this.mytext = mytext;
             mysvg.appendChild(mytext);
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
+                _this.seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
                 correlate(e, _this);
@@ -104,6 +127,56 @@ window.addEventListener("load", function(e){
                     mytext.textContent = t;
                 });
             }
+        };
+
+        this.seeResize = function() {
+            if (!drawline) {
+                r1.visible(true);
+                r2.visible(true);
+                r3.visible(true);
+                r4.visible(true);
+                this.setRes();
+            }
+        };
+        this.hideResize = function() {
+            r1.visible(false);
+            r2.visible(false);
+            r3.visible(false);
+            r4.visible(false);
+        };
+        this.setRes = function () {
+            r1.updateResize(myx - cdim/2, myy - cdim/2);
+            r2.updateResize(myx + myw - cdim/2, myy - cdim/2);
+            r4.updateResize(myx - cdim/2, myy + myh - cdim/2);
+            r3.updateResize(myx + myw - cdim/2, myy + myh - cdim/2);
+        };
+        this.removeRes = function () {
+            if (r1 != null) r1.removeme();
+            if (r2 != null) r2.removeme();
+            if (r3 != null) r3.removeme();
+            if (r4 != null) r4.removeme();
+        };
+        this.resizeObj = function(mx, my) { //TODO
+            switch (numresize) {
+                case 1: {
+                    this.updateRect(mx, my, myw+(myx-mx), myh+(myy-my));
+                    break;
+                }
+                case 2: {
+                    this.updateRect(myx, my, mx-myx, myh+(myy-my));
+                    break;
+                }
+                case 3: {
+                    this.updateRect(myx, myy, mx-myx, my-myy);
+                    break;
+                }
+                case 4: {
+                    this.updateRect(mx, myy, myw+(myx-mx), my-myy);
+                    break;
+                }
+            }
+            this.setRes();
+            this.setText();
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -134,10 +207,8 @@ window.addEventListener("load", function(e){
             myy = y;
             myrect.setAttributeNS(null, "x", x.toString());
             myrect.setAttributeNS(null, "y", y.toString());
-            tx = myx + 8;
-            ty = myy + 30;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            this.setRes();
+            this.setText();
         };
         this.dragObj = function(mx, my) {
             var deltax, deltay, i, l;
@@ -165,6 +236,7 @@ window.addEventListener("load", function(e){
                 n = this.linesOUT.length;
                 for(var i = 0; i<n; i++)
                     this.linesOUT[0].removeme();
+                this.removeRes();
             }
         };
 
@@ -206,7 +278,7 @@ window.addEventListener("load", function(e){
             if (drawing) {
                 mMx = e.clientX;
                 mMy = e.clientY;
-                rect.updateRect(mMx, mMy);
+                rect.updateRect(mMx, mMy, stdw, stdh);
                 rect.addText();
                 drawing = false;
             }

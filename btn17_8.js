@@ -28,8 +28,8 @@ window.addEventListener("load", function(e){
         this.linesOUT = new Array();
 
         var myx, myy, tx, ty = null;
-        var myD = 60;
-        var myd = 30;
+        var myD = stdw;
+        var myd = stdh;
         var offx, offy;
 
         var elementiIn = new Array();
