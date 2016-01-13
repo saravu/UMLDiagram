@@ -26,6 +26,8 @@ window.addEventListener("load", function(e){
         this.mytext = null;
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        var r1, r2, r3, r4 = null;
+        this.myRes = new Array();
 
         var myx, myy, tx, ty = null;
         var myD = stdw;
@@ -60,6 +62,7 @@ window.addEventListener("load", function(e){
                         break;
                     }
                 }
+                hideResize();
             }
         }
 
@@ -81,13 +84,14 @@ window.addEventListener("load", function(e){
 
             myf.onmousedown = function(e) {
                 select(e, _this);
+                seeResize();
                 offx = (myx - e.clientX);
                 offy = (myy - e.clientY);
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.ondblclick = function(e) {
                 drag = false;
@@ -95,10 +99,29 @@ window.addEventListener("load", function(e){
             };
         };
 
-        this.updateDM = function(x, y) {
-            myx = x;
-            myy = y;
-            //rombo
+        this.updateDM = function(x, y, D, d) {
+            if (!fixed) {
+                r1 = new Resize(this, 1);
+                mysvg.appendChild(r1.myfig);
+                r2 = new Resize(this, 2);
+                mysvg.appendChild(r2.myfig);
+                r3 = new Resize(this, 3);
+                mysvg.appendChild(r3.myfig);
+                r4 = new Resize(this, 4);
+                mysvg.appendChild(r4.myfig);
+                this.myRes.push(r1, r2, r3, r4);
+
+                fixed = true;
+                myf.setAttributeNS(null, "style", "opacity:1");
+            }
+            if (D >= stdw) {
+                myx = x;
+                myD = D;
+            }
+            if (d >= stdh) {
+                myy = y;
+                myd = d;
+            }
             myf.setAttributeNS(null, "points", myx.toString()+","+myy.toString()+" "+(myx+myD/2).toString()+","+(myy-myd/2).toString()+
                 " "+(myx+myD).toString()+","+myy.toString()+" "+(myx+myD/2).toString()+","+(myy+myd/2).toString());
         };
@@ -110,7 +133,7 @@ window.addEventListener("load", function(e){
             var idx = 0;
             var el;
             var conn;
-            if (!drag) {
+            if (!drag && !resize) {
                 var c;
                 for (c=0; c<ni; c++) {
                     myin.push(document.createElementNS(svgNS, "line"));
@@ -169,12 +192,15 @@ window.addEventListener("load", function(e){
             idx = 0;
         };
 
-        this.addText = function() {
-            mytext = document.createElementNS(svgNS, "text");
+        this.setText = function() {
             tx = myx + myD/5;
             ty = myy;
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
+        };
+        this.addText = function() {
+            mytext = document.createElementNS(svgNS, "text");
+            this.setText();
             mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "cond";
@@ -183,18 +209,54 @@ window.addEventListener("load", function(e){
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
+                seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             mytext.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             mytext.ondblclick = function(e) {
                 drag = false;
                 ondblclickDM();
             }
+        };
+
+        this.setRes = function () {
+            r1.updateResize(myx - cdim/2, myy - myd/2 - cdim/2);
+            r2.updateResize(myx + myD - cdim/2, myy - myd/2 - cdim/2);
+            r3.updateResize(myx + myD - cdim/2, myy + myd/2 - cdim/2);
+            r4.updateResize(myx - cdim/2, myy + myd/2 - cdim/2);
+        };
+        this.resizeObj = function(mx, my) { //TODO
+            var i, deltaw, deltah, lx, ly = 0;
+            switch (numresize) {
+                case 1:
+                {
+                    this.updateDM(mx, myy, myD+(myx-mx), (myy-my)*2);
+                    break;
+                }
+                case 2:
+                {
+                    this.updateDM(myx, myy, mx-myx, (myy-my)*2);
+                    break;
+                }
+                case 3:
+                {
+                    this.updateDM(myx, myy, mx-myx, (my-myy)*2);
+                    break;
+                }
+                case 4:
+                {
+                    this.updateDM(mx, myy, myD+(myx-mx), (my-myy)*2);
+                    break;
+                }
+            }
+            this.drawIO(ni, no);
+            this.setRes();
+            this.setText();
         };
 
         this.addLineIN = function(l) {
@@ -229,12 +291,10 @@ window.addEventListener("load", function(e){
         };
 
         this.dragDM = function(dx, dy) {
-            this.updateDM(myx + dx, myy + dy);
+            this.updateDM(myx + dx, myy + dy, myD, myd);
             this.drawIO(ni, no);
-            tx = myx + myD/5;
-            ty = myy;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            this.setRes();
+            this.setText();
         };
         this.dragObj = function(mx, my) {
             var deltax, deltay, i, l;
@@ -268,16 +328,18 @@ window.addEventListener("load", function(e){
             myout = new Array();
         };
         this.removeme = function() {
+            var i;
             myf.parentNode.removeChild(myf);
             if (mytext != null) mytext.parentNode.removeChild(mytext);
             this.removeI();
             this.removeO();
             var n = this.linesIN.length;
-            for(var i = 0; i<n; i++)
+            for(i = 0; i<n; i++)
                 this.linesIN[0].removeme();
             n = this.linesOUT.length;
-            for(var i = 0; i<n; i++)
+            for(i = 0; i<n; i++)
                 this.linesOUT[0].removeme()
+            removeRes();
         };
 
     }
@@ -305,12 +367,10 @@ window.addEventListener("load", function(e){
             if (drawing) {
                 mMx = e.clientX;
                 mMy = e.clientY;
-                f.updateDM(mMx, mMy);
+                f.updateDM(mMx, mMy, stdw, stdh);
                 f.addText();
                 f.drawIO(1, 2);
                 f.mytype = 0;
-                f.myfig.setAttributeNS(null, "style", "opacity:1");
-                fixed = true;
                 drawing = false;
             }
         };
@@ -350,12 +410,10 @@ window.addEventListener("load", function(e){
             if (drawing) {
                 mMx = e.clientX;
                 mMy = e.clientY;
-                f.updateDM(mMx, mMy);
+                f.updateDM(mMx, mMy, stdw, stdh);
                 f.addText();
                 f.drawIO(2, 1);
                 f.mytype = 1;
-                f.myfig.setAttributeNS(null, "style", "opacity:1");
-                fixed = true;
                 drawing = false;
             }
         };

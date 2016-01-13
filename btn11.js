@@ -10,8 +10,6 @@ window.addEventListener("load", function(e) {
     var mDx, mDy, mMx, mMy = 0;
     var drawing = false;
 
-//TODO - clientrect -- drag
-
     function Line() {
         var _this = this;
         var myline1, myline2, myline3= null;
@@ -22,6 +20,7 @@ window.addEventListener("load", function(e) {
         this.myline2 = null;
         this.myline3 = null;
         this.mytext = mytext;
+        this.myRes = null;
 
         var lin1x1, lin1y1, lin1x2, lin1y2, lin3x1, lin3y1, lin3x2, lin3y2 = null;
         var tx, ty;
@@ -161,7 +160,7 @@ window.addEventListener("load", function(e) {
             }
         };
 
-        this.addclientrect = function() {       //TODO client rect
+        this.addclientrect = function() {
             bcr1 = document.createElementNS(svgNS, "rect");
             bcr1.setAttributeNS(null, "style", "opacity:0");
             updateRect(bcr1, (lin1x1-5), (lin1y1-5), (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
@@ -221,7 +220,7 @@ window.addEventListener("load", function(e) {
 
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
-            //TODO trova posizione per testo su linea
+            //TODO trova posizione per testo su linea -- o solo add btnText
             if (lin1x1 != lin1x2) {
                 tx = lin1x2 + 5;
                 ty = Math.min(lin1y2, lin3y1) + Math.abs(lin1y2 - lin3y1)/2;
@@ -250,7 +249,7 @@ window.addEventListener("load", function(e) {
             myline2.setAttributeNS(null, "stroke", c);
             myline3.setAttributeNS(null, "stroke", c);
             if (mytext!=null) mytext.setAttributeNS(null, "fill", c);
-            //document.getElementById("AFp").setAttributeNS(null, "stroke", c);   //TODO
+            //document.getElementById("AFp").setAttributeNS(null, "stroke", c);   //TODO punta freccia colore
         };
 
         this.dragObj = function(mx, my) {
@@ -264,7 +263,7 @@ window.addEventListener("load", function(e) {
                 deltax = (mx - lin3x1) + offx;
                 deltay = (my - lin3y1) + offy;
             }*/
-            if (draggedline == 2) {        //spostabile solo la 2 ??
+            if (draggedline == 2) {        //sposto il pezzo centrale
                 if (lin1x2 == lin3x1) deltax = (mx - lin1x2) + offx;
                 if (lin1y2 == lin3y1) deltay = (my - lin1y2) + offy;
             }
@@ -317,7 +316,6 @@ window.addEventListener("load", function(e) {
         var elx, ely, elw, elh, midx, midy;
         var tag = el.myfig.tagName;
 
-        //controlli per tagli?? TODO
         if(tag == "rect") {
             elx = parseFloat(el.myfig.getAttributeNS(null, "x"));
             ely = parseFloat(el.myfig.getAttributeNS(null, "y"));
@@ -398,7 +396,7 @@ window.addEventListener("load", function(e) {
                 //if (elementcorreleted == null) console.log("SECONDO elemento correlato NULL");
 
                 if (line.elemento0 != null && elementcorreleted != null) {
-                    //test el0 != el1 ?? TODO
+                    //test el0 != el1 ?? TODO ma è possibile
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;
                     var r0 = setDownUp(line.elemento0, mDx, mDy);
@@ -409,7 +407,7 @@ window.addEventListener("load", function(e) {
                     mMy = r1.my;
                     if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                         line.removeme();
-                        //line.remove();    //rimuovere obj?! TODO
+                        //line.remove();    // TODO come rimuovere obj?!
                     }
                     else {
                         line.setPosition(mDx, mDy, mMx, mMy);
@@ -434,13 +432,14 @@ window.addEventListener("load", function(e) {
         function onmouseenterbar(e) {
             if (mybtn.classList.contains("btn_pressed")) {
                 if (drawing) {
-                    //TODO delete??
-                    line.myline1.setAttributeNS(null, "style", "opacity:1");
-                    line.myline2.setAttributeNS(null, "style", "opacity:1");
-                    line.myline3.setAttributeNS(null, "style", "opacity:1");
+                    //TODO delete?
+                    deletelastsvgel("line", false);
+                    deletelastsvgel("line", false);
+                    deletelastsvgel("line", false);
+                    //line.removeme();
+                    //line.myline1.setAttributeNS(null, "style", "opacity:1");line.myline2.setAttributeNS(null, "style", "opacity:1");line.myline3.setAttributeNS(null, "style", "opacity:1");
                     drawing = false;
                 }
-
             }
         }
         document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);

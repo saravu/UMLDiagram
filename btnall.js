@@ -21,7 +21,7 @@ window.addEventListener("load", function(e) {
         mysvg.onmousedown = function(e) {
             if(elementsel!=null) {
                 elementsel.setColor(standardcolor);
-                elementsel.hideResize();        //TODO VERIFICA
+                hideResize();
                 resize = false;
                 elementsel = null;
                 drag = false;
@@ -37,6 +37,13 @@ window.addEventListener("load", function(e) {
             drag = false;
             resize = false;
         };
+
+        function onmouseenterbar(e) {
+            drag = false;
+            resize = false;
+        }
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
 
     }
 

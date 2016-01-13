@@ -1,8 +1,8 @@
 /**
  * Created by Sara on 11/12/2015.
  */
-
 //azioni dall'esterno
+
 //send/receive signal
 window.addEventListener("load", function(e) {
 
@@ -10,7 +10,7 @@ window.addEventListener("load", function(e) {
     var btnRcvSig = document.getElementById("btn111");
     var btnTimer = document.getElementById("btn112");
     var mysvg = document.getElementById("mysvg");
-    var mDx, mDy, mMx, mMy = 0;
+    var mMx, mMy = 0;
     var drawing = false;
     var fixed = true;
 
@@ -25,31 +25,20 @@ window.addEventListener("load", function(e) {
         this.mytext = null;
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        var r1, r2, r3, r4 = null;
+        this.myRes = new Array();
 
         var myx, myy, puntax, puntay, tx, ty = null;
-        var w = stdw;
-        var h = stdh;
+        var myw = stdw;
+        var myh = stdh;
         var offx, offy;
 
         function ondblclickSig() {
             drag = false;
             if (selection) {
-                switch (_this.mytype) {
-                    case 0:
-                    {
-                        setProp(true, false, false, function (t, i, o) {
-                            mytext.textContent = t;
-                        });
-                        break;
-                    }
-                    case 1:
-                    {
-                        setProp(true, false, false, function (t, i, o) {
-                            mytext.textContent = t;
-                        });
-                        break;
-                    }
-                }
+                setProp(true, false, false, function (t, i, o) {
+                    mytext.textContent = t;
+                });
             }
         }
 
@@ -69,32 +58,33 @@ window.addEventListener("load", function(e) {
                 case 0:
                 {  //send signal
                     puntax = myx + 20;
-                    puntay = myy + h/2;
-                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + w).toString() + "," + myy.toString() +
-                        " " + (myx + w).toString() + "," + (myy + h).toString() + " " + (myx).toString() + "," + (myy + h).toString() +
+                    puntay = myy + myh/2;
+                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
+                        " " + (myx + myw).toString() + "," + (myy + myh).toString() + " " + (myx).toString() + "," + (myy + myh).toString() +
                     " " + puntax.toString() + "," + puntay.toString());
                     break;
                 }
                 case 1:
                 { //receive signal
-                    puntax = myx + w + 20;
-                    puntay = myy + h/2;
-                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + w).toString() + "," + myy.toString() +
-                        " " + puntax.toString() + "," + (puntay).toString() + " " + (myx + w).toString() + "," + (myy + h).toString() +
-                        " " + (myx).toString() + "," + (myy + h).toString());
+                    puntax = myx + myw + 20;
+                    puntay = myy + myh/2;
+                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
+                        " " + puntax.toString() + "," + (puntay).toString() + " " + (myx + myw).toString() + "," + (myy + myh).toString() +
+                        " " + (myx).toString() + "," + (myy + myh).toString());
                     break;
                 }
             }
 
             myf.onmousedown = function(e) {
                 select(e, _this);
+                seeResize();
                 offx = (myx - e.clientX);
                 offy = (myy - e.clientY);
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.ondblclick = function(e) {
                 drag = false;
@@ -102,7 +92,7 @@ window.addEventListener("load", function(e) {
             };
         };
 
-        this.updateSig = function(x, y) {
+        this.updateSig = function(x, y, w, h) {
             if (!fixed) {
                 c1 = new Connection(_this);
                 mysvg.appendChild(c1.myfig);
@@ -112,47 +102,69 @@ window.addEventListener("load", function(e) {
                 mysvg.appendChild(c3.myfig);
                 c4 = new Connection(_this);
                 mysvg.appendChild(c4.myfig);
+
+                r1 = new Resize(this, 1);
+                mysvg.appendChild(r1.myfig);
+                r2 = new Resize(this, 2);
+                mysvg.appendChild(r2.myfig);
+                r3 = new Resize(this, 3);
+                mysvg.appendChild(r3.myfig);
+                r4 = new Resize(this, 4);
+                mysvg.appendChild(r4.myfig);
+                this.myRes.push(r1, r2, r3, r4);
+
+                myf.setAttributeNS(null, "style", "opacity:1");
+                fixed = true;
             }
-            myx = x;
-            myy = y;
+            if (w >= stdw) {
+                myx = x;
+                myw = w;
+            }
+            if (h >= stdh) {
+                myy = y;
+                myh = h;
+            }
             switch (this.mytype) {
                 case 0:
                 {  //send signal
                     puntax = myx + 20;
-                    puntay = myy + h/2;
-                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + w).toString() + "," + myy.toString() +
-                        " " + (myx + w).toString() + "," + (myy + h).toString() + " " + (myx).toString() + "," + (myy + h).toString() +
+                    puntay = myy + myh/2;
+                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
+                        " " + (myx + myw).toString() + "," + (myy + myh).toString() + " " + (myx).toString() + "," + (myy + myh).toString() +
                         " " + puntax.toString() + "," + puntay.toString());
                     break;
                 }
                 case 1:
                 { //receive signal
-                    puntax = myx + w + 20;
-                    puntay = myy + h/2;
-                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + w).toString() + "," + myy.toString() +
-                        " " + puntax.toString() + "," + (puntay).toString() + " " + (myx + w).toString() + "," + (myy + h).toString() +
-                        " " + (myx).toString() + "," + (myy + h).toString());
+                    puntax = myx + myw + 20;
+                    puntay = myy + myh/2;
+                    myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
+                        " " + puntax.toString() + "," + (puntay).toString() + " " + (myx + myw).toString() + "," + (myy + myh).toString() +
+                        " " + (myx).toString() + "," + (myy + myh).toString());
                     break;
                 }
             }
             this.setConn();
         };
         this.setConn = function () {
-            c1.updateConnection(myx + w/2 - cdim/2, myy - cdim/2);
-            c2.updateConnection(myx + w/2 - cdim/2, myy + h - cdim/2);
+            c1.updateConnection(myx + myw/2 - cdim/2, myy - cdim/2);
+            c2.updateConnection(myx + myw/2 - cdim/2, myy + myh - cdim/2);
             c3.updateConnection(puntax - cdim/2, puntay - cdim/2);
             switch (this.mytype) {
-                case 0: c4.updateConnection(myx + w - cdim/2, myy + h/2 - cdim/2); break;
-                case 1: c4.updateConnection(myx - cdim/2, myy + h/2 - cdim/2); break;
+                case 0: c4.updateConnection(myx + myw - cdim/2, myy + myh/2 - cdim/2); break;
+                case 1: c4.updateConnection(myx - cdim/2, myy + myh/2 - cdim/2); break;
             }
         };
 
-        this.addText = function() {
-            mytext = document.createElementNS(svgNS, "text");
-            tx = myx + 20;
-            ty = myy + h/2;
+        this.setText = function() {
+            tx = myx + 25;
+            ty = myy + myh/2;
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
+        };
+        this.addText = function() {
+            mytext = document.createElementNS(svgNS, "text");
+            this.setText();
             mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "signal";
@@ -161,18 +173,54 @@ window.addEventListener("load", function(e) {
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
+                seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             mytext.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             mytext.ondblclick = function(e) {
                 drag = false;
                 ondblclickSig();
             }
+        };
+
+
+        this.setRes = function () {
+            r1.updateResize(myx - cdim/2, myy - cdim/2);
+            r2.updateResize(myx + myw - cdim/2, myy - cdim/2);
+            r4.updateResize(myx - cdim/2, myy + myh - cdim/2);
+            r3.updateResize(myx + myw - cdim/2, myy + myh - cdim/2);
+        };
+        this.resizeObj = function(mx, my) {
+            var i, deltaw, deltah, lx, ly = 0;
+            switch (numresize) {
+                case 1:
+                {
+                    this.updateSig(mx, my, myw + (myx - mx), myh + (myy - my));
+                    break;
+                }
+                case 2:
+                {
+                    this.updateSig(myx, my, mx - myx, myh + (myy - my));
+                    break;
+                }
+                case 3:
+                {
+                    this.updateSig(myx, myy, mx - myx, my - myy);
+                    break;
+                }
+                case 4:
+                {
+                    this.updateSig(mx, myy, myw + (myx - mx), my - myy);
+                    break;
+                }
+            }
+            this.setRes();
+            this.setText();
         };
 
         this.addLineIN = function(l) {
@@ -200,11 +248,9 @@ window.addEventListener("load", function(e) {
         };
 
         this.dragSig = function(dx, dy) {
-            this.updateSig(myx + dx, myy + dy);
-            tx = myx + 20;
-            ty = myy + h/2;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            this.updateSig(myx + dx, myy + dy, myw, myh);
+            this.setRes();
+            this.setText();
         };
         this.dragObj = function(mx, my) {
             var deltax, deltay, i, l;
@@ -235,6 +281,7 @@ window.addEventListener("load", function(e) {
             n = this.linesOUT.length;
             for(i = 0; i<n; i++)
                 this.linesOUT[0].removeme();
+            removeRes();
         };
 
     }
@@ -263,10 +310,8 @@ window.addEventListener("load", function(e) {
             if (drawing) {
                 mMx = e.clientX;
                 mMy = e.clientY;
-                f.updateSig(mMx, mMy);
+                f.updateSig(mMx, mMy, stdw, stdh);
                 f.addText();
-                f.myfig.setAttributeNS(null, "style", "opacity:1");
-                fixed = true;
                 drawing = false;
             }
         };
@@ -307,10 +352,8 @@ window.addEventListener("load", function(e) {
             if (drawing) {
                 mMx = e.clientX;
                 mMy = e.clientY;
-                f.updateSig(mMx, mMy);
+                f.updateSig(mMx, mMy, stdw, stdh);
                 f.addText();
-                f.myfig.setAttributeNS(null, "style", "opacity:1");
-                fixed = true;
                 drawing = false;
             }
         };
@@ -379,11 +422,11 @@ window.addEventListener("load", function(e) {
                 select(e, _this);
                 offx = (myx - e.clientX);
                 offy = (myy - e.clientY);
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myf.ondblclick = function(e) {
                 drag = false;
@@ -517,4 +560,3 @@ window.addEventListener("load", function(e) {
 
     btnTimer.onclick=("click", click_btn112);
 });
-

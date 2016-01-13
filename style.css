@@ -3,7 +3,7 @@ body{
     -moz-user-select:none;
     -webkit-user-select:none;
     user-select:none;
-    font-family: segoe ui, arial;
+    font-family: monospace, monospace;      /*TODO */
     font-size: 14px;
 }
 

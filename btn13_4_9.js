@@ -27,6 +27,7 @@ window.addEventListener("load", function(e){
         this.mytext = null;
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        this.myRes = null;
 
         this.mytype = "initial";
 

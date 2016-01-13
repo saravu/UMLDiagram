@@ -100,13 +100,13 @@ window.addEventListener("load", function(e){
 
         //creazione
         this.drawIO = function(i, o) {
-            ni = i;
-            no = o;
+            ni = parseInt(i);
+            no = parseInt(o);
             var idx;
             var el;
             var conn;
             var lx, ly;
-            if (!drag) {
+            if (!drag && !resize) {
                 var c;
                 for (c=0; c<ni; c++) {
                     myin.push(document.createElementNS(svgNS, "line"));
@@ -119,7 +119,7 @@ window.addEventListener("load", function(e){
             }
             //in -- out
             if (myx1 == myx2) { //verticale
-                distI = (Math.abs(myy1 - myy2)) / (parseInt(ni) + 1);
+                distI = (Math.abs(myy1 - myy2)) / (ni + 1);
                 ly = Math.min(myy1, myy2) + distI;
                 for (idx = 0; idx < myin.length; idx++) {
                     el = myin[idx];
@@ -133,7 +133,7 @@ window.addEventListener("load", function(e){
                     }
                     ly = ly + distI;
                 }
-                distO = (Math.abs(myy1 - myy2)) / (parseInt(no) + 1);
+                distO = (Math.abs(myy1 - myy2)) / (no + 1);
                 ly = Math.min(myy1, myy2) + distO;
                 for (idx = 0; idx < myout.length; idx++) {
                     el = myout[idx];
@@ -149,7 +149,7 @@ window.addEventListener("load", function(e){
                 }
             }
             else if (myy1 == myy2) { //orizzontale
-                distO = (Math.abs(myx1 - myx2)) / (parseInt(no) + 1);
+                distO = (Math.abs(myx1 - myx2)) / (no + 1);
                 lx = Math.min(myx1, myx2) + distO;
                 for (idx = 0; idx < myout.length; idx++) {
                     el = myout[idx];
@@ -163,7 +163,7 @@ window.addEventListener("load", function(e){
                     }
                     lx = lx + distO;
                 }
-                distI = (Math.abs(myx1 - myx2)) / (parseInt(ni) + 1);
+                distI = (Math.abs(myx1 - myx2)) / (ni + 1);
                 lx = Math.min(myx1, myx2) + distI;
                 for (idx = 0; idx < myin.length; idx++) {
                     el = myin[idx];

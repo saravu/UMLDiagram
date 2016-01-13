@@ -19,13 +19,14 @@ window.addEventListener("load", function(e){
         var offx, offy = 0;
         var myw = stdw;
         var myh = stdh;
-        var r1, r2, r3, r4 = null;
 
         this.myfig = null;  //metter a tutti lo stesso nome
         this.mytext = null;
         this.mytype = "rect";
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        var r1, r2, r3, r4 = null;
+        this.myRes = new Array();
 
         this.newRect = function(x, y) {
             if (fixed) {
@@ -49,7 +50,7 @@ window.addEventListener("load", function(e){
 
             myrect.onmousedown = function(e) {
                 select(e, _this);
-                _this.seeResize();
+                seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
                 correlate(e, _this);
@@ -65,6 +66,20 @@ window.addEventListener("load", function(e){
             };
         };
         this.updateRect = function(x, y, w, h) {
+            if (!fixed) {
+                r1 = new Resize(this, 1);
+                mysvg.appendChild(r1.myfig);
+                r2 = new Resize(this, 2);
+                mysvg.appendChild(r2.myfig);
+                r3 = new Resize(this, 3);
+                mysvg.appendChild(r3.myfig);
+                r4 = new Resize(this, 4);
+                mysvg.appendChild(r4.myfig);
+                this.myRes.push(r1, r2, r3, r4);
+
+                fixed = true;
+                myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            }
             if (w >= stdw) {
                 myx = x;
                 myw = w;
@@ -76,19 +91,6 @@ window.addEventListener("load", function(e){
                 myh = h;
                 myrect.setAttributeNS(null, "y", myy.toString());
                 myrect.setAttributeNS(null, "height", myh.toString());
-            }
-            if (!fixed) {
-                r1 = new Resize(this, 1);
-                mysvg.appendChild(r1.myfig);
-                r2 = new Resize(this, 2);
-                mysvg.appendChild(r2.myfig);
-                r3 = new Resize(this, 3);
-                mysvg.appendChild(r3.myfig);
-                r4 = new Resize(this, 4);
-                mysvg.appendChild(r4.myfig);
-
-                fixed = true;
-                myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
             }
         };
 
@@ -112,7 +114,7 @@ window.addEventListener("load", function(e){
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
-                _this.seeResize();
+                seeResize();
                 offx = myx - e.clientX;
                 offy = myy - e.clientY;
                 correlate(e, _this);
@@ -129,54 +131,55 @@ window.addEventListener("load", function(e){
             }
         };
 
-        this.seeResize = function() {
-            if (!drawline) {
-                r1.visible(true);
-                r2.visible(true);
-                r3.visible(true);
-                r4.visible(true);
-                this.setRes();
-            }
-        };
-        this.hideResize = function() {
-            r1.visible(false);
-            r2.visible(false);
-            r3.visible(false);
-            r4.visible(false);
-        };
         this.setRes = function () {
             r1.updateResize(myx - cdim/2, myy - cdim/2);
             r2.updateResize(myx + myw - cdim/2, myy - cdim/2);
-            r4.updateResize(myx - cdim/2, myy + myh - cdim/2);
             r3.updateResize(myx + myw - cdim/2, myy + myh - cdim/2);
+            r4.updateResize(myx - cdim/2, myy + myh - cdim/2);
         };
-        this.removeRes = function () {
-            if (r1 != null) r1.removeme();
-            if (r2 != null) r2.removeme();
-            if (r3 != null) r3.removeme();
-            if (r4 != null) r4.removeme();
-        };
-        this.resizeObj = function(mx, my) { //TODO
+        this.resizeObj = function(mx, my) {
+            var i, deltaw, deltah, lx, ly = 0;
             switch (numresize) {
                 case 1: {
+                    deltaw = mx-myx;
+                    deltah = my-myy;
                     this.updateRect(mx, my, myw+(myx-mx), myh+(myy-my));
                     break;
                 }
                 case 2: {
+                    deltaw = mx - (myw + myx);
+                    deltah = my-myy;
                     this.updateRect(myx, my, mx-myx, myh+(myy-my));
                     break;
                 }
                 case 3: {
+                    deltaw = mx - (myw + myx);
+                    deltah = my - (myh + myy);
                     this.updateRect(myx, myy, mx-myx, my-myy);
                     break;
                 }
                 case 4: {
+                    deltaw = mx-myx;
+                    deltah = my - (myh + myy);
                     this.updateRect(mx, myy, myw+(myx-mx), my-myy);
                     break;
                 }
             }
             this.setRes();
             this.setText();
+            //TODO aggiornare anch el'attacco delle linee agli obj
+            /*for (i = 0; i<this.linesIN.length; i++) {
+                l = this.linesIN[i];
+                if (l.endX < myx || l.endX > myx + myw)
+                    lx = l.endX + deltaw;
+                if (l.endY < myy || l.endY > myy + myh)
+                    ly = l.endY + deltah;
+                l.setPosition(l.initX, l.initY, lx, ly);
+            }
+            for (i = 0; i<this.linesOUT.length; i++) {
+                l = this.linesOUT[i];
+                l.setPosition(l.initX, l.initY, l.endX+ deltaw, l.endY+ deltah);
+            }*/
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -227,16 +230,17 @@ window.addEventListener("load", function(e){
 
         this.removeme = function() {
             if (myrect != null)  {
+                var i;
                 myrect.parentNode.removeChild(myrect);
                 idA--;
                 if (mytext != null) mytext.parentNode.removeChild(mytext);
                 var n = this.linesIN.length;
-                for(var i = 0; i<n; i++)
+                for(i = 0; i<n; i++)
                     this.linesIN[0].removeme();
                 n = this.linesOUT.length;
-                for(var i = 0; i<n; i++)
+                for(i = 0; i<n; i++)
                     this.linesOUT[0].removeme();
-                this.removeRes();
+                removeRes();
             }
         };
 
@@ -317,4 +321,3 @@ window.addEventListener("load", function(e){
     mybtn.onclick=("click", click_btn12);
 
 });
-

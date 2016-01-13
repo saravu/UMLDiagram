@@ -38,7 +38,6 @@
         var myx, myy;
         this.myfig = myconn;
         this.mytype = "conn";
-        //var ok = false;
 
         connections.push(_this);
 
@@ -52,7 +51,6 @@
                 if(drawline) {
                     correlate(e, _this.myelement);
                     myconn.setAttributeNS(null, "fill", selectioncolor);
-                    //ok = true;
                 }
             };
             myconn.onmouseup = function (e) {
@@ -62,13 +60,11 @@
                 if(drawline) {
                     myconn.setAttributeNS(null, "fill", "white");
                     myconn.setAttributeNS(null, "style", "opacity:1");
-                    //myconn.setAttributeNS(null, "fill", selectioncolor);
                     //e.stopPropagation();
                 }
             };
             myconn.onmouseout = function(e) {
                 if(drawline) myconn.setAttributeNS(null, "style", "opacity:0");  e.stopPropagation();
-                //if(drawline) myconn.setAttributeNS(null, "fill", "white");
             }
         };
 
@@ -140,6 +136,30 @@
             myr.parentNode.removeChild(myr);
         };
     }
+    function seeResize() {
+        if (!drawline && selection) {
+            if (elementsel.myRes != null) {
+                for (var i = 0; i<elementsel.myRes.length; i++)
+                    elementsel.myRes[i].visible(true);
+                elementsel.setRes();
+            }
+        }
+    }
+    function hideResize() {
+        if (elementsel.myRes != null) {
+            for (var i = 0; i<elementsel.myRes.length; i++)
+                elementsel.myRes[i].visible(false);
+        }
+    }
+    function removeRes() {
+        if (elementsel.myRes != null) {
+            var el = null;
+            for (var i = 0; i<elementsel.myRes.length; i++) {
+                el = elementsel.myRes[i];
+                if (el != null) el.removeme();
+            }
+        }
+    }
 
     function reset_var() {
         selection = false;
@@ -150,7 +170,7 @@
 
         if (elementsel!=null) {
             elementsel.setColor(standardcolor);
-            elementsel.hideResize();        //TODO verificare che contenga il metoso, am eccezione
+            hideResize();
             elementsel = null;
         }
     }
@@ -206,7 +226,7 @@
         if (selection) {
             if (elementsel!=null) {
                 elementsel.setColor(standardcolor);
-                elementsel.hideResize();        //TODO verifica
+                hideResize();
             }
             elementsel = t;
             elementsel.setColor(selectioncolor);
