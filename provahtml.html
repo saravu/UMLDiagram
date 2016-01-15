@@ -10,7 +10,6 @@
     <script type="text/javascript" src="btn_gen.js"></script>
 
     <script type="text/javascript" src="btnall.js"></script>
-    <script type="text/javascript" src="btntxt.js"></script>
     <script type="text/javascript" src="btn11.js"></script>
     <script type="text/javascript" src="btn12.js"></script>
     <script type="text/javascript" src="btn13_4_9.js"></script>
@@ -23,7 +22,7 @@
 
 </head>
 
-<body>
+<body onkeydown="keyBody(event)">
     <div id="canvas_container">
         <svg pointer-events="all" id="mysvg" width="100%" height="100%">
             <defs>
@@ -47,8 +46,8 @@
                 <button id="canc" type="button" class="mybuttonall" title="delete (C)" accesskey="c" style = "display: none">canc</button>
                 <button id="zin" type="button" class="mybuttonall" title="zoom in (+)" accesskey="+">Z+</button>
                 <button id="zout" type="button" class="mybuttonall" title="zoom out (-)" accesskey="-">Z-</button>
-                <button id="txt" type="button" class="mybuttonall" title="add text ()" accesskey="">Text-</button>
-                <button id="hand" type="button" class="mybuttonall" title="Hand ()" accesskey="">Hand-</button>
+                <button id="txt" type="button" class="mybuttonall" title="add text ()" >Text</button>
+                <button id="hand" type="button" class="mybuttonall" title="Hand (H)" accesskey="h">Hand-</button>
                 <button id="note" type="button" class="mybuttonall" title="note (N)" accesskey="n">Note</button>
             </div>
 
@@ -86,7 +85,7 @@
 
     </div>
 
-    <div id="setProp">
+    <div id="setProp" onkeydown="keySetProp(event)">
         <div id="bg"></div>
         <div id="mybox">
             <table>

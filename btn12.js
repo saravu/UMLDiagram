@@ -248,6 +248,7 @@ window.addEventListener("load", function(e){
 
 
     function click_btn12() {
+        reset_btn(document.getElementById("all"));
         reset_btn(mybtn.parentNode);
         mybtn.classList.add("btn_pressed");
         var rect = null;

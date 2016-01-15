@@ -268,6 +268,7 @@ window.addEventListener("load", function(e){
 
 //fork
     function click_btn15() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnFork.parentNode);
         btnFork.classList.add("btn_pressed");
         var f = null;
@@ -324,6 +325,7 @@ window.addEventListener("load", function(e){
 
 //join
     function click_btn16() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnJoin.parentNode);
         btnJoin.classList.add("btn_pressed");
         var f = null;

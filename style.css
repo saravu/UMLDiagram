@@ -123,9 +123,12 @@ line:active {
     top: 75px;  }
 #txt {
     left: 7px;
-    top: 115px;
+    top: 105px;
 }
-
+#note {
+    left: 60px;
+    top: 105px;
+}
 
 .mybutton {
     position: absolute;

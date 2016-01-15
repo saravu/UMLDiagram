@@ -245,7 +245,12 @@ window.addEventListener("load", function(e) {
             if (mytext!=null) mytext.setAttributeNS(null, "fill", c);
             //document.getElementById("AFp").setAttributeNS(null, "stroke", c);   //TODO punta freccia colore
         };
-
+        this.setStyle = function(s) {
+            if (s=="dashed")
+            myline1.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+            myline2.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+            myline3.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+        };
         this.dragObj = function(mx, my) {
             var deltax = 0;
             var deltay = 0;
@@ -348,6 +353,7 @@ window.addEventListener("load", function(e) {
 
     function click_btn11() {
         reset_btn(mybtn.parentNode);
+        reset_btn(document.getElementById("all"));
         mybtn.classList.add("btn_pressed");
         var line;
 
@@ -412,6 +418,8 @@ window.addEventListener("load", function(e) {
 
                         line.elemento0.addLineIN(svgline);
                         line.elemento1.addLineOut(svgline);
+                        if (line.elemento0.mytype=="note" || line.elemento1.mytype=="note")
+                            line.setStyle("dashed");
                         svgline = null;
                     }
                 }

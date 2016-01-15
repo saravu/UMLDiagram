@@ -183,11 +183,12 @@
         for (var c = 0; c < children.length; c++) {
             children[c].classList.remove("btn_pressed");
         }
-        document.getElementById("p").classList.remove("btn_pressed");
+        //document.getElementById("p").classList.remove("btn_pressed");
         document.getElementById("canc").style.display = "none";
         reset_var();
     }
     function reset_btnD(div) {
+        //TODO aggiungere la cancellazione di tutti gli el in svg - con msg di conferma
         var children = div.getElementsByTagName("button");
         for (var c = 0; c < children.length; c++) {
             children[c].classList.remove("diagram_btn_pressed");
@@ -318,9 +319,29 @@
             var In = document.getElementById("selectIn");
             var Out = document.getElementById("selectOut");
             callback(textval.value, In.options[In.selectedIndex].value, Out.options[Out.selectedIndex].value);
+            callback = null;
+        }
+    }
+    function keySetProp(e) {
+        if (e.keyCode == 13) {
+            if (callback != null)
+                conferma();
         }
     }
     function annulla() {
         document.getElementById("setProp").style.display = "none";
         document.getElementById("delete").removeEventListener("click", annulla);
+        callback = null;
+    }
+    function keyBody(e) {       //TODO qui WASD??
+        if (e.keyCode == 46) {
+            if (selection && elementsel != null && callback == null) {
+                elementsel.removeme();
+                elementsel = null;
+                drag = false;
+                resize = false;
+            }
+            else if (callback != null)
+                annulla();
+        }
     }

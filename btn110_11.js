@@ -288,6 +288,7 @@ window.addEventListener("load", function(e) {
 
 //send signal
     function click_btn110() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnSndSig.parentNode);
         btnSndSig.classList.add("btn_pressed");
         var f = null;
@@ -329,6 +330,7 @@ window.addEventListener("load", function(e) {
 
 //receive signal
     function click_btn111() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnRcvSig.parentNode);
         btnRcvSig.classList.add("btn_pressed");
         var f = null;
@@ -518,6 +520,7 @@ window.addEventListener("load", function(e) {
 
 //timer
     function click_btn112() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnTimer.parentNode);
         btnTimer.classList.add("btn_pressed");
         var f = null;

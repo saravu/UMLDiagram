@@ -343,6 +343,7 @@ window.addEventListener("load", function(e){
 
 //dec
     function click_btn17() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnDec.parentNode);
         btnDec.classList.add("btn_pressed");
         var f = null;
@@ -385,6 +386,7 @@ window.addEventListener("load", function(e){
 
 //merge
     function click_btn18() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnMerge.parentNode);
         btnMerge.classList.add("btn_pressed");
         var f = null;

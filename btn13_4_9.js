@@ -142,6 +142,7 @@ window.addEventListener("load", function(e){
     }
 
     function click_btn13() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btninnode.parentNode);
         btninnode.classList.add("btn_pressed");
         var circle = null;
@@ -363,6 +364,7 @@ window.addEventListener("load", function(e){
     }
 
     function click_btn14() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnfinnode.parentNode);
         btnfinnode.classList.add("btn_pressed");
         var c = null;
@@ -567,6 +569,7 @@ window.addEventListener("load", function(e){
     }
 
     function click_btn19() {
+        reset_btn(document.getElementById("all"));
         reset_btn(btnfinflow.parentNode);
         btnfinflow.classList.add("btn_pressed");
         var finflow = null;

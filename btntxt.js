@@ -1,7 +1,7 @@
 /**
  * Created by Sara on 18/12/2015.
  */
-//action
+//text
 window.addEventListener("load", function(e){
 
     var mybtn = document.getElementById("txt");
@@ -15,7 +15,7 @@ window.addEventListener("load", function(e){
         var myx, myy = 0;
         var offx, offy = 0;
 
-        this.myfig = null;  //metter a tutti lo stesso nome
+        this.myfig = null;
         this.mytype = "text";
         this.linesIN = new Array();
         this.linesOUT = new Array();
@@ -83,6 +83,9 @@ window.addEventListener("load", function(e){
     }
 
     function click_btntext() {
+        reset_btn(document.getElementById("DAtt"));
+        reset_btn(document.getElementById("DClassi"));
+        reset_btn(document.getElementById("MStati"));
         reset_btn(mybtn.parentNode);
         mybtn.classList.add("btn_pressed");
         var mytxt = null;

@@ -10,10 +10,22 @@ window.addEventListener("load", function(e) {
 
     function click_btnD2() {
         console.log("btn diagramma classi");
+        reset_btn(document.getElementById("all"));
         reset_btn(mypanel);     //reset btn del pannello
         reset_btnD(myd2.parentNode);
         myd2.classList.add("diagram_btn_pressed");
         mypanel.style.display = "block";
+
+        mysvg.onmousedown = function(e) {
+        };
+
+        mysvg.onmousemove = function(e) {
+
+        };
+
+        mysvg.onmouseup = function(e) {
+
+        };
     }
 
     myd2.onclick = ("click", click_btnD2);
