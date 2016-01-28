@@ -24,23 +24,26 @@ window.addEventListener("load", function(e) {
     var mypanel = document.getElementById("DAtt");
 
     function click_btnD1() {
-        reset_btn(document.getElementById("all"));
-        reset_btn(mypanel);     //reset btn del pannello
-        reset_btnD(myd.parentNode);
-        myd.classList.add("diagram_btn_pressed");
-        mypanel.style.display = "block";
+        reset_svg();
+        if (clearsvg) {
+            reset_btnD(myd.parentNode);
+            reset_btn(document.getElementById("all"));
+            reset_btn(mypanel);     //reset btn del mio pannello
+            myd.classList.add("diagram_btn_pressed");
+            mypanel.style.display = "block";
 
-        //sovrascrivere!
-        mysvg.onmousedown = function(e) {
-        };
+            //sovrascrivere!
+            mysvg.onmousedown = function (e) {
+            };
 
-        mysvg.onmousemove = function(e) {
+            mysvg.onmousemove = function (e) {
 
-        };
+            };
 
-        mysvg.onmouseup = function(e) {
+            mysvg.onmouseup = function (e) {
 
-        };
+            };
+        }
 
     }
 

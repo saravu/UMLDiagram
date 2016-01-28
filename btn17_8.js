@@ -37,13 +37,13 @@ window.addEventListener("load", function(e){
         function ondblclickDM() {
             drag = false;
             if (selection) {
-                _this.removeO();
-                _this.removeI();
                 switch (_this.mytype) {
                     case 0:
                     {
                         setProp(true, false, true, function (t, i, o) {
                             mytext.textContent = t;
+                            _this.removeO();
+                            _this.removeI();
                             no = o;
                             _this.drawIO(ni, no);
                         });
@@ -53,6 +53,8 @@ window.addEventListener("load", function(e){
                     {
                         setProp(true, true, false, function (t, i, o) {
                             mytext.textContent = t;
+                            _this.removeO();
+                            _this.removeI();
                             ni = i;
                             _this.drawIO(ni, no);
                         });
@@ -128,7 +130,6 @@ window.addEventListener("load", function(e){
             ni = parseInt(i);
             no = parseInt(o);
             var idx = 0;
-            var el;
             var conn;
             if (!drag && !resize) {
                 var c;
@@ -198,7 +199,7 @@ window.addEventListener("load", function(e){
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
+            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "cond";
             this.mytext = mytext;
@@ -227,7 +228,7 @@ window.addEventListener("load", function(e){
             r3.updateResize(myx + myD - cdim/2, myy + myd/2 - cdim/2);
             r4.updateResize(myx - cdim/2, myy + myd/2 - cdim/2);
         };
-        this.resizeObj = function(mx, my) { //TODO
+        this.resizeObj = function(mx, my) {
             var i, deltaw, deltah, lx, ly = 0;
             switch (numresize) {
                 case 1:
@@ -313,16 +314,20 @@ window.addEventListener("load", function(e){
             for(idx=0; idx<myin.length; idx++) {
                 el = myin[idx];
                 el.parentNode.removeChild(el);
+                connIn[idx].removeme();
             }
             myin = new Array();
+            connIn = new Array();
         };
         this.removeO = function() {
             var el, idx;
             for(idx=0; idx<myout.length; idx++) {
                 el = myout[idx];
                 el.parentNode.removeChild(el);
+                connOut[idx].removeme();
             }
             myout = new Array();
+            connOut = new Array();
         };
         this.removeme = function() {
             var i;

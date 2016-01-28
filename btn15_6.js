@@ -24,6 +24,7 @@ window.addEventListener("load", function(e){
         this.mytype = null;     // 0 = fork, 1 = join
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        this.mytext = null;
 
         var myx1, myy1, myx2, myy2 = null;
         var offx, offy;
@@ -55,12 +56,12 @@ window.addEventListener("load", function(e){
             myf.ondblclick = function(e) {
                 drag = false;
                 if (selection) {
-                    _this.removeO();
-                    _this.removeI();
                     switch (_this.mytype) {
                         case 0:
                         {
                             setProp(false, false, true, function (t, i, o) {
+                                _this.removeO();
+                                _this.removeI();
                                 no = o;
                                 _this.drawIO(ni, no);
                             });
@@ -69,6 +70,8 @@ window.addEventListener("load", function(e){
                         case 1:
                         {
                             setProp(false, true, false, function (t, i, o) {
+                                _this.removeO();
+                                _this.removeI();
                                 ni = i;
                                 _this.drawIO(ni, no);
                             });
@@ -235,8 +238,7 @@ window.addEventListener("load", function(e){
             for(var idx=0; idx<myin.length; idx++) {
                 el = myin[idx];
                 el.parentNode.removeChild(el);
-                el = connIn[idx].myfig;
-                el.parentNode.removeChild(el);
+                connIn[idx].removeme();
             }
             myin = new Array();
             connIn = new Array();
@@ -246,8 +248,7 @@ window.addEventListener("load", function(e){
             for(var idx=0; idx<myout.length; idx++) {
                 el = myout[idx];
                 el.parentNode.removeChild(el);
-                el = connOut[idx].myfig;
-                el.parentNode.removeChild(el);
+                connOut[idx].removeme();
             }
             myout = new Array();
             connOut = new Array();

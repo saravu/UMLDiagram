@@ -23,7 +23,8 @@
     var connections = new Array();
     var cdim = 6;  //dimensioni dei connettori
 
-    var callback = null;        //per proprietà
+    var callback = null;        //per proprietà - E usata per keypressed
+    var clearsvg = false;
 
 //oggetto per attaccare le linee agli elementi
     function Connection(el) {
@@ -32,7 +33,7 @@
         var myconn = document.createElementNS(svgNS, "rect");
         myconn.setAttributeNS(null, "stroke", selectioncolor);
         myconn.setAttributeNS(null, "fill", "white");
-        myconn.setAttributeNS(null, "style", "stroke-width:2;opacity:0");   //1 per test, mettere 0
+        myconn.setAttributeNS(null, "style", "opacity:0");   //1 per test, mettere 0
         myconn.setAttributeNS(null, "width", cdim.toString());
         myconn.setAttributeNS(null, "height", cdim.toString());
         var myx, myy;
@@ -50,25 +51,29 @@
             myconn.onmousedown = function (e) {
                 if(drawline) {
                     correlate(e, _this.myelement);
-                    myconn.setAttributeNS(null, "fill", selectioncolor);
+                    //myconn.setAttributeNS(null, "fill", selectioncolor);
                 }
             };
-            myconn.onmouseup = function (e) {
-                if(drawline) correlate(e, _this.myelement);
-            };
+
+            //myconn.onmouseup = function (e) { if(drawline) correlate(e, _this.myelement); };
+
             myconn.onmouseover = function(e) {
                 if(drawline) {
-                    myconn.setAttributeNS(null, "fill", "white");
-                    myconn.setAttributeNS(null, "style", "opacity:1");
+                    myconn.setAttributeNS(null, "fill", standardcolor);
+                    //console.log("OVER correlato elemento " + _this.myelement.myfig.tagName);
+                    //myconn.setAttributeNS(null, "style", "opacity:1");
+                    elementcorreleted = _this.myelement;
                     e.stopPropagation();
                 }
             };
             myconn.onmouseout = function(e) {
                 if(drawline) {
-                    myconn.setAttributeNS(null, "style", "opacity:0");
+                    //myconn.setAttributeNS(null, "style", "opacity:0");
+                    myconn.setAttributeNS(null, "fill", "white");
+                    elementcorreleted = null;
                     e.stopPropagation();
                 }
-            }
+            };
         };
 
         this.setColor = function (c) {
@@ -81,6 +86,10 @@
                 myconn.setAttributeNS(null, "style", "opacity:0");
         };
         this.removeme = function () {
+            var i = connections.indexOf(this);
+            if (i > -1) {
+                connections.splice(i, 1);
+            }
             myconn.parentNode.removeChild(myconn);
         };
     }
@@ -170,39 +179,54 @@
         drag = false;
         drawline = false;
         elementcorreleted = null;
-
         if (elementsel!=null) {
             elementsel.setColor(standardcolor);
             hideResize();
             elementsel = null;
         }
+        setCursorByID("mysvg", "default");
+    }
+    function reset_svg() {
+        var mysvg = document.getElementById("mysvg");
+        if (mysvg.childElementCount > 1) {
+            clearSvg(function(t, i, o) {
+                if (clearsvg) {
+                    while (mysvg.childElementCount > 1) {   //AAA num di defs in cima
+                        mysvg.removeChild(mysvg.lastChild);
+                    }
+                }
+            });
+        }
+        else clearsvg = true;
     }
     function reset_btn(div) {
-        //seeConnectors(false);
+        seeConnectors(false);
         var children = div.getElementsByTagName("button");
         for (var c = 0; c < children.length; c++) {
             children[c].classList.remove("btn_pressed");
         }
-        //document.getElementById("p").classList.remove("btn_pressed");
         document.getElementById("canc").style.display = "none";
         reset_var();
     }
     function reset_btnD(div) {
-        //TODO aggiungere la cancellazione di tutti gli el in svg - con msg di conferma
-        var children = div.getElementsByTagName("button");
-        for (var c = 0; c < children.length; c++) {
-            children[c].classList.remove("diagram_btn_pressed");
-        }
-        var contV = document.getElementById("container_vert");
-        var btnDiv = contV.getElementsByTagName("div");
-        for (c = 0; c < btnDiv.length; c++) {
-            btnDiv[c].style.display = "none";
-        }
-        document.getElementById("all").style.display = "block";
-        reset_var();
+        //reset_svg();
+        //if (clearsvg) {
+            var children = div.getElementsByTagName("button");
+            for (var c = 0; c < children.length; c++) {
+                children[c].classList.remove("diagram_btn_pressed");
+            }
+            var contV = document.getElementById("container_vert");
+            var btnDiv = contV.getElementsByTagName("div");
+            for (c = 0; c < btnDiv.length; c++) {
+                btnDiv[c].style.display = "none";
+            }
+            document.getElementById("all").style.display = "block";
+            reset_var();
+      //  }
+        clearsvg = false;
     }
 
-//modificare?? posso ancellare direttamente l'obj --- !!! attenzione erroriiii TODO
+//modificare?? posso cancellare direttamente l'obj --- !!! attenzione erroriiii TODO
     function deletelastsvgel(typefig, fixed) {
         var figs = document.getElementsByTagName(typefig);
         if (figs.length > 0 && !fixed) {
@@ -251,11 +275,11 @@
         correlated = true;
     }
 
- /*   function seeConnectors(v) {
+   function seeConnectors(v) {
         for(var i = 0; i<connections.length; i++) {
             connections[i].visible(v);
         }
-    }*/
+    }
 
 //standard aggiorna linea
     function updateLine(l, x1, y1, x2, y2) {
@@ -283,6 +307,7 @@
             box.style.visibility = "visible";
             box.style.opacity = 1;
 
+            document.getElementById("clearsvg").style.display="none";
             if(b_text) {
                 var oldtext = elementsel.mytext.textContent;
                 if(oldtext!=null)
@@ -293,7 +318,6 @@
             }
             else
                 document.getElementById("text").style.display="none";
-            //TODO aggiungi num iniziale?
             if(b_in)
                 document.getElementById("Input").style.display="table-row";
             else
@@ -309,10 +333,25 @@
             document.getElementById("delete").addEventListener("click", annulla);
         }
     }
+    function clearSvg(myc) {
+        var box = document.getElementById("setProp");
+        box.style.display = "block";
+        box.style.visibility = "visible";
+        box.style.opacity = 1;
+        document.getElementById("clearsvg").style.display="block";
+        document.getElementById("text").style.display="none";
+        document.getElementById("Input").style.display="none";
+        document.getElementById("Output").style.display="none";
+
+        callback = myc;
+
+        document.getElementById("ok").addEventListener("click", conferma);
+        document.getElementById("delete").addEventListener("click", annulla);
+    }
     function conferma() {
         document.getElementById("setProp").style.display = "none";
-
         document.getElementById("ok").removeEventListener("click", conferma);
+        clearsvg = true;
 
         if(callback!=null) {
             var textval = document.getElementById("textval");
@@ -322,18 +361,14 @@
             callback = null;
         }
     }
-    function keySetProp(e) {
-        if (e.keyCode == 13) {
-            if (callback != null)
-                conferma();
-        }
-    }
+    //function keySetProp(e) { if (e.keyCode == 13) {            conferma();        }    }
     function annulla() {
         document.getElementById("setProp").style.display = "none";
         document.getElementById("delete").removeEventListener("click", annulla);
+        clearsvg = false;
         callback = null;
     }
-    function keyBody(e) {       //TODO qui WASD??
+    function keyBody(e) {       //TODO qui WASD?!?
         if (e.keyCode == 46) {
             if (selection && elementsel != null && callback == null) {
                 elementsel.removeme();
@@ -341,7 +376,9 @@
                 drag = false;
                 resize = false;
             }
-            else if (callback != null)
-                annulla();
+            else if (callback != null) annulla();
+        }
+        else if (e.keyCode == 13) {
+            if (callback != null) conferma();       //il controllo ci vuole??
         }
     }

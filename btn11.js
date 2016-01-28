@@ -143,10 +143,10 @@ window.addEventListener("load", function(e) {
             }
             updateLine(myline1, lin1x1, lin1y1, lin1x2, lin1y2);
             updateLine(myline2, lin1x2, lin1y2, lin3x1, lin3y1);
-            updateLine(myline3, lin3x1, lin3y1, lin3x2, lin3y2 );
-            if (bcr1 != null) updateRect(bcr1, (lin1x1-5), (lin1y1-5), (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
-            if (bcr2 != null) updateRect(bcr2, (lin1x2-5), (lin1y2-5), (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
-            if (bcr3 != null) updateRect(bcr3, (lin3x1-5), (lin3y1-5), (lin3x2-lin3x1+10), (lin3y2-lin3y1+10));
+            updateLine(myline3, lin3x1, lin3y1, lin3x2-1, lin3y2-1);
+            if (bcr1 != null) updateRect(bcr1, Math.min(lin1x1, lin1x2)-5, Math.min(lin1y1, lin1y2)-5, (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
+            if (bcr2 != null) updateRect(bcr2, Math.min(lin3x1, lin1x2)-5, Math.min(lin1y2, lin3y1)-5, (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
+            if (bcr3 != null) updateRect(bcr3, Math.min(lin3x1, lin3x2)-5, Math.min(lin3y1, lin3y2)-5, (lin3x2-lin3x1+5-1), (lin3y2-lin3y1+5-1));
             if (!drawing) {
                 myline1.setAttributeNS(null, "style", "opacity:1");
                 myline2.setAttributeNS(null, "style", "opacity:1");
@@ -157,15 +157,15 @@ window.addEventListener("load", function(e) {
         this.addclientrect = function() {
             bcr1 = document.createElementNS(svgNS, "rect");
             bcr1.setAttributeNS(null, "style", "opacity:0");
-            updateRect(bcr1, (lin1x1-5), (lin1y1-5), (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
+            updateRect(bcr1, Math.min(lin1x1, lin1x2)-5, Math.min(lin1y1, lin1y2)-5, (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
             mysvg.appendChild(bcr1);
             bcr2 = document.createElementNS(svgNS, "rect");
             bcr2.setAttributeNS(null, "style", "opacity:0");
-            updateRect(bcr2, (lin1x2-5), (lin1y2-5), (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
+            updateRect(bcr2, Math.min(lin3x1, lin1x2)-5, Math.min(lin1y2, lin3y1)-5, (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
             mysvg.appendChild(bcr2);
             bcr3 = document.createElementNS(svgNS, "rect");
             bcr3.setAttributeNS(null, "style", "opacity:0");
-            updateRect(bcr3, (lin3x1-5), (lin3y1-5), (lin3x2-lin3x1+10), (lin3y2-lin3y1+10));
+            updateRect(bcr3, Math.min(lin3x1, lin3x2)-5, Math.min(lin3y1, lin3y2)-5, (lin3x2-lin3x1+5-1), (lin3y2-lin3y1+5-1));
             mysvg.appendChild(bcr3);
 
             bcr1.onmousedown = function(e) {
@@ -225,7 +225,7 @@ window.addEventListener("load", function(e) {
             }
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
-            mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
+            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = null;
             this.mytext = mytext;
@@ -245,11 +245,12 @@ window.addEventListener("load", function(e) {
             if (mytext!=null) mytext.setAttributeNS(null, "fill", c);
             //document.getElementById("AFp").setAttributeNS(null, "stroke", c);   //TODO punta freccia colore
         };
-        this.setStyle = function(s) {
-            if (s=="dashed")
-            myline1.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
-            myline2.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
-            myline3.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+        this.setStyle = function(s) {   //TODO
+            if (s=="dashed") {
+                myline1.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+                myline2.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+                myline3.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
+            }
         };
         this.dragObj = function(mx, my) {
             var deltax = 0;
@@ -258,7 +259,6 @@ window.addEventListener("load", function(e) {
                 deltax = (mx - lin1x1) + offx;
                 deltay = (my - lin1y1) + offy;
             }
-            else
             else if (draggedline == 3) {
                 deltax = (mx - lin3x1) + offx;
                 deltay = (my - lin3y1) + offy;
@@ -266,29 +266,29 @@ window.addEventListener("load", function(e) {
             if (draggedline == 2) {        //sposto il pezzo centrale
                 if (lin1x2 == lin3x1) deltax = (mx - lin1x2) + offx;
                 if (lin1y2 == lin3y1) deltay = (my - lin1y2) + offy;
-            }
             //non è possibile che el non siano settati, perche elimino la linea
-            //TODO è possibile il drag della linea? come? come aggiorno i punti?
-            if (this.elemento0 == null && this.elemento1 == null) {
-                lin1x1 = lin1x1 + deltax;
-                lin1y1 = lin1y1 + deltay;
-                lin3x2 = lin3x2 + deltax;
-                lin3y2 = lin3y2 + deltay;
+                //TODO è possibile il drag della linea? come? come aggiorno i punti?
+                if (this.elemento0 == null && this.elemento1 == null) {
+                    lin1x1 = lin1x1 + deltax;
+                    lin1y1 = lin1y1 + deltay;
+                    lin3x2 = lin3x2 + deltax;
+                    lin3y2 = lin3y2 + deltay;
+                }
+                lin1x2 = lin1x2 + deltax;
+                lin1y2 = lin1y2 + deltay;
+                lin3x1 = lin3x1 + deltax;
+                lin3y1 = lin3y1 + deltay;
+                updateLine(myline1, lin1x1, lin1y1, lin1x2, lin1y2);
+                updateLine(myline2, lin1x2, lin1y2, lin3x1, lin3y1);
+                updateLine(myline3, lin3x1, lin3y1, lin3x2, lin3y2);
+                updateRect(bcr1, Math.min(lin1x1, lin1x2)-5, Math.min(lin1y1, lin1y2)-5, (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
+                updateRect(bcr2, Math.min(lin3x1, lin1x2)-5, Math.min(lin1y2, lin3y1)-5, (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
+                updateRect(bcr3, Math.min(lin3x1, lin3x2)-5, Math.min(lin3y1, lin3y2)-5, (lin3x2-lin3x1+5-1), (lin3y2-lin3y1+5-1));
+                tx = tx + deltax;
+                ty = ty + deltay;
+                mytext.setAttributeNS(null, "x", tx.toString());
+                mytext.setAttributeNS(null, "y", ty.toString());
             }
-            lin1x2 = lin1x2 + deltax;
-            lin1y2 = lin1y2 + deltay;
-            lin3x1 = lin3x1 + deltax;
-            lin3y1 = lin3y1 + deltay;
-            updateLine(myline1, lin1x1, lin1y1, lin1x2, lin1y2);
-            updateLine(myline2, lin1x2, lin1y2, lin3x1, lin3y1);
-            updateLine(myline3, lin3x1, lin3y1, lin3x2, lin3y2);
-            updateRect(bcr1, (lin1x1-5), (lin1y1-5), Math.abs(lin1x2-lin1x1+10), Math.abs(lin1y2-lin1y1+10));
-            updateRect(bcr2, (lin1x2-5), (lin1y2-5), Math.abs(lin3x1-lin1x2+10), Math.abs(lin3y1-lin1y2+10));
-            updateRect(bcr3, (lin3x1-5), (lin3y1-5), Math.abs(lin3x2-lin3x1+10), Math.abs(lin3y2-lin3y1+10));
-            tx = tx + deltax;
-            ty = ty + deltay;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
         };
 
         this.removeme = function() {
@@ -308,14 +308,16 @@ window.addEventListener("load", function(e) {
     function updateRect(bcr, x, y, w, h) {
         bcr.setAttributeNS(null, "x", x.toString());
         bcr.setAttributeNS(null, "y", y.toString());
-        bcr.setAttributeNS(null, "width", w.toString());
-        bcr.setAttributeNS(null, "height", h.toString());
+        if (Math.abs(w) < 5) w=10;
+        if (Math.abs(h) < 5) h=10;
+        bcr.setAttributeNS(null, "width", Math.abs(w).toString());
+        bcr.setAttributeNS(null, "height", Math.abs(h).toString());
     }
 
     function setDownUp(el, mx, my) {
         var elx, ely, elw, elh, midx, midy;
         var tag = el.myfig.tagName;
-
+//TODO ricontrolla sul text del rect
         if(tag == "rect") {
             elx = parseFloat(el.myfig.getAttributeNS(null, "x"));
             ely = parseFloat(el.myfig.getAttributeNS(null, "y"));
@@ -357,7 +359,7 @@ window.addEventListener("load", function(e) {
         mybtn.classList.add("btn_pressed");
         var line;
 
-        //seeConnectors(true);
+        seeConnectors(true);
         drawline = true;
 
         mysvg.onmousedown = function(e) {
@@ -388,15 +390,14 @@ window.addEventListener("load", function(e) {
         };
 
         mysvg.onmouseup = function(e) {
-            //console.log("UP LINEA");
             if (drawing) {
                 drawing = false;
                 mMx = e.clientX;
                 mMy = e.clientY;
-                //if (line.elemento0 == null) console.log("elemento ZERO NULL");
-                //if (elementcorreleted == null) console.log("SECONDO elemento correlato NULL");
 
                 if (line.elemento0 != null && elementcorreleted != null) {
+
+                    correlate(e, elementcorreleted);        //AAA
                     //test el0 != el1 ?? ma è possibile
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;

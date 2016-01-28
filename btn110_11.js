@@ -157,7 +157,10 @@ window.addEventListener("load", function(e) {
         };
 
         this.setText = function() {
-            tx = myx + 25;
+            if (this.mytype == 0)
+                tx = myx + 22;
+            else
+              tx = myx + 5;
             ty = myy + myh/2;
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
@@ -165,7 +168,7 @@ window.addEventListener("load", function(e) {
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
+            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "signal";
             this.mytext = mytext;

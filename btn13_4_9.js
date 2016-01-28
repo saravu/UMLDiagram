@@ -240,15 +240,6 @@ window.addEventListener("load", function(e){
                 myint.setAttributeNS(null, "r", ri.toString());
                 mysvg.appendChild(myint);
                 this.mypath = myint;
-
-                c1 = new Connection(_this);
-                mysvg.appendChild(c1.myfig);
-                c2 = new Connection(_this);
-                mysvg.appendChild(c2.myfig);
-                c3 = new Connection(_this);
-                mysvg.appendChild(c3.myfig);
-                c4 = new Connection(_this);
-                mysvg.appendChild(c4.myfig);
             }
             this.setPoint(x, y);
 
@@ -497,10 +488,10 @@ window.addEventListener("load", function(e){
             p4.setAttributeNS(null, "d", linx4);
         };
         this.setConn = function() {
-            c1.updateConnection(myx - cdim/2, myy - re - cdim/2);
-            c2.updateConnection(myx + re - cdim/2, myy - cdim/2);
-            c3.updateConnection(myx - cdim/2, myy + re - cdim/2);
-            c4.updateConnection(myx - re - cdim/2, myy - cdim/2);
+            c1.updateConnection(myx - cdim/2, myy - r - cdim/2);
+            c2.updateConnection(myx + r - cdim/2, myy - cdim/2);
+            c3.updateConnection(myx - cdim/2, myy + r - cdim/2);
+            c4.updateConnection(myx - r - cdim/2, myy - cdim/2);
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line

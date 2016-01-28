@@ -13,13 +13,15 @@ window.addEventListener("load", function(e) {
 //selezione
     function click_btnp() {
         reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("DClassi"));
-        reset_btn(document.getElementById("MStati"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
         reset_btn(p.parentNode);
         p.classList.add("btn_pressed");
         c.style.display = "block";
 
         selection = true;
+
+        setCursorByID("mysvg", "pointer");
 
         mysvg.onmousedown = function(e) {
             if(elementsel!=null) {
@@ -44,7 +46,6 @@ window.addEventListener("load", function(e) {
         function onmouseenterbar(e) {
             drag = false;
             resize = false;
-            setCursorByID("mysvg", "default");
         }
         document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
@@ -83,35 +84,43 @@ window.addEventListener("load", function(e) {
         this.newText = function(x, y) {
             myx = x;
             myy = y;
-            mytbox = document.createElement("textbox");
-            mytbox.id = "mytbox";
-            mytbox.style.borderColor = standardcolor;
-            mytbox.style.borderWidth = 2+"px";
+            var text;
+            mytbox = document.createElement("input");
+            var body = document.getElementsByTagName("body")[0];
+            body.appendChild(mytbox);
+            mytbox.focus();
+            mytbox.setAttribute("id", "textbox");
+            mytbox.type = "text";
             mytbox.style.stroke = standardcolor;
             mytbox.style.position = "absolute";
             mytbox.style.left = (myx+"px");
             mytbox.style.top = (myy+"px");
             mytbox.textAnchor = "start";
             mytbox.fontFamily = "monospace";
-            mytbox.fontSize = 20+"px";
-            mytbox.textContent = "aaaaaaaaaaaaaaaaa";
-            document.getElementById("canvas_container").appendChild(mytbox);
-
+            mytbox.fontSize = 14+"px";
+            mytbox.addEventListener("keydown", function(evt) {
+                if (evt.keyCode == 13) {
+                    _this.setText();
+                    _this.deleteinput();
+                    //click_input = 0;
+                }
+                else if (evt.keyCode == 46 || evt.keyCode == 27) {
+                    //click_input = 0;
+                    _this.deleteinput();
+                }
+            });
+        };
+        this.setText = function() {
             mytext = document.createElementNS(svgNS, "text");
-            mytext.setAttributeNS(null, "stroke", standardcolor);
-            mytext.setAttributeNS(null, "fill", "white");
+            this.setColor(standardcolor);
             mytext.setAttributeNS(null, "text-anchor", "start");
             mytext.setAttributeNS(null, "font-family", "monospace");
-            mytext.setAttributeNS(null, "font-size", "14px");
+            mytext.setAttributeNS(null, "font-size", "12px");
             mytext.setAttributeNS(null, "x", myx.toString());
             mytext.setAttributeNS(null, "y", myy.toString());
-            mytext.textContent = "ufffaa";
-            mytext.setAttributeNS(null, "text-anchor", "start");
             mysvg.appendChild(mytext);
-
-            this.myfig = mytext;
-
-            mytbox.focus();
+            _this.myfig = mytext;
+            mytext.textContent = mytbox.value;
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
@@ -126,12 +135,10 @@ window.addEventListener("load", function(e) {
                     mytext.textContent = t;     });
             };
         };
-
-        this.setText = function(val) {
-            //tspan?! - textbox
-            //var textNode = document.createTextNode(val);
-            //mytext.appendChild(textNode);
-            mytext.textContent = val;
+        this.deleteinput = function() {
+            var body = document.getElementsByTagName("body")[0];
+            var input = document.getElementById("textbox");
+            body.removeChild(input);
         };
 
         this.setColor = function(c) {
@@ -144,7 +151,7 @@ window.addEventListener("load", function(e) {
             mytext.setAttributeNS(null, "y", y.toString());
         };
         this.dragObj = function(mx, my) {
-            var deltax, deltay, i, l;
+            var deltax, deltay = 0;
             deltax = (mx - myx) + offx;
             deltay = (my - myy) + offy;
             this.dragText(myx + deltax, myy + deltay);
@@ -160,8 +167,8 @@ window.addEventListener("load", function(e) {
 
     function click_btntext() {
         reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("DClassi"));
-        reset_btn(document.getElementById("MStati"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
         reset_btn(t.parentNode);
         t.classList.add("btn_pressed");
         var mytxt = null;
@@ -170,11 +177,13 @@ window.addEventListener("load", function(e) {
 
         mysvg.onmousedown = function(e) {
             if (t.classList.contains("btn_pressed")) {
+                if (mytxt != null && mytxt.myfig == null) {
+                    mytxt.deleteinput();
+                }
                 mDx = e.clientX;
                 mDy = e.clientY;
                 mytxt = new Text();
                 mytxt.newText(mDx, mDy);
-                //setProp(true, false, false, function(t, i, o) { mytxt.setText(t); });
             }
         };
 
@@ -186,12 +195,11 @@ window.addEventListener("load", function(e) {
 
         };
 
-        //TODO add evtlistener a Enter?
-
         function onmouseenterbar() {
             if (t.classList.contains("btn_pressed")) {
-                deletelastsvgel("text", false);
-
+                if (mytxt != null && mytxt.myfig == null) {
+                    mytxt.deleteinput();
+                }
             }
         }
         document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
@@ -443,8 +451,8 @@ window.addEventListener("load", function(e) {
     var drawing = false;
     function click_btnnote() {
         reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("DClassi"));
-        reset_btn(document.getElementById("MStati"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
         reset_btn(note.parentNode);
         note.classList.add("btn_pressed");
         var f = null;

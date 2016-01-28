@@ -7,7 +7,7 @@ window.addEventListener("load", function(e){
     var mybtn = document.getElementById("btn12");
     var mysvg = document.getElementById("mysvg");
     var mMx, mMy = 0;
-    var idA = 0;
+    //var idA = 0;
     var fixed = true;
     var drawing = false;
 
@@ -15,6 +15,7 @@ window.addEventListener("load", function(e){
         var _this = this;
         var myrect = null;
         var mytext = null;
+        var mytextlenght = 0;
         var myx, myy, tx, ty = 0;
         var offx, offy = 0;
         var myw = stdw;
@@ -62,7 +63,9 @@ window.addEventListener("load", function(e){
             myrect.ondblclick = function(e) {
                 setProp(true, false, false, function(t, i, o) {
                                                 mytext.textContent = t;
+                                               // mytextlenght = mytext.getComputedStyle.length;    //TODO text lenght?
                                              });
+                //console.log("lunghezzaaaaaa " + mytextlenght);
             };
         };
         this.updateRect = function(x, y, w, h) {
@@ -80,6 +83,7 @@ window.addEventListener("load", function(e){
                 fixed = true;
                 myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
             }
+
             if (w >= stdw) {
                 myx = x;
                 myw = w;
@@ -95,19 +99,17 @@ window.addEventListener("load", function(e){
         };
 
         this.setText = function() {
-            tx = myx + myw/6;
+            tx = myx + 5;
             ty = myy + myh/2;
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
         };
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
-            idA++;
-            mytext.textContent = "Action " + idA;
-            //centrare il testo
-            //var w = mytext.getComputedStyle().        TODO
+            mytext.textContent = "Action ";
+            //var w = mytext.getComputedStyle().        TODO centrare il testo?
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
+            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
             mytext.setAttributeNS(null, "fill", standardcolor);
             this.mytext = mytext;
             mysvg.appendChild(mytext);
@@ -138,7 +140,9 @@ window.addEventListener("load", function(e){
             r4.updateResize(myx - cdim/2, myy + myh - cdim/2);
         };
         this.resizeObj = function(mx, my) {
-            var i, deltaw, deltah, lx, ly = 0;
+            var i, lx, ly = 0;
+            var deltaw = 0;
+            var deltah = 0;
             switch (numresize) {
                 case 1: {
                     deltaw = mx-myx;
@@ -167,10 +171,11 @@ window.addEventListener("load", function(e){
             }
             this.setRes();
             this.setText();
-            //TODO aggiornare anch el'attacco delle linee agli obj
-            /*for (i = 0; i<this.linesIN.length; i++) {
+            //TODO aggiornare anche l'attacco delle linee agli obj
+            var l;
+            for (i = 0; i<this.linesIN.length; i++) {
                 l = this.linesIN[i];
-                if (l.endX < myx || l.endX > myx + myw)
+                if (l.endX != myx && l.endX != myx + myw)
                     lx = l.endX + deltaw;
                 if (l.endY < myy || l.endY > myy + myh)
                     ly = l.endY + deltah;
@@ -179,7 +184,7 @@ window.addEventListener("load", function(e){
             for (i = 0; i<this.linesOUT.length; i++) {
                 l = this.linesOUT[i];
                 l.setPosition(l.initX, l.initY, l.endX+ deltaw, l.endY+ deltah);
-            }*/
+            }
         };
 
         this.addLineIN = function(l) {        //aggiungo un oggetto Line
@@ -232,7 +237,6 @@ window.addEventListener("load", function(e){
             if (myrect != null)  {
                 var i;
                 myrect.parentNode.removeChild(myrect);
-                idA--;
                 if (mytext != null) mytext.parentNode.removeChild(mytext);
                 var n = this.linesIN.length;
                 for(i = 0; i<n; i++)
