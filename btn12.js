@@ -109,7 +109,7 @@ window.addEventListener("load", function(e){
             mytext.textContent = "Action ";
             //var w = mytext.getComputedStyle().        TODO centrare il testo?
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             this.mytext = mytext;
             mysvg.appendChild(mytext);
@@ -256,6 +256,7 @@ window.addEventListener("load", function(e){
         reset_btn(mybtn.parentNode);
         mybtn.classList.add("btn_pressed");
         var rect = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e) {
             /*if (mybtn.classList.contains("btn_pressed")) {

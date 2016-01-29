@@ -225,7 +225,7 @@ window.addEventListener("load", function(e) {
             }
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
-            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = null;
             this.mytext = mytext;
@@ -247,6 +247,7 @@ window.addEventListener("load", function(e) {
         };
         this.setStyle = function(s) {   //TODO
             if (s=="dashed") {
+                //far diventae PATH
                 myline1.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
                 myline2.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
                 myline3.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");

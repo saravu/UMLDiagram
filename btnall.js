@@ -5,10 +5,14 @@ window.addEventListener("load", function(e) {
 
     var p = document.getElementById("p");
     var c = document.getElementById("canc");
+    var h = document.getElementById("hand");
+    var zi = document.getElementById("zin");
+    var zo = document.getElementById("zout");
     var t = document.getElementById("txt");
     var note = document.getElementById("note");
     var mysvg = document.getElementById("mysvg");
     var mDx, mDy, mMx, mMy = 0;
+    var scalecount = 1.0;
 
 //selezione
     function click_btnp() {
@@ -67,7 +71,180 @@ window.addEventListener("load", function(e) {
 
     c.onclick=("click", click_btnc);
 
-//testo     TODO !!!!!!!!!!!!!!!!!!!!!!!!!
+
+//mano per spostare vista
+    function click_btnh() {
+        reset_btn(document.getElementById("DAtt"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
+        reset_btn(h.parentNode);
+        h.classList.add("btn_pressed");
+        var translate = false;
+        var deltaX, deltaY = 0;
+        var svgX = 0;
+        var svgY = 0;
+
+        setCursorByID("mysvg", "move");
+
+        //impostare anche onkeydown
+        //dove elimino l'evt listener?? oppure ci rimane sempre??
+        function translateEl(x, y) {
+            var matrix = tela.transform.baseVal.getItem(0).matr
+            po.matrixTransform(mysvg.getScreenCTM().inverse());
+            t = mysvg.getAttribute("transform");
+            if (t != null) {
+                if (t.search(/translate/gi) == -1)
+                    mysvg.setAttribute("transform", t + "translate(" + x + " " + y + ")");
+                else {
+                    mysvg.getAttribute
+                    mysvg.setAttribute("transform", "translate(" + x + " " + y + ")");
+                }
+            }
+            else
+                mysvg.setAttribute("transform", "translate(" + x + " " + y + ")");
+            /* var n = mysvg.childElementCount;
+            var ch = mysvg.children;
+            for (var i = 0; i < n; i++) {
+
+                t = ch[i].getAttribute("transform");
+                if (t != null) {
+                    if (t.search(/translate/gi) == -1)
+                        ch[i].setAttribute("transform", t + "translate(" + x + " " + y + ")");
+                    else {
+                        ch[i].getAttribute
+                        ch[i].setAttribute("transform", "translate(" + x + " " + y + ")");
+                    }
+                }
+                else
+                    ch[i].setAttribute("transform", "translate(" + x + " " + y + ")");
+            } */
+        };
+
+        mysvg.addEventListener("keydown", function(evt) {       //TODO
+            if (evt.keyCode == 87) {    //W
+
+            }
+            else if (evt.keyCode == 65) {    //A
+
+            }
+            else if (evt.keyCode == 83) {    //S
+
+            }
+            else if (evt.keyCode == 68) {    //D
+
+            }
+        });
+
+        mysvg.onmousedown = function(e) {
+            translate = true;
+            mDx = e.clientX;
+            mDy = e.clientY;
+        };
+
+        mysvg.onmousemove = function(e) {
+            if (translate) {
+                //var ptDown = transform_point(panX, panY);
+                deltaX = e.clientX - mDx;
+                deltaY = e.clientY - mDy;
+                translateEl(deltaX, deltaY);
+               // panX = evt.clientX;                panY = evt.clientY;
+            }
+        };
+
+        mysvg.onmouseup = function(e) {
+            svgX = svgX + deltaX;
+            svgY = svgY + deltaY;
+            translate = false;
+        };
+
+        function onmouseenterbar(e) {
+            translate = false;
+        }
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+
+    }
+
+    h.onclick=("click", click_btnh);
+
+
+//zoom in
+    function click_btnzi() {
+        reset_btn(document.getElementById("DAtt"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
+        reset_btn(zi.parentNode);
+        zi.classList.add("btn_pressed");
+        var scale = false;
+
+        //setCursorByID("mysvg", "zoom");
+
+        //impostare anche onkeydown
+        //dove elimino l'evt listener?? oppure ci rimane sempre?? - impostare da altra parte
+        function scaleEl(x, y) {
+            t = mysvg.getAttribute("transform");
+            if (t != null) {
+                if (t.search(/scale/gi) == -1)
+                    mysvg.setAttribute("transform", t + "scale(" + x + " " + y + ")");
+                else
+                    mysvg.setAttribute("transform", "scale(" + x + " " + y + ")");
+            }
+            else
+                mysvg.setAttribute("transform", "scale(" + x + " " + y + ")");
+            /*
+            var n = mysvg.childElementCount;
+            var ch = mysvg.children;
+            var t = null;
+            for (var i = 0; i < n; i++) {
+                t = ch[i].getAttribute("transform");
+                if (t != null) {
+                    if (t.search(/scale/gi) == -1)
+                        ch[i].setAttribute("transform", t + "scale(" + x + " " + y + ")");
+                    else
+                        ch[i].setAttribute("transform", "scale(" + x + " " + y + ")");
+                }
+                else
+                    ch[i].setAttribute("transform", "scale(" + x + " " + y + ")");
+            }
+            */
+        };
+
+        mysvg.addEventListener("keydown", function(evt) {       //TODO
+            if (evt.keyCode == 90) {    //Z
+
+            }
+        });
+
+        mysvg.onmousedown = function(e) {
+            scale = true;
+            scalecount = scalecount + 0.1;
+            scaleEl(scalecount, scalecount);
+        };
+
+        mysvg.onmousemove = function(e) {
+            if (scale) {
+
+            }
+        };
+
+        mysvg.onmouseup = function(e) {
+            scale = false;
+        };
+
+        function onmouseenterbar(e) {
+            scale = false;
+        }
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+
+    }
+
+    zi.onclick=("click", click_btnzi);
+
+//zoom out
+
+
+//testo
     function Text() {
         var _this = this;
         var mytext = null;
@@ -76,6 +253,7 @@ window.addEventListener("load", function(e) {
         var offx, offy = 0;
 
         this.myfig = null;
+        this.mytext = null;
         this.mytype = "text";
         this.linesIN = new Array();
         this.linesOUT = new Array();
@@ -88,24 +266,22 @@ window.addEventListener("load", function(e) {
             mytbox = document.createElement("input");
             var body = document.getElementsByTagName("body")[0];
             body.appendChild(mytbox);
-            mytbox.focus();
-            mytbox.setAttribute("id", "textbox");
             mytbox.type = "text";
+            mytbox.setAttribute("id", "textbox");
+            mytbox.focus();         //  TODO?!
             mytbox.style.stroke = standardcolor;
             mytbox.style.position = "absolute";
             mytbox.style.left = (myx+"px");
             mytbox.style.top = (myy+"px");
             mytbox.textAnchor = "start";
-            mytbox.fontFamily = "monospace";
-            mytbox.fontSize = 14+"px";
+            mytbox.fontFamily = ffam;
+            mytbox.fontSize = 12+"px";
             mytbox.addEventListener("keydown", function(evt) {
                 if (evt.keyCode == 13) {
                     _this.setText();
                     _this.deleteinput();
-                    //click_input = 0;
                 }
                 else if (evt.keyCode == 46 || evt.keyCode == 27) {
-                    //click_input = 0;
                     _this.deleteinput();
                 }
             });
@@ -114,12 +290,12 @@ window.addEventListener("load", function(e) {
             mytext = document.createElementNS(svgNS, "text");
             this.setColor(standardcolor);
             mytext.setAttributeNS(null, "text-anchor", "start");
-            mytext.setAttributeNS(null, "font-family", "monospace");
-            mytext.setAttributeNS(null, "font-size", "12px");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "x", myx.toString());
-            mytext.setAttributeNS(null, "y", myy.toString());
+            mytext.setAttributeNS(null, "y", (myy+12).toString());
             mysvg.appendChild(mytext);
-            _this.myfig = mytext;
+            this.myfig = mytext;
+            this.mytext = mytext;
             mytext.textContent = mytbox.value;
 
             mytext.onmousedown = function(e) {
@@ -137,8 +313,7 @@ window.addEventListener("load", function(e) {
         };
         this.deleteinput = function() {
             var body = document.getElementsByTagName("body")[0];
-            var input = document.getElementById("textbox");
-            body.removeChild(input);
+            if(mytbox != null) body.removeChild(mytbox);
         };
 
         this.setColor = function(c) {
@@ -199,7 +374,9 @@ window.addEventListener("load", function(e) {
             if (t.classList.contains("btn_pressed")) {
                 if (mytxt != null && mytxt.myfig == null) {
                     mytxt.deleteinput();
+                    mytxt = null;
                 }
+
             }
         }
         document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
@@ -328,7 +505,7 @@ window.addEventListener("load", function(e) {
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:arial; font-size:18");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "note: ";
             this.mytext = mytext;
@@ -456,6 +633,7 @@ window.addEventListener("load", function(e) {
         reset_btn(note.parentNode);
         note.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 

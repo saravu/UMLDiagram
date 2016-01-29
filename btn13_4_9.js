@@ -146,6 +146,7 @@ window.addEventListener("load", function(e){
         reset_btn(btninnode.parentNode);
         btninnode.classList.add("btn_pressed");
         var circle = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e) {};
 
@@ -359,6 +360,7 @@ window.addEventListener("load", function(e){
         reset_btn(btnfinnode.parentNode);
         btnfinnode.classList.add("btn_pressed");
         var c = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e) {};
 
@@ -564,6 +566,7 @@ window.addEventListener("load", function(e){
         reset_btn(btnfinflow.parentNode);
         btnfinflow.classList.add("btn_pressed");
         var finflow = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e) {};
 

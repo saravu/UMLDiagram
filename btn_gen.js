@@ -7,6 +7,8 @@
     var selectioncolor = "red";
     var stdw = 70;
     var stdh = 30;
+    var fsz = 12;
+    var ffam = "monospace";
 
     var selection = false;      //è attiva la selezione del puntatore
     var elementsel = null;      //elemento selezionato - oggetto
@@ -291,7 +293,7 @@
 
 
 //cambiare lo stile del cursore
-    function setCursorByID(id,cursorStyle) {
+    function setCursorByID(id, cursorStyle) {
         var elem;
         if (document.getElementById &&
             (elem=document.getElementById(id)) ) {

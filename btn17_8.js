@@ -199,7 +199,7 @@ window.addEventListener("load", function(e){
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "cond";
             this.mytext = mytext;
@@ -352,6 +352,8 @@ window.addEventListener("load", function(e){
         reset_btn(btnDec.parentNode);
         btnDec.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
+
         mysvg.onmousedown = function(e){ };
 
         mysvg.onmousemove = function(e) {
@@ -395,6 +397,7 @@ window.addEventListener("load", function(e){
         reset_btn(btnMerge.parentNode);
         btnMerge.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 

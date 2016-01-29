@@ -1,9 +1,10 @@
 /**
  * Created by Sara on 11/12/2015.
  */
-//azioni dall'esterno
-
-//send/receive signal
+//azioni dall'esterno:
+//      send signal
+//      receive signal
+//      timer
 window.addEventListener("load", function(e) {
 
     var btnSndSig = document.getElementById("btn110");
@@ -168,7 +169,7 @@ window.addEventListener("load", function(e) {
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             this.setText();
-            mytext.setAttributeNS(null, "style", "font-family:monospace; font-size:10");
+            mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "signal";
             this.mytext = mytext;
@@ -295,6 +296,8 @@ window.addEventListener("load", function(e) {
         reset_btn(btnSndSig.parentNode);
         btnSndSig.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
+
         mysvg.onmousedown = function(e){ };
 
         mysvg.onmousemove = function(e) {
@@ -337,6 +340,7 @@ window.addEventListener("load", function(e) {
         reset_btn(btnRcvSig.parentNode);
         btnRcvSig.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 
@@ -527,6 +531,7 @@ window.addEventListener("load", function(e) {
         reset_btn(btnTimer.parentNode);
         btnTimer.classList.add("btn_pressed");
         var f = null;
+        setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 

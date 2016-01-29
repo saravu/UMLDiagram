@@ -1,7 +1,7 @@
 /**
  * Created by Sara on 18/12/2015.
  */
-//text
+//text -- non utilizzato!! è in btnall
 window.addEventListener("load", function(e){
 
     var mybtn = document.getElementById("txt");
