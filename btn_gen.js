@@ -1,32 +1,82 @@
 /**
  * Created by Sara on 18/12/2015.
  */
-
     var svgNS = "http://www.w3.org/2000/svg";
+    var mysvg = null;
     var standardcolor = "mediumblue";
     var selectioncolor = "red";
     var stdw = 70;
     var stdh = 30;
     var fsz = 12;
     var ffam = "monospace";
+    var cdim = 6;                   //dimensioni dei connettori
 
     var selection = false;      //è attiva la selezione del puntatore
     var elementsel = null;      //elemento selezionato - oggetto
-    var resize = false;
-    var numresize = 0;
-    var drag = false;           //sto trascinando l'el selezionato
+    var resize = false;         //è attivo il resize di elementsel
+    var numresize = 0;          //numero del ResizeObj selezionato
+    var drag = false;           //sto trascinando elementsel
     var dragX = null;
     var dragY = null;
 
-    var drawline = false;       // attivo il disegno della linea - mostra connettori
-    var svgline = null;
-    var elementcorreleted = null;
-    var correlated = false;
-    var connections = new Array();
-    var cdim = 6;  //dimensioni dei connettori
+    var drawline = false;           //è attivo il disegno della linea -> mostra connettori
+    var svgline = null;             //linea che sto disegnando
+    var elementcorreleted = null;   //elemento correlato nel disegno della linea, per controlli validità UML
+    var correlated = false;         //correlato un el
+    var connections = new Array();  //array dei connettori
+    var Cdown = -1;                 //numero del connettore selezionato al mouse down, linesIN (nome inversi)
+    var Cup = -1;                   //numero connettore selezionato al mouse up, linesOUT
+    var connsel = null;             //connection selzionato, per verica UML flow
+    var callback = null;            //registra la funzione da invocare al riorno dal settaggio delle proprietà - E usata per keypressed
+    var clearsvg = false;           //conferma nuovo svg
 
-    var callback = null;        //per proprietà - E usata per keypressed
-    var clearsvg = false;
+
+//trasformazione punti
+    function transformPoint(x, y) {
+        var po = mysvg.createSVGPoint();
+        po.x = x;
+        po.y = y;
+        po = po.matrixTransform(mysvg.getScreenCTM().inverse());
+        x = po.x;
+        y = po.y;
+        return po;
+    }
+//translazione
+    function translateSvg(x, y) {
+        var matrix = mysvg.transform.baseVal.getItem(0).matrix;
+        var tmp = matrix.translate(x, y);
+        matrix.a = tmp.a;
+        matrix.b = tmp.b;
+        matrix.c = tmp.c;
+        matrix.d = tmp.d;
+        matrix.e = tmp.e;
+        matrix.f = tmp.f;
+        var t = mysvg.getAttribute("transform");
+        mysvg.setAttribute("transform", "");
+        mysvg.setAttribute("transform", t);
+
+//non funziona su Chrome!
+    }
+//scalatura
+function scaleSvg(s, x, y) {
+    var matrix = mysvg.transform.baseVal.getItem(0).matrix;
+    var tmp = matrix.translate(x, y).scale(s).translate(-x, -y);
+    matrix.a = tmp.a;
+    matrix.b = tmp.b;
+    matrix.c = tmp.c;
+    matrix.d = tmp.d;
+    matrix.e = tmp.e;
+    matrix.f = tmp.f;
+    var t = mysvg.getAttribute("transform");
+    mysvg.setAttribute("transform", "");
+    mysvg.setAttribute("transform", t);
+    /*var n = mysvg.childElementCount;
+    var ch = mysvg.children;
+    for (var i = 0; i < n; i++) {
+        ch[i].setAttribute("transform", "");
+        ch[i].setAttribute("transform", t);
+    }*/
+}
 
 //oggetto per attaccare le linee agli elementi
     function Connection(el) {
@@ -35,44 +85,52 @@
         var myconn = document.createElementNS(svgNS, "rect");
         myconn.setAttributeNS(null, "stroke", selectioncolor);
         myconn.setAttributeNS(null, "fill", "white");
-        myconn.setAttributeNS(null, "style", "opacity:0");   //1 per test, mettere 0
+        myconn.setAttributeNS(null, "style", "opacity:0");
         myconn.setAttributeNS(null, "width", cdim.toString());
         myconn.setAttributeNS(null, "height", cdim.toString());
         var myx, myy;
+        var myn;
         this.myfig = myconn;
         this.mytype = "conn";
+        this.x = 0;
+        this.y = 0;
 
         connections.push(_this);
 
+        this.setN = function(n) {
+            myn = n;
+        };
         this.updateConnection = function (x, y) {
             myx = x;
             myy = y;
+            this.x = myx+3;
+            this.y = myy+3;
             myconn.setAttributeNS(null, "x", x.toString());
             myconn.setAttributeNS(null, "y", y.toString());
 
             myconn.onmousedown = function (e) {
                 if(drawline) {
                     correlate(e, _this.myelement);
-                    //myconn.setAttributeNS(null, "fill", selectioncolor);
+                    Cdown = myn;
+                    connsel = _this;
                 }
             };
-
-            //myconn.onmouseup = function (e) { if(drawline) correlate(e, _this.myelement); };
 
             myconn.onmouseover = function(e) {
                 if(drawline) {
                     myconn.setAttributeNS(null, "fill", standardcolor);
-                    //console.log("OVER correlato elemento " + _this.myelement.myfig.tagName);
-                    //myconn.setAttributeNS(null, "style", "opacity:1");
                     elementcorreleted = _this.myelement;
+                    Cup = myn;
+                    connsel = _this;
                     e.stopPropagation();
                 }
             };
             myconn.onmouseout = function(e) {
                 if(drawline) {
-                    //myconn.setAttributeNS(null, "style", "opacity:0");
                     myconn.setAttributeNS(null, "fill", "white");
                     elementcorreleted = null;
+                    //Cup = -1;
+                    //connsel = null;
                     e.stopPropagation();
                 }
             };
@@ -118,14 +176,13 @@
             myr.setAttributeNS(null, "y", y.toString());
 
             myr.onmousedown = function (e) {
-                elementsel = _this.myelement; //--dovrebbe essere già l'el selezionato, am non vedo i ResizeObj
+                elementsel = _this.myelement;
                 resize = true;
                 numresize = _this.mynum;
                 myr.setAttributeNS(null, "fill", "red");
                 e.stopPropagation();
             };
             myr.onmouseup = function (e) {
-                //elementsel = null;
                 resize = false;
                 e.stopPropagation();
             };
@@ -189,13 +246,14 @@
         setCursorByID("mysvg", "default");
     }
     function reset_svg() {
-        var mysvg = document.getElementById("mysvg");
         if (mysvg.childElementCount > 1) {
             clearSvg(function(t, i, o) {
                 if (clearsvg) {
                     while (mysvg.childElementCount > 1) {   //AAA num di defs in cima
                         mysvg.removeChild(mysvg.lastChild);
                     }
+                    mysvg.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");
+                    //mysvg.lastChild.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");        ???
                 }
             });
         }
@@ -240,14 +298,16 @@
 //principlamente cè il controllo
     function ondrag(e) {
         if(selection && elementsel!=null && drag) {
+            var pt = transformPoint(e.clientX, e.clientY);
             //calcola offset x e y
-            elementsel.dragObj(e.clientX, e.clientY);
+            elementsel.dragObj(pt.x, pt.y);
         }
     }
     function onresize(e) {
         if(resize && elementsel!= null) {
             //calco la offset x e y
-            elementsel.resizeObj(e.clientX, e.clientY);
+            var pt = transformPoint(e.clientX, e.clientY);
+            elementsel.resizeObj(pt.x, pt.y);
         }
     }
 
@@ -261,23 +321,21 @@
             elementsel = t;
             elementsel.setColor(selectioncolor);
             drag = true;
-            dragX = e.clientX;
-            dragY = e.clientY;
+            var pt = transformPoint(e.clientX, e.clientY);
+            dragX = pt.x;
+            dragY = pt.y;
             e.stopPropagation();
         }
     }
 
-//correlazione elemento: ok per rect, chiamare SOLO sui connettori? TODO
+//correlazione elemento: chiamare SOLO sui connettori/lineUP!!! TODO
     function correlate(e, t) {
-        //console.log("CORRELOOOO oggettooooooo");
         if (drawline) {
-            //console.log("correlato elemento " + t.myfig.tagName);
             elementcorreleted = t;
         }
         correlated = true;
     }
-
-   function seeConnectors(v) {
+    function seeConnectors(v) {
         for(var i = 0; i<connections.length; i++) {
             connections[i].visible(v);
         }
@@ -335,6 +393,7 @@
             document.getElementById("delete").addEventListener("click", annulla);
         }
     }
+
     function clearSvg(myc) {
         var box = document.getElementById("setProp");
         box.style.display = "block";
@@ -350,6 +409,7 @@
         document.getElementById("ok").addEventListener("click", conferma);
         document.getElementById("delete").addEventListener("click", annulla);
     }
+
     function conferma() {
         document.getElementById("setProp").style.display = "none";
         document.getElementById("ok").removeEventListener("click", conferma);
@@ -363,15 +423,15 @@
             callback = null;
         }
     }
-    //function keySetProp(e) { if (e.keyCode == 13) {            conferma();        }    }
     function annulla() {
         document.getElementById("setProp").style.display = "none";
         document.getElementById("delete").removeEventListener("click", annulla);
         clearsvg = false;
         callback = null;
     }
-    function keyBody(e) {       //TODO qui WASD?!?
-        if (e.keyCode == 46) {
+    function keyBody(e) {
+        var k = e.keyCode;
+        if (k == 46) {          //canc
             if (selection && elementsel != null && callback == null) {
                 elementsel.removeme();
                 elementsel = null;
@@ -380,7 +440,28 @@
             }
             else if (callback != null) annulla();
         }
-        else if (e.keyCode == 13) {
+        else if (k == 13) {      //enter
             if (callback != null) conferma();       //il controllo ci vuole??
+        }
+        else if (!document.getElementById("txt").classList.contains("btn_pressed") && callback == null) {
+            if (k == 87 || k == 38) {    //W
+                translateSvg(0, -10);
+            }
+            else if (k == 65 || k == 37) {    //A
+                translateSvg(-10, 0);
+            }
+            else if (k == 83 || k == 40) {    //S
+                translateSvg(0, 10);
+            }
+            else if (k == 68 || k == 39) {    //D
+                translateSvg(10, 0);
+            }
+            else if (k == 90) {    //Z - zoom in        TODO 0 o 1 ??
+                scaleSvg(1.1, 0, 0);
+            }
+            else if (k == 88) {    //X - zoom out
+                //sul centro
+                scaleSvg(1 / 1.1, 0, 0);
+            }
         }
     }

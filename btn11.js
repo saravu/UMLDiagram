@@ -6,9 +6,9 @@
 window.addEventListener("load", function(e) {
 
     var mybtn = document.getElementById("btn11");
-    var mysvg = document.getElementById("mysvg");
     var mDx, mDy, mMx, mMy = 0;
     var drawing = false;
+    var pt = null;
 
     function Line() {
         var _this = this;
@@ -51,20 +51,23 @@ window.addEventListener("load", function(e) {
             myline1.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 1;
-                offx = (lin1x1 - e.clientX);
-                offy = (lin1y1 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin1x1 - pt.x);
+                offy = (lin1y1 - pt.y);
             };
             myline2.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 2;
-                offx = (lin1x2 - e.clientX);
-                offy = (lin1y2 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin1x2 - pt.x);
+                offy = (lin1y2 - pt.y);
             };
             myline3.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 3;
-                offx = (lin3x1 - e.clientX);
-                offy = (lin3y1 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin3x1 - pt.x);
+                offy = (lin3y1 - pt.y);
             };
             myline1.onmouseup = function(e) {
                 drag = false;
@@ -171,20 +174,23 @@ window.addEventListener("load", function(e) {
             bcr1.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 1;
-                offx = (lin1x1 - e.clientX);
-                offy = (lin1y1 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin1x1 - pt.x);
+                offy = (lin1y1 - pt.y);
             };
             bcr2.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 2;
-                offx = (lin1x2 - e.clientX);
-                offy = (lin1y2 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin1x2 - pt.x);
+                offy = (lin1y2 - pt.y);
             };
             bcr3.onmousedown = function(e) {
                 select(e, _this);
                 draggedline = 3;
-                offx = (lin3x1 - e.clientX);
-                offy = (lin3y1 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (lin3x1 - pt.x);
+                offy = (lin3y1 - pt.y);
             };
             bcr1.onmouseup = function(e) {
                 drag = false;
@@ -315,10 +321,9 @@ window.addEventListener("load", function(e) {
         bcr.setAttributeNS(null, "height", Math.abs(h).toString());
     }
 
-    function setDownUp(el, mx, my) {
+    /*function setDownUp(el, mx, my) {
         var elx, ely, elw, elh, midx, midy;
         var tag = el.myfig.tagName;
-//TODO ricontrolla sul text del rect
         if(tag == "rect") {
             elx = parseFloat(el.myfig.getAttributeNS(null, "x"));
             ely = parseFloat(el.myfig.getAttributeNS(null, "y"));
@@ -353,12 +358,14 @@ window.addEventListener("load", function(e) {
             my: my
         };
     }
+    */
 
     function click_btn11() {
         reset_btn(mybtn.parentNode);
         reset_btn(document.getElementById("all"));
         mybtn.classList.add("btn_pressed");
         var line;
+        var invalid = false;
 
         seeConnectors(true);
         drawline = true;
@@ -366,26 +373,35 @@ window.addEventListener("load", function(e) {
         mysvg.onmousedown = function(e) {
             if (mybtn.classList.contains("btn_pressed")) {
                 drawing = true;
-                mDx = e.clientX;
-                mDy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mDx = pt.x;
+                mDy = pt.y;
                 line = new Line();
                 line.newLine();
                 svgline = line;
                 if (elementcorreleted != null) {
                     line.elemento0 = elementcorreleted;
                     elementcorreleted = null;
+                    //controllo di validità UML //fork e decision     //join e merge
+                    if (line.elemento0.mytype == 0 || line.elemento0.mytype == 1) {
+                        if (!line.elemento0.UMLvalid(0)) {   //linea in uscita
+                            console.log("invalid connection start, UMLControlFlow");
+                            invalid = true;
+                        }
+                    }
                 }
                 else {
-                    //line.removeme();
-                    console.log("invalid connection start, UMLControlFlow")
+                    console.log("invalid connection start, UMLControlFlow");
+                    invalid = true;
                 }
             }
         };
 
         mysvg.onmousemove = function(e) {
             if(drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 line.setPosition(mDx, mDy, mMx, mMy);
             }
         };
@@ -393,24 +409,31 @@ window.addEventListener("load", function(e) {
         mysvg.onmouseup = function(e) {
             if (drawing) {
                 drawing = false;
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
 
-                if (line.elemento0 != null && elementcorreleted != null) {
-
+                if (invalid) {
+                    line.removeme();
+                    invalid = false;
+                }
+                else if (line.elemento0 != null && elementcorreleted != null) {
                     correlate(e, elementcorreleted);        //AAA
-                    //test el0 != el1 ?? ma è possibile
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;
-                    var r0 = setDownUp(line.elemento0, mDx, mDy);
-                    var r1 = setDownUp(line.elemento1, mMx, mMy);
-                    mDx = r0.mx;
-                    mDy = r0.my;
-                    mMx = r1.mx;
-                    mMy = r1.my;
+                    //controllo di validità UML  //fork e decision     //join e merge
+                    if (line.elemento1.mytype == 0 || line.elemento1.mytype == 1) {
+                        if (!line.elemento1.UMLvalid(1)) {   //linea in ingresso
+                            line.removeme();
+                            console.log("invalid connection end, UMLControlFlow");
+                            return;
+                        }
+                    }
+                    //var r0 = setDownUp(line.elemento0, mDx, mDy);
+                    //var r1 = setDownUp(line.elemento1, mMx, mMy);
                     if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                         line.removeme();
-                        //line.remove();    // TODO come rimuovere obj?!
+                        //line.remove();    // TODO come rimuovere obj?! GC da solo?
                     }
                     else {
                         line.setPosition(mDx, mDy, mMx, mMy);
@@ -418,16 +441,16 @@ window.addEventListener("load", function(e) {
                         line.addText();
                         line.addclientrect();
 
+                        //AAA attenzione i nomi sono invertiti
                         line.elemento0.addLineIN(svgline);
                         line.elemento1.addLineOut(svgline);
-                        if (line.elemento0.mytype=="note" || line.elemento1.mytype=="note")
+                        if (line.elemento0.mytype == "note" || line.elemento1.mytype == "note")
                             line.setStyle("dashed");
                         svgline = null;
                     }
                 }
                 else {
                     line.removeme();
-                    //obj??
                     console.log("invalid connection end, UMLControlFlow");
                 }
             }
@@ -443,6 +466,7 @@ window.addEventListener("load", function(e) {
                     //line.removeme();
                     //line.myline1.setAttributeNS(null, "style", "opacity:1");line.myline2.setAttributeNS(null, "style", "opacity:1");line.myline3.setAttributeNS(null, "style", "opacity:1");
                     drawing = false;
+                    invalid = false;
                 }
             }
         }

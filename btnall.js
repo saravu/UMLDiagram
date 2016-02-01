@@ -3,6 +3,8 @@
  */
 window.addEventListener("load", function(e) {
 
+    mysvg = document.getElementById("mysvg");
+
     var p = document.getElementById("p");
     var c = document.getElementById("canc");
     var h = document.getElementById("hand");
@@ -10,9 +12,9 @@ window.addEventListener("load", function(e) {
     var zo = document.getElementById("zout");
     var t = document.getElementById("txt");
     var note = document.getElementById("note");
-    var mysvg = document.getElementById("mysvg");
     var mDx, mDy, mMx, mMy = 0;
-    var scalecount = 1.0;
+    //var scalecount = 1.0;
+    var pt = null;
 
 //selezione
     function click_btnp() {
@@ -81,79 +83,28 @@ window.addEventListener("load", function(e) {
         h.classList.add("btn_pressed");
         var translate = false;
         var deltaX, deltaY = 0;
-        var svgX = 0;
-        var svgY = 0;
 
         setCursorByID("mysvg", "move");
 
-        //impostare anche onkeydown
-        //dove elimino l'evt listener?? oppure ci rimane sempre??
-        function translateEl(x, y) {
-            var matrix = tela.transform.baseVal.getItem(0).matr
-            po.matrixTransform(mysvg.getScreenCTM().inverse());
-            t = mysvg.getAttribute("transform");
-            if (t != null) {
-                if (t.search(/translate/gi) == -1)
-                    mysvg.setAttribute("transform", t + "translate(" + x + " " + y + ")");
-                else {
-                    mysvg.getAttribute
-                    mysvg.setAttribute("transform", "translate(" + x + " " + y + ")");
-                }
-            }
-            else
-                mysvg.setAttribute("transform", "translate(" + x + " " + y + ")");
-            /* var n = mysvg.childElementCount;
-            var ch = mysvg.children;
-            for (var i = 0; i < n; i++) {
-
-                t = ch[i].getAttribute("transform");
-                if (t != null) {
-                    if (t.search(/translate/gi) == -1)
-                        ch[i].setAttribute("transform", t + "translate(" + x + " " + y + ")");
-                    else {
-                        ch[i].getAttribute
-                        ch[i].setAttribute("transform", "translate(" + x + " " + y + ")");
-                    }
-                }
-                else
-                    ch[i].setAttribute("transform", "translate(" + x + " " + y + ")");
-            } */
-        };
-
-        mysvg.addEventListener("keydown", function(evt) {       //TODO
-            if (evt.keyCode == 87) {    //W
-
-            }
-            else if (evt.keyCode == 65) {    //A
-
-            }
-            else if (evt.keyCode == 83) {    //S
-
-            }
-            else if (evt.keyCode == 68) {    //D
-
-            }
-        });
-
         mysvg.onmousedown = function(e) {
             translate = true;
-            mDx = e.clientX;
-            mDy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mDx = pt.x;
+            mDy = pt.y;
         };
 
         mysvg.onmousemove = function(e) {
             if (translate) {
                 //var ptDown = transform_point(panX, panY);
-                deltaX = e.clientX - mDx;
-                deltaY = e.clientY - mDy;
-                translateEl(deltaX, deltaY);
+                pt = transformPoint(e.clientX, e.clientY);
+                deltaX = pt.x - mDx;
+                deltaY = pt.y - mDy;
+                translateSvg(deltaX, deltaY);
                // panX = evt.clientX;                panY = evt.clientY;
             }
         };
 
         mysvg.onmouseup = function(e) {
-            svgX = svgX + deltaX;
-            svgY = svgY + deltaY;
             translate = false;
         };
 
@@ -179,46 +130,10 @@ window.addEventListener("load", function(e) {
 
         //setCursorByID("mysvg", "zoom");
 
-        //impostare anche onkeydown
-        //dove elimino l'evt listener?? oppure ci rimane sempre?? - impostare da altra parte
-        function scaleEl(x, y) {
-            t = mysvg.getAttribute("transform");
-            if (t != null) {
-                if (t.search(/scale/gi) == -1)
-                    mysvg.setAttribute("transform", t + "scale(" + x + " " + y + ")");
-                else
-                    mysvg.setAttribute("transform", "scale(" + x + " " + y + ")");
-            }
-            else
-                mysvg.setAttribute("transform", "scale(" + x + " " + y + ")");
-            /*
-            var n = mysvg.childElementCount;
-            var ch = mysvg.children;
-            var t = null;
-            for (var i = 0; i < n; i++) {
-                t = ch[i].getAttribute("transform");
-                if (t != null) {
-                    if (t.search(/scale/gi) == -1)
-                        ch[i].setAttribute("transform", t + "scale(" + x + " " + y + ")");
-                    else
-                        ch[i].setAttribute("transform", "scale(" + x + " " + y + ")");
-                }
-                else
-                    ch[i].setAttribute("transform", "scale(" + x + " " + y + ")");
-            }
-            */
-        };
-
-        mysvg.addEventListener("keydown", function(evt) {       //TODO
-            if (evt.keyCode == 90) {    //Z
-
-            }
-        });
-
         mysvg.onmousedown = function(e) {
             scale = true;
-            scalecount = scalecount + 0.1;
-            scaleEl(scalecount, scalecount);
+            pt = transformPoint(e.clientX, e.clientY);
+            scaleSvg(1.1, pt.x, pt.y);
         };
 
         mysvg.onmousemove = function(e) {
@@ -242,7 +157,41 @@ window.addEventListener("load", function(e) {
     zi.onclick=("click", click_btnzi);
 
 //zoom out
+    function click_btnzo() {
+        reset_btn(document.getElementById("DAtt"));
+        //reset_btn(document.getElementById("DClassi"));
+        //reset_btn(document.getElementById("MStati"));
+        reset_btn(zo.parentNode);
+        zo.classList.add("btn_pressed");
+        var scale = false;
 
+        //setCursorByID("mysvg", "zoom");
+
+        mysvg.onmousedown = function(e) {
+            scale = true;
+            pt = transformPoint(e.clientX, e.clientY);
+            scaleSvg(1/1.1, pt.x, pt.y);
+        };
+
+        mysvg.onmousemove = function(e) {
+            if (scale) {
+
+            }
+        };
+
+        mysvg.onmouseup = function(e) {
+            scale = false;
+        };
+
+        function onmouseenterbar(e) {
+            scale = false;
+        }
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+
+    }
+
+    zo.onclick=("click", click_btnzo);
 
 //testo
     function Text() {
@@ -268,14 +217,13 @@ window.addEventListener("load", function(e) {
             body.appendChild(mytbox);
             mytbox.type = "text";
             mytbox.setAttribute("id", "textbox");
-            mytbox.focus();         //  TODO?!
             mytbox.style.stroke = standardcolor;
             mytbox.style.position = "absolute";
             mytbox.style.left = (myx+"px");
             mytbox.style.top = (myy+"px");
             mytbox.textAnchor = "start";
-            mytbox.fontFamily = ffam;
-            mytbox.fontSize = 12+"px";
+            mytbox.style.fontSize = 12+"px";
+            mytbox.focus();             //  TODO?!
             mytbox.addEventListener("keydown", function(evt) {
                 if (evt.keyCode == 13) {
                     _this.setText();
@@ -300,8 +248,9 @@ window.addEventListener("load", function(e) {
 
             mytext.onmousedown = function(e) {
                 select(e, _this);
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
             };
             mytext.onmouseup = function(e) {
                 drag = false;
@@ -355,8 +304,9 @@ window.addEventListener("load", function(e) {
                 if (mytxt != null && mytxt.myfig == null) {
                     mytxt.deleteinput();
                 }
-                mDx = e.clientX;
-                mDy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mDx = pt.x;
+                mDy = pt.y;
                 mytxt = new Text();
                 mytxt.newText(mDx, mDy);
             }
@@ -437,8 +387,9 @@ window.addEventListener("load", function(e) {
             myf.onmousedown = function(e) {
                 select(e, _this);
                 seeResize();
-                offx = (myx - e.clientX);
-                offy = (myy - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (myx - pt.x);
+                offy = (myy - pt.y);
                 //correlate(e, _this);
             };
             myf.onmouseup = function(e) {
@@ -514,8 +465,9 @@ window.addEventListener("load", function(e) {
             mytext.onmousedown = function(e) {
                 select(e, _this);
                 seeResize();
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
                 //correlate(e, _this);
             };
             mytext.onmouseup = function(e) {
@@ -639,8 +591,9 @@ window.addEventListener("load", function(e) {
 
         mysvg.onmousemove = function(e) {
             if (note.classList.contains("btn_pressed")) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 if (fixed) {
                     f = new Note();
                 }
@@ -652,8 +605,9 @@ window.addEventListener("load", function(e) {
 
         mysvg.onmouseup = function(e) {
             if (drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 f.updateNote(mMx, mMy, stdw, stdh*2);
                 f.addText();
                 drawing = false;

@@ -5,11 +5,11 @@
 window.addEventListener("load", function(e){
 
     var mybtn = document.getElementById("btn12");
-    var mysvg = document.getElementById("mysvg");
     var mMx, mMy = 0;
     //var idA = 0;
     var fixed = true;
     var drawing = false;
+    var pt = null;
 
     function Rect() {
         var _this = this;
@@ -20,12 +20,14 @@ window.addEventListener("load", function(e){
         var offx, offy = 0;
         var myw = stdw;
         var myh = stdh;
-
-        this.myfig = null;  //metter a tutti lo stesso nome
+        var c1, c2, c3, c4 = null;
+        this.myfig = null;
         this.mytext = null;
         this.mytype = "rect";
         this.linesIN = new Array();
+        this.numconnIn = new Array();
         this.linesOUT = new Array();
+        this.numconnOut = new Array();
         var r1, r2, r3, r4 = null;
         this.myRes = new Array();
 
@@ -52,13 +54,14 @@ window.addEventListener("load", function(e){
             myrect.onmousedown = function(e) {
                 select(e, _this);
                 seeResize();
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
-                correlate(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+                //correlate(e, _this);
             };
             myrect.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             myrect.ondblclick = function(e) {
                 setProp(true, false, false, function(t, i, o) {
@@ -70,6 +73,19 @@ window.addEventListener("load", function(e){
         };
         this.updateRect = function(x, y, w, h) {
             if (!fixed) {
+                c1 = new Connection(_this);
+                c1.setN(1);
+                mysvg.appendChild(c1.myfig);
+                c2 = new Connection(_this);
+                c2.setN(2);
+                mysvg.appendChild(c2.myfig);
+                c3 = new Connection(_this);
+                c3.setN(3);
+                mysvg.appendChild(c3.myfig);
+                c4 = new Connection(_this);
+                c4.setN(4);
+                mysvg.appendChild(c4.myfig);
+
                 r1 = new Resize(this, 1);
                 mysvg.appendChild(r1.myfig);
                 r2 = new Resize(this, 2);
@@ -96,6 +112,59 @@ window.addEventListener("load", function(e){
                 myrect.setAttributeNS(null, "y", myy.toString());
                 myrect.setAttributeNS(null, "height", myh.toString());
             }
+            this.setConn();
+        };
+        this.setConn = function () {
+            c1.updateConnection(myx + myw/2 - cdim/2, myy - cdim/2);
+            c2.updateConnection(myx + myw/2 - cdim/2, myy + myh - cdim/2);
+            c3.updateConnection(myx - cdim/2, myy + myh/2 - cdim/2);
+            c4.updateConnection(myx + myw - cdim/2, myy + myh/2 - cdim/2);
+            //associare connettori e linee: posizionale su due array
+            var i;
+            var l;
+            for (i=0; i<this.linesIN.length; i++) {
+                l =  this.linesIN[i];
+                switch (this.numconnIn[i]) {
+                    case 1: {
+                        l.setPosition(c1.x, c1.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 2: {
+                        l.setPosition(c2.x, c2.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 3: {
+                        l.setPosition(c3.x, c3.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 4: {
+                        l.setPosition(c4.x, c4.y, l.endX, l.endY);
+                        break;
+                    }
+                }
+            }
+            for (i=0; i<this.linesOUT.length; i++) {
+                l =  this.linesOUT[i];
+                switch (this.numconnOut[i]) {
+                    case 1: {
+                        l.setPosition(l.initX, l.initY, c1.x, c1.y);
+                        break;
+                    }
+                    case 2: {
+                        l.setPosition(l.initX, l.initY, c2.x, c2.y);
+                        break;
+                    }
+                    case 3: {
+                        l.setPosition(l.initX, l.initY, c3.x, c3.y);
+                        break;
+                    }
+                    case 4: {
+                        l.setPosition(l.initX, l.initY, c4.x, c4.y);
+                        break;
+                    }
+                }
+            }
+
         };
 
         this.setText = function() {
@@ -117,13 +186,14 @@ window.addEventListener("load", function(e){
             mytext.onmousedown = function(e) {
                 select(e, _this);
                 seeResize();
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
-                correlate(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+                //correlate(e, _this);
             };
             mytext.onmouseup = function(e) {
                 drag = false;
-                correlate(e, _this);
+                //correlate(e, _this);
             };
             mytext.ondblclick = function(e) {
                 drag = false;
@@ -171,38 +241,51 @@ window.addEventListener("load", function(e){
             }
             this.setRes();
             this.setText();
-            //TODO aggiornare anche l'attacco delle linee agli obj
+            /*
+            //TODO aggiornare anche l'attacco delle linee agli obj -- mettere connettori??
             var l;
             for (i = 0; i<this.linesIN.length; i++) {
                 l = this.linesIN[i];
-                if (l.endX != myx && l.endX != myx + myw)
-                    lx = l.endX + deltaw;
-                if (l.endY < myy || l.endY > myy + myh)
-                    ly = l.endY + deltah;
-                l.setPosition(l.initX, l.initY, lx, ly);
+                lx = l.initX;
+                ly = l.initY;
+                if (l.initX < myx || l.initX > myx + myw)
+                    lx = lx + deltaw;
+                if (l.initY < myy || l.initY > myy + myh)
+                    ly = ly + deltah;
+                l.setPosition(lx, ly, l.endX, l.endY);
             }
             for (i = 0; i<this.linesOUT.length; i++) {
                 l = this.linesOUT[i];
-                l.setPosition(l.initX, l.initY, l.endX+ deltaw, l.endY+ deltah);
-            }
+                lx = l.endX;
+                ly = l.endY;
+                if (l.endX < myx || l.endX > myx + myw)
+                    lx = lx + deltaw;
+                if (l.endY < myy || l.endY > myy + myh)
+                    ly = ly + deltah;
+                l.setPosition(l.initX, l.initY, lx, ly);
+            } */
         };
 
-        this.addLineIN = function(l) {        //aggiungo un oggetto Line
+        this.addLineIN = function(l) {
             this.linesIN.push(l);
+            this.numconnIn.push(Cdown);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
+            this.numconnOut.push(Cup);
         };
-        this.removeLine = function (l) {        //quando cancello la linea, devo rimuoverla dall'array
+        this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
-             this.linesIN.splice(i, 1);
+                this.linesIN.splice(i, 1);
+                this.numconnIn.splice(i, 1);
             }
             else {
-             i = this.linesOUT.indexOf(l);
-             if (i > -1) {
-                 this.linesOUT.splice(i, 1);
-             }
+                i = this.linesOUT.indexOf(l);
+                if (i > -1) {
+                    this.linesOUT.splice(i, 1);
+                    this.numconnOut.splice(i, 1);
+                }
             }
         };
 
@@ -215,6 +298,7 @@ window.addEventListener("load", function(e){
             myy = y;
             myrect.setAttributeNS(null, "x", x.toString());
             myrect.setAttributeNS(null, "y", y.toString());
+            this.setConn();
             this.setRes();
             this.setText();
         };
@@ -223,6 +307,7 @@ window.addEventListener("load", function(e){
             deltax = (mx - myx) + offx;
             deltay = (my - myy) + offy;
             this.dragRect(myx + deltax, myy + deltay);
+            /*
             for (i = 0; i<this.linesIN.length; i++) {
                 l = this.linesIN[i];
                 l.setPosition(l.initX + deltax, l.initY + deltay, l.endX, l.endY);
@@ -230,7 +315,7 @@ window.addEventListener("load", function(e){
             for (i = 0; i<this.linesOUT.length; i++) {
                 l = this.linesOUT[i];
                 l.setPosition(l.initX, l.initY, l.endX+ deltax, l.endY+ deltay);
-            }
+            } */
         };
 
         this.removeme = function() {
@@ -238,6 +323,10 @@ window.addEventListener("load", function(e){
                 var i;
                 myrect.parentNode.removeChild(myrect);
                 if (mytext != null) mytext.parentNode.removeChild(mytext);
+                c1.removeme();
+                c2.removeme();
+                c3.removeme();
+                c4.removeme();
                 var n = this.linesIN.length;
                 for(i = 0; i<n; i++)
                     this.linesIN[0].removeme();
@@ -258,24 +347,13 @@ window.addEventListener("load", function(e){
         var rect = null;
         setCursorByID("mysvg", "none");
 
-        mysvg.onmousedown = function(e) {
-            /*if (mybtn.classList.contains("btn_pressed")) {
-                mDx = e.clientX;
-                mDy = e.clientY;
-                newRect(mDx, mDy);
-                drawing = true;
-            }*/
-        };
+        mysvg.onmousedown = function(e) { };
 
         mysvg.onmousemove = function(e) {
-            /*if (drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
-                updateRect(mDx, mDy, mMx, mMy);
-            }*/
             if (mybtn.classList.contains("btn_pressed")) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 if (fixed) {
                     rect = new Rect();
                 }
@@ -286,8 +364,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmouseup = function(e) {
             if (drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 rect.updateRect(mMx, mMy, stdw, stdh);
                 rect.addText();
                 drawing = false;

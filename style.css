@@ -288,6 +288,7 @@ line:active {
     background-color: transparent;
     border: none;
     width:400px;
+    font-family: monospace;
     font-size: 95%;
 }
 textarea:focus, input:focus{

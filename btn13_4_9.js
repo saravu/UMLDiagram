@@ -10,9 +10,9 @@ window.addEventListener("load", function(e){
     var btninnode = document.getElementById("btn13");
     var btnfinnode = document.getElementById("btn14");
     var btnfinflow = document.getElementById("btn19");
-    var mysvg = document.getElementById("mysvg");
     var mDx, mDy, mMx, mMy = 0;
     var fixed = true;
+    var pt = null;
 
     function InitialNode() {
         var _this = this;
@@ -46,8 +46,9 @@ window.addEventListener("load", function(e){
 
             mycircle.onmousedown = function(e) {
                 select(e, _this);
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
                 //correlate(e, _this);
             };
             mycircle.onmouseup = function(e) {
@@ -151,8 +152,9 @@ window.addEventListener("load", function(e){
         mysvg.onmousedown = function(e) {};
 
         mysvg.onmousemove = function(e) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             if (fixed) {
                 circle = new InitialNode();
             }
@@ -161,8 +163,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmouseup = function(e) {
             //if (drawing) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             circle.updateCircle(mMx, mMy);
             //}
         };
@@ -246,8 +249,9 @@ window.addEventListener("load", function(e){
 
             myest.onmousedown = function(e) {
                 select(e, _this);
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
                 //correlate(e, _this);
             };
             myest.onmouseup = function(e) {
@@ -256,8 +260,9 @@ window.addEventListener("load", function(e){
             };
             myint.onmousedown = function(e) {
                 select(e, _this);
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
                 //correlate(e, _this);
             };
             myint.onmouseup = function(e) {
@@ -365,8 +370,9 @@ window.addEventListener("load", function(e){
         mysvg.onmousedown = function(e) {};
 
         mysvg.onmousemove = function(e) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             if (fixed) {
                 c = new FinalNode();
             }
@@ -375,8 +381,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmouseup = function(e) {
             //if (drawing) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             c.updateCircle(mMx, mMy);
             //}
         };
@@ -447,8 +454,9 @@ window.addEventListener("load", function(e){
 
             myc.onmousedown = function(e) {
                 select(e, _this);
-                offx = myx - e.clientX;
-                offy = myy - e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
                 //correlate(e, _this);
             };
             myc.onmouseup = function(e) {
@@ -571,8 +579,9 @@ window.addEventListener("load", function(e){
         mysvg.onmousedown = function(e) {};
 
         mysvg.onmousemove = function(e) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             if (fixed) {
                 finflow = new FinalFlow();
             }
@@ -581,8 +590,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmouseup = function(e) {
             //if (drawing) {
-            mMx = e.clientX;
-            mMy = e.clientY;
+            pt = transformPoint(e.clientX, e.clientY);
+            mMx = pt.x;
+            mMy = pt.y;
             finflow.updateCircle(mMx, mMy);
             //}
         };

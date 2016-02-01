@@ -6,9 +6,9 @@ window.addEventListener("load", function(e){
 
     var btnFork = document.getElementById("btn15");
     var btnJoin = document.getElementById("btn16");
-    var mysvg = document.getElementById("mysvg");
     var mDx, mDy, mMx, mMy = 0;
     var drawing = false;
+    var pt = null;
 
     function ForkJoin() {
         var _this = this;
@@ -23,7 +23,9 @@ window.addEventListener("load", function(e){
         this.myfig = null;
         this.mytype = null;     // 0 = fork, 1 = join
         this.linesIN = new Array();
+        this.numconnIn = new Array();
         this.linesOUT = new Array();
+        this.numconnOut = new Array()
         this.mytext = null;
 
         var myx1, myy1, myx2, myy2 = null;
@@ -43,8 +45,9 @@ window.addEventListener("load", function(e){
 
             myf.onmousedown = function(e) {
                 select(e, _this);
-                offx = (myx1 - e.clientX);
-                offy = (myy1 - e.clientY);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = (myx1 - pt.x);
+                offy = (myy1 - pt.y);
                 //correlate(e, _this);
             };
             myf.onmouseup = function(e) {
@@ -57,8 +60,7 @@ window.addEventListener("load", function(e){
                 drag = false;
                 if (selection) {
                     switch (_this.mytype) {
-                        case 0:
-                        {
+                        case 0: {
                             setProp(false, false, true, function (t, i, o) {
                                 _this.removeO();
                                 _this.removeI();
@@ -67,8 +69,7 @@ window.addEventListener("load", function(e){
                             });
                             break;
                         }
-                        case 1:
-                        {
+                        case 1: {
                             setProp(false, true, false, function (t, i, o) {
                                 _this.removeO();
                                 _this.removeI();
@@ -97,7 +98,6 @@ window.addEventListener("load", function(e){
             myf.setAttributeNS(null, "y2", myy2.toString());
         };
 
-        //creazione
         this.drawIO = function(i, o) {
             ni = parseInt(i);
             no = parseInt(o);
@@ -110,10 +110,12 @@ window.addEventListener("load", function(e){
                 for (c=0; c<ni; c++) {
                     myin.push(document.createElementNS(svgNS, "line"));
                     connIn.push(new Connection(_this));
+                    connIn[c].setN(c);
                 }
                 for (c=0; c<no; c++) {
                     myout.push(document.createElementNS(svgNS, "line"));
                     connOut.push(new Connection(_this));
+                    connOut[c].setN(c);
                 }
             }
             //in -- out
@@ -177,23 +179,49 @@ window.addEventListener("load", function(e){
                     lx = lx + distI;
                 }
             }
+
+            var i, l;
+            for (i=0; i<this.linesIN.length; i++) {
+                l =  this.linesIN[i];
+                if (parseInt(this.numconnIn[i])>(no-1)) {
+                    l.removeme()
+                }
+                else {
+                    conn = connOut[parseInt(this.numconnIn[i])];
+                    l.setPosition(conn.x, conn.y, l.endX, l.endY);
+                }
+            }
+            for (i=0; i<this.linesOUT.length; i++) {
+                l =  this.linesOUT[i];
+                if (parseInt(this.numconnOut[i])>(ni-1)) {
+                    l.removeme()
+                }
+                else {
+                    conn = connIn[parseInt(this.numconnOut[i])];
+                    l.setPosition(l.initX, l.initY, conn.x, conn.y);
+                }
+            }
         };
 
-        this.addLineIN = function(l) {        //aggiungo un oggetto Line
+        this.addLineIN = function(l) {
             this.linesIN.push(l);
+            this.numconnIn.push(Cdown);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
+            this.numconnOut.push(Cup);
         };
-        this.removeLine = function (l) {        //quando cancello la linea, devo rimuoverla dall'array
+        this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
                 this.linesIN.splice(i, 1);
+                this.numconnIn.splice(i, 1);
             }
             else {
                 i = this.linesOUT.indexOf(l);
                 if (i > -1) {
                     this.linesOUT.splice(i, 1);
+                    this.numconnOut.splice(i, 1);
                 }
             }
         };
@@ -223,14 +251,14 @@ window.addEventListener("load", function(e){
             deltax = (mx - myx1) + offx;
             deltay = (my - myy1) + offy;
             this.dragFJ(deltax, deltay);
-            for (i = 0; i<this.linesIN.length; i++) {
+            /*for (i = 0; i<this.linesIN.length; i++) {
                 l = this.linesIN[i];
                 l.setPosition(l.initX + deltax, l.initY + deltay, l.endX, l.endY);
             }
             for (i = 0; i<this.linesOUT.length; i++) {
                 l = this.linesOUT[i];
                 l.setPosition(l.initX, l.initY, l.endX + deltax, l.endY + deltay);
-            }
+            }*/
         };
 
         this.removeI = function() {
@@ -265,6 +293,26 @@ window.addEventListener("load", function(e){
                 this.linesOUT[0].removeme()
         };
 
+        this.UMLvalid = function(l) {
+            if (this.mytype == 0) {
+                if (l == 0) { //elemento di inizio linea
+                    if (connsel != connIn[0])  //unico connettore di uscita
+                        return true;
+                }   //else elmem di fine linea
+                else if (connsel == connIn[0])
+                    return true;
+            }
+            else {
+                if (l == 0) { //elemento di inizio linea
+                    if (connsel == connOut[0])   //unico connettore di entrata
+                        return true;
+                }
+                else if (connsel != connOut[0])
+                    return true;
+            }
+            return false;
+        }
+
     }
 
 //fork
@@ -277,8 +325,9 @@ window.addEventListener("load", function(e){
         mysvg.onmousedown = function(e){
             if (btnFork.classList.contains("btn_pressed")) {
                 drawing = true;
-                mDx = e.clientX;
-                mDy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mDx = pt.x;
+                mDy = pt.y;
                 f = new ForkJoin();
                 f.newLine(mDx, mDy, mDx, mDy);
                 f.mytype = 0;
@@ -287,8 +336,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmousemove = function(e) {
             if(drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 f.setLine(mDx, mDy, mMx, mMy);
             }
         };
@@ -296,8 +346,9 @@ window.addEventListener("load", function(e){
         mysvg.onmouseup = function(e) {
             if (drawing) {
                 drawing = false;
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                     f.removeme();
                     //f.remove(); //rimuovere oggetto??
@@ -334,8 +385,9 @@ window.addEventListener("load", function(e){
         mysvg.onmousedown = function(e){
             if (btnJoin.classList.contains("btn_pressed")) {
                 drawing = true;
-                mDx = e.clientX;
-                mDy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mDx = pt.x;
+                mDy = pt.y;
                 f = new ForkJoin();
                 f.newLine(mDx, mDy, mDx, mDy);
                 f.mytype = 1;
@@ -344,8 +396,9 @@ window.addEventListener("load", function(e){
 
         mysvg.onmousemove = function(e) {
             if(drawing) {
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 f.setLine(mDx, mDy, mMx, mMy);
             }
         };
@@ -353,8 +406,9 @@ window.addEventListener("load", function(e){
         mysvg.onmouseup = function(e) {
             if (drawing) {
                 drawing = false;
-                mMx = e.clientX;
-                mMy = e.clientY;
+                pt = transformPoint(e.clientX, e.clientY);
+                mMx = pt.x;
+                mMy = pt.y;
                 if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                     f.removeme();
                     //f.remove(); //rimuovere oggetto??
