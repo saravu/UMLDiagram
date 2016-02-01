@@ -79,24 +79,27 @@ line:active {
 }
 
 #btnD1 {
-    left: 130px;
+    left: 175px;
+    width: 55px;
 }
-#btnD2 {
-    left: 300px;
+#btnAct {
+    left: 250px;
+    width: 100px;
 }
-#btnD3 {
-    left: 450px;
+#btnAnn {
+    left: 370px;
+    width: 100px;
 }
-#btnD4 {
-    left: 600px;
+#btnView {
+    left: 490px;
+    width: 55px;
 }
 
 
 .mybuttonall {
     position: absolute;
-    width: 35px;
+    width: 45px;
     height: 30px;
-    top: 20%;
     border-style: none;
     background-color: pink;
     color: mediumblue;
@@ -124,19 +127,53 @@ line:active {
     background-color: deeppink;
 }
 #p {
-    left: 310px;  }
+    top: 70px;
+    left: 7px;  }
 #canc {
-    left: 270px; }
+    width: 35px;
+    height: 30px;
+    top: 70px;
+    left: 65px; }
 #txt {
-    left: 350px; }
+    height: 45px;
+    top: 110px;
+    left: 7px; }
 #note {
-    left: 390px; }
+    height: 45px;
+    top: 110px;
+    left: 60px; }
 #hand {
-    left: 430px; }
+    height: 45px;
+    top: 110px;
+    left: 38px; }
+#up {
+    width: 35px;
+    height: 30px;
+    top: 162px;
+    left: 43px; }
+#left {
+    width: 35px;
+    height: 30px;
+    top: 190px;
+    left: 8px; }
+#right {
+    width: 35px;
+    height: 30px;
+    top: 190px;
+    left: 78px; }
+#down {
+    width: 35px;
+    height: 30px;
+    top: 219px;
+    left: 43px; }
 #zin {
-    left: 470px; }
+    height: 45px;
+    top: 260px;
+    left: 7px; }
 #zout {
-    left: 510px; }
+    height: 45px;
+    top: 260px;
+    left: 70px; }
 
 
 .mybutton {
@@ -180,50 +217,40 @@ line:active {
 
 #btn11 {
     left: 7px;
-    top: 75px;  }
+    top: 110px;  }
 #btn12 {
     left: 60px;
-    top: 75px;  }
+    top: 110px;  }
 #btn13 {
     left: 7px;
-    top: 130px;  }
+    top: 165px;  }
 #btn14 {
      left: 60px;
-     top: 130px;  }
+     top: 165px;  }
 #btn15 {
     left: 7px;
-    top: 185px;  }
+    top: 220px;  }
 #btn16 {
     left: 60px;
-    top: 185px;  }
+    top: 220px;  }
 #btn17 {
     left: 7px;
-    top: 240px;  }
+    top: 275px;  }
 #btn18 {
     left: 60px;
-    top: 240px;  }
+    top: 275px;  }
 #btn19 {
     left: 7px;
-    top: 350px;  }
+    top: 385px;  }
 #btn110 {
     left: 7px;
-    top: 295px;  }
+    top: 330px;  }
 #btn111 {
     left: 60px;
-    top: 295px;  }
+    top: 330px;  }
 #btn112 {
     left: 60px;
-    top: 350px;  }
-
-
-#btn21 {
-    left: 7px;
-    top: 130px;  }
-
-
-#btn31 {
-    left: 7px;
-    top: 130px;  }
+    top: 385px;  }
 
 
 #container_vert {
@@ -242,7 +269,7 @@ line:active {
     position:absolute;
     top:0;
     left:0;
-    background-color: powderblue;
+    background-color: royalblue;
     border-top: 1px solid blueviolet;
     border-bottom: 2px solid blueviolet;
 }
@@ -287,7 +314,7 @@ line:active {
     position:absolute;
     background-color: transparent;
     border: none;
-    width:400px;
+    width:200px;
     font-family: monospace;
     font-size: 95%;
 }

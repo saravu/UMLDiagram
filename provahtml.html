@@ -17,7 +17,8 @@
     <script type="text/javascript" src="btn17_8.js"></script>
     <script type="text/javascript" src="btn110_11_12.js"></script>
 
-    <script type="text/javascript" src="btnD1.js"></script>
+    <script type="text/javascript" src="btnOrizz.js"></script>
+
 
 </head>
 
@@ -37,36 +38,50 @@
 
        <div id="container_vert">
 
+           <div id="all" style="display: none">
+               <button id="p" type="button" class="mybuttonall" title="Pointer (P)" accesskey="p">punt</button>
+               <button id="canc" type="button" class="mybuttonall" title="Delete (C)" accesskey="c" style = "display: none">C</button>
+           </div>
+
             <div id="DAtt" style = "display: none">
-                <button id="btn11" type="button" class="mybutton" title="Control flow (L)" accesskey="l">flow</button>
-                <button id="btn12" type="button" class="mybutton" title="Action (A)" accesskey="a">act</button>
-                <button id="btn13" type="button" class="mybutton" title="Initial node (I)" accesskey="i">start</button>
-                <button id="btn14" type="button" class="mybutton" title="Final node (E)" accesskey="e">end</button>
-                <button id="btn15" type="button" class="mybutton" title="Fork (F)" accesskey="f">fork</button>
-                <button id="btn16" type="button" class="mybutton" title="Join (J)" accesskey="j">join</button>
-                <button id="btn17" type="button" class="mybutton" title="Decision (D)" accesskey="d">dec</button>
-                <button id="btn18" type="button" class="mybutton" title="Merge (M)" accesskey="m">merge</button>
-                <button id="btn19" type="button" class="mybutton" title="Final flow (X)" accesskey="x">final</button>
-                <button id="btn110" type="button" class="mybutton" title="Send signal (S)" accesskey="s">SndSig</button>
-                <button id="btn111" type="button" class="mybutton" title="Receive signal (R)" accesskey="r">RcvSig</button>
-                <button id="btn112" type="button" class="mybutton" title="Timer (T)" accesskey="t">Timer</button>
+                <button id="btn11" type="button" class="mybutton" title="Control flow">flow</button>
+                <button id="btn12" type="button" class="mybutton" title="Action">act</button>
+                <button id="btn13" type="button" class="mybutton" title="Initial node">start</button>
+                <button id="btn14" type="button" class="mybutton" title="Final node">end</button>
+                <button id="btn15" type="button" class="mybutton" title="Fork">fork</button>
+                <button id="btn16" type="button" class="mybutton" title="Join">join</button>
+                <button id="btn17" type="button" class="mybutton" title="Decision">dec</button>
+                <button id="btn18" type="button" class="mybutton" title="Merge">merge</button>
+                <button id="btn19" type="button" class="mybutton" title="Final flow">final</button>
+                <button id="btn110" type="button" class="mybutton" title="Send signal">SndSig</button>
+                <button id="btn111" type="button" class="mybutton" title="Receive signal">RcvSig</button>
+                <button id="btn112" type="button" class="mybutton" title="Timer">Timer</button>
             </div>
+
+           <div id="Dann" style="display: none">
+               <button id="txt" type="button" class="mybuttonall" title="Add text (T)" accesskey="t">Text</button>
+               <button id="note" type="button" class="mybuttonall" title="Add note (M)" accesskey="m">Note</button>
+           </div>
+
+           <div id="Dview" style="display: none">
+               <button id="hand" type="button" class="mybuttonall" title="Hand (H)" accesskey="h">Hand</button>
+               <button id="up" type="button" class="mybuttonall" title="Up (W)" accesskey="w">W</button>
+               <button id="left" type="button" class="mybuttonall" title="Left (A)" accesskey="a">A</button>
+               <button id="down" type="button" class="mybuttonall" title="Down (S)" accesskey="s">S</button>
+               <button id="right" type="button" class="mybuttonall" title="Right (D)" accesskey="d">D</button>
+               <button id="zin" type="button" class="mybuttonall" title="Zoom in (+)" accesskey="+">Z+</button>
+               <button id="zout" type="button" class="mybuttonall" title="Zoom out (-)" accesskey="-">Z-</button>
+           </div>
 
         </div>
 
         <div id="container_orizz">
             <p style="font-size: 15px; margin: 20px 10px; color: midnightblue"><b>UML Activity</b></p>
-            <button id="btnD1" type="button" class="diagram_btn" title="new Activity Diagram (A)" accesskey="a">New Diagram</button>
 
-            <div id="all" style="display: none">
-                <button id="p" type="button" class="mybuttonall" title="pointer (P)" accesskey="p">punt</button>
-                <button id="canc" type="button" class="mybuttonall" title="delete (C)" accesskey="c" style = "display: none">canc</button>
-                <button id="txt" type="button" class="mybuttonall" title="add text ()">Text</button>
-                <button id="note" type="button" class="mybuttonall" title="note (N)" accesskey="n">Note</button>
-                <button id="hand" type="button" class="mybuttonall" title="Hand (H)" accesskey="h">Hand</button>
-                <button id="zin" type="button" class="mybuttonall" title="zoom in (+)" accesskey="+">Z+</button>
-                <button id="zout" type="button" class="mybuttonall" title="zoom out (-)" accesskey="-">Z-</button>
-            </div>
+            <button id="btnD1" type="button" class="diagram_btn" title="New Activity Diagram (N)" accesskey="n">New</button>
+            <button id="btnAct" type="button" class="diagram_btn" title="Activities buttons (B)" accesskey="b">Activities</button>
+            <button id="btnAnn" type="button" class="diagram_btn" title="Annotations (O)" accesskey="o">Annotation</button>
+            <button id="btnView" type="button" class="diagram_btn" title="Transform View (V)" accesskey="v">View</button>
 
         </div>
 

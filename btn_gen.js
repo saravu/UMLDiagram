@@ -254,6 +254,16 @@ function scaleSvg(s, x, y) {
                     }
                     mysvg.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");
                     //mysvg.lastChild.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");        ???
+                    var newsvg = document.getElementById("btnD1");
+                    var mypanelN = document.getElementById("DAtt");
+                    reset_btn(mypanelN);
+                    reset_btnD(newsvg.parentNode);
+                    //myb.classList.add("diagram_btn_pressed");
+                    document.getElementById("btnAct").classList.add("diagram_btn_pressed");
+                    mypanelN.style.display = "block";
+                    mysvg.onmousedown = function (e) { };
+                    mysvg.onmousemove = function (e) { };
+                    mysvg.onmouseup = function (e) { };
                 }
             });
         }
@@ -278,6 +288,7 @@ function scaleSvg(s, x, y) {
             var contV = document.getElementById("container_vert");
             var btnDiv = contV.getElementsByTagName("div");
             for (c = 0; c < btnDiv.length; c++) {
+                reset_btn(btnDiv[c]);
                 btnDiv[c].style.display = "none";
             }
             document.getElementById("all").style.display = "block";
@@ -440,6 +451,9 @@ function scaleSvg(s, x, y) {
             }
             else if (callback != null) annulla();
         }
+        else if (k == 27) {     //esc
+            if (callback != null) annulla();
+        }
         else if (k == 13) {      //enter
             if (callback != null) conferma();       //il controllo ci vuole??
         }
@@ -461,7 +475,7 @@ function scaleSvg(s, x, y) {
             }
             else if (k == 88) {    //X - zoom out
                 //sul centro
-                scaleSvg(1 / 1.1, 0, 0);
+                scaleSvg(1/1.1, 0, 0);
             }
         }
     }

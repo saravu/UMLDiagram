@@ -3,15 +3,16 @@
  */
 //diagramma delle classi
 
+//
 window.addEventListener("load", function(e) {
 
-    var myd2 = document.getElementById("btnD2");
-    var mypanel = document.getElementById("DClassi");
+    var myd2 = document.getElementById("btnAct");
+    var mypanel = document.getElementById("DAtt");
 
     function click_btnD2() {
         reset_svg();
         if (clearsvg) {
-            reset_btn(document.getElementById("all"));
+            //reset_btn(document.getElementById("all"));
             reset_btn(mypanel);
             reset_btnD(myd2.parentNode);
             myd2.classList.add("diagram_btn_pressed");

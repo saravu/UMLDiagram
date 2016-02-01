@@ -8,6 +8,10 @@ window.addEventListener("load", function(e) {
     var p = document.getElementById("p");
     var c = document.getElementById("canc");
     var h = document.getElementById("hand");
+    var w = document.getElementById("up");
+    var a = document.getElementById("left");
+    var s = document.getElementById("down");
+    var d = document.getElementById("right");
     var zi = document.getElementById("zin");
     var zo = document.getElementById("zout");
     var t = document.getElementById("txt");
@@ -19,8 +23,8 @@ window.addEventListener("load", function(e) {
 //selezione
     function click_btnp() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(p.parentNode);
         p.classList.add("btn_pressed");
         c.style.display = "block";
@@ -77,8 +81,8 @@ window.addEventListener("load", function(e) {
 //mano per spostare vista
     function click_btnh() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(h.parentNode);
         h.classList.add("btn_pressed");
         var translate = false;
@@ -118,12 +122,91 @@ window.addEventListener("load", function(e) {
 
     h.onclick=("click", click_btnh);
 
+//sposta vista su
+    function click_btnw() {
+        reset_btn(document.getElementById("DAtt"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
+        reset_btn(w.parentNode);
+        //autorepeat??
+
+        translateSvg(0, -10);
+
+        mysvg.onmousedown = function(e) { };
+        mysvg.onmousemove = function(e) { };
+        mysvg.onmouseup = function(e) { };
+        function onmouseenterbar(e) {}
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+    }
+
+    w.onclick=("click", click_btnw);
+
+//sposta vista sinistra
+    function click_btna() {
+        reset_btn(document.getElementById("DAtt"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
+        reset_btn(a.parentNode);
+        //autorepeat??
+
+        translateSvg(-10, 0);
+
+        mysvg.onmousedown = function(e) { };
+        mysvg.onmousemove = function(e) { };
+        mysvg.onmouseup = function(e) { };
+        function onmouseenterbar(e) {}
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+    }
+
+    a.onclick=("click", click_btna);
+
+//sposta vista giu
+    function click_btns() {
+        reset_btn(document.getElementById("DAtt"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
+        reset_btn(s.parentNode);
+        //autorepeat??
+
+        translateSvg(0, 10);
+
+        mysvg.onmousedown = function(e) { };
+        mysvg.onmousemove = function(e) { };
+        mysvg.onmouseup = function(e) { };
+        function onmouseenterbar(e) {}
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+    }
+
+    s.onclick=("click", click_btns);
+
+//sposta vista destra
+    function click_btnd() {
+        reset_btn(document.getElementById("DAtt"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
+        reset_btn(d.parentNode);
+        //autorepeat??
+
+        translateSvg(10, 0);
+
+        mysvg.onmousedown = function(e) { };
+        mysvg.onmousemove = function(e) { };
+        mysvg.onmouseup = function(e) { };
+        function onmouseenterbar(e) {}
+        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+    }
+
+    d.onclick=("click", click_btnd);
 
 //zoom in
     function click_btnzi() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(zi.parentNode);
         zi.classList.add("btn_pressed");
         var scale = false;
@@ -159,8 +242,8 @@ window.addEventListener("load", function(e) {
 //zoom out
     function click_btnzo() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(zo.parentNode);
         zo.classList.add("btn_pressed");
         var scale = false;
@@ -291,8 +374,8 @@ window.addEventListener("load", function(e) {
 
     function click_btntext() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(t.parentNode);
         t.classList.add("btn_pressed");
         var mytxt = null;
@@ -304,6 +387,7 @@ window.addEventListener("load", function(e) {
                 if (mytxt != null && mytxt.myfig == null) {
                     mytxt.deleteinput();
                 }
+                //TODO?? non funziona perchè è nel body
                 pt = transformPoint(e.clientX, e.clientY);
                 mDx = pt.x;
                 mDy = pt.y;
@@ -580,8 +664,8 @@ window.addEventListener("load", function(e) {
     var drawing = false;
     function click_btnnote() {
         reset_btn(document.getElementById("DAtt"));
-        //reset_btn(document.getElementById("DClassi"));
-        //reset_btn(document.getElementById("MStati"));
+        reset_btn(document.getElementById("Dann"));
+        reset_btn(document.getElementById("Dview"));
         reset_btn(note.parentNode);
         note.classList.add("btn_pressed");
         var f = null;

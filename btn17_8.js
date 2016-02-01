@@ -358,15 +358,6 @@ window.addEventListener("load", function(e){
             deltax = (mx - myx) + offx;
             deltay = (my - myy) + offy;
             this.dragDM(deltax, deltay);
-            //TODO CANC ??
-            /*for (i = 0; i<this.linesIN.length; i++) {
-                l = this.linesIN[i];
-                l.setPosition(l.initX + deltax, l.initY + deltay, l.endX, l.endY);
-            }
-            for (i = 0; i<this.linesOUT.length; i++) {
-                l = this.linesOUT[i];
-                l.setPosition(l.initX, l.initY, l.endX + deltax, l.endY + deltay);
-            } */
         };
 
         this.removeI = function() {

@@ -159,8 +159,7 @@ window.addEventListener("load", function(e) {
                 case 0: c4.updateConnection(myx + myw - cdim/2, myy + myh/2 - cdim/2); break;
                 case 1: c4.updateConnection(myx - cdim/2, myy + myh/2 - cdim/2); break;
             }
-
-            //TODO associare connettori e linee: posizionale su due array
+            //associare connettori e linee: posizionale su due array
             var i;
             var l;
             for (i=0; i<this.linesIN.length; i++) {

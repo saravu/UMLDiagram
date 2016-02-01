@@ -155,6 +155,7 @@ window.addEventListener("load", function(e) {
                 myline2.setAttributeNS(null, "style", "opacity:1");
                 myline3.setAttributeNS(null, "style", "opacity:1");
             }
+            this.setText();
         };
 
         this.addclientrect = function() {
@@ -220,17 +221,7 @@ window.addEventListener("load", function(e) {
 
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
-            //TODO trova posizione per testo su linea -- o solo add btnText
-            if (lin1x1 != lin1x2) {
-                tx = lin1x2 + 5;
-                ty = Math.min(lin1y2, lin3y1) + Math.abs(lin1y2 - lin3y1)/2;
-            }
-            else {
-                tx = Math.min(lin1x2, lin3x1) + Math.abs(lin1x2 - lin3x1)/2;
-                ty = lin1y2 - 5;
-            }
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            this.setText();
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = null;
@@ -241,6 +232,20 @@ window.addEventListener("load", function(e) {
                 setProp(true, false, false, function(t, i, o) {
                     mytext.textContent = t;
                 });
+            }
+        };
+        this.setText = function() {
+            if (mytext != null) {
+                if (lin1x1 != lin1x2) {
+                    tx = lin1x2 + 5;
+                    ty = Math.min(lin1y2, lin3y1) + Math.abs(lin1y2 - lin3y1) / 2;
+                }
+                else {
+                    tx = Math.min(lin1x2, lin3x1) + Math.abs(lin1x2 - lin3x1) / 2;
+                    ty = lin1y2 - 5;
+                }
+                mytext.setAttributeNS(null, "x", tx.toString());
+                mytext.setAttributeNS(null, "y", ty.toString());
             }
         };
 
@@ -270,11 +275,9 @@ window.addEventListener("load", function(e) {
                 deltax = (mx - lin3x1) + offx;
                 deltay = (my - lin3y1) + offy;
             }*/
-            if (draggedline == 2) {        //sposto il pezzo centrale
+            if (draggedline == 2) {        //sposto -solo- il pezzo centrale
                 if (lin1x2 == lin3x1) deltax = (mx - lin1x2) + offx;
                 if (lin1y2 == lin3y1) deltay = (my - lin1y2) + offy;
-            //non è possibile che el non siano settati, perche elimino la linea
-                //TODO è possibile il drag della linea? come? come aggiorno i punti?
                 if (this.elemento0 == null && this.elemento1 == null) {
                     lin1x1 = lin1x1 + deltax;
                     lin1y1 = lin1y1 + deltay;
@@ -291,10 +294,7 @@ window.addEventListener("load", function(e) {
                 updateRect(bcr1, Math.min(lin1x1, lin1x2)-5, Math.min(lin1y1, lin1y2)-5, (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
                 updateRect(bcr2, Math.min(lin3x1, lin1x2)-5, Math.min(lin1y2, lin3y1)-5, (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
                 updateRect(bcr3, Math.min(lin3x1, lin3x2)-5, Math.min(lin3y1, lin3y2)-5, (lin3x2-lin3x1+5-1), (lin3y2-lin3y1+5-1));
-                tx = tx + deltax;
-                ty = ty + deltay;
-                mytext.setAttributeNS(null, "x", tx.toString());
-                mytext.setAttributeNS(null, "y", ty.toString());
+                this.setText();
             }
         };
 
@@ -380,11 +380,12 @@ window.addEventListener("load", function(e) {
                 line.newLine();
                 svgline = line;
                 if (elementcorreleted != null) {
+                    mDx = connsel.x;
+                    mDy = connsel.y;
                     line.elemento0 = elementcorreleted;
                     elementcorreleted = null;
-                    //controllo di validità UML //fork e decision     //join e merge
                     if (line.elemento0.mytype == 0 || line.elemento0.mytype == 1) {
-                        if (!line.elemento0.UMLvalid(0)) {   //linea in uscita
+                        if (!line.elemento0.UMLvalid(0)) {      //linea in uscita
                             console.log("invalid connection start, UMLControlFlow");
                             invalid = true;
                         }
@@ -421,7 +422,6 @@ window.addEventListener("load", function(e) {
                     correlate(e, elementcorreleted);        //AAA
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;
-                    //controllo di validità UML  //fork e decision     //join e merge
                     if (line.elemento1.mytype == 0 || line.elemento1.mytype == 1) {
                         if (!line.elemento1.UMLvalid(1)) {   //linea in ingresso
                             line.removeme();
@@ -431,6 +431,8 @@ window.addEventListener("load", function(e) {
                     }
                     //var r0 = setDownUp(line.elemento0, mDx, mDy);
                     //var r1 = setDownUp(line.elemento1, mMx, mMy);
+                    mMx = connsel.x;
+                    mMy = connsel.y;
                     if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                         line.removeme();
                         //line.remove();    // TODO come rimuovere obj?! GC da solo?
