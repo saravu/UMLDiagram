@@ -27,7 +27,8 @@ window.addEventListener("load", function(e) {
         this.myline2 = null;
         this.myline3 = null;
         this.mytext = mytext;
-        this.myRes = null;this.initX = null;
+        this.myRes = null;
+        this.initX = null;
         this.initY = null;
         this.endX = null;
         this.endY = null;
@@ -254,15 +255,7 @@ window.addEventListener("load", function(e) {
             myline2.setAttributeNS(null, "stroke", c);
             myline3.setAttributeNS(null, "stroke", c);
             if (mytext!=null) mytext.setAttributeNS(null, "fill", c);
-            //document.getElementById("AFp").setAttributeNS(null, "stroke", c);   //TODO punta freccia colore
-        };
-        this.setStyle = function(s) {   //TODO
-            if (s=="dashed") {
-                //far diventae PATH
-                myline1.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
-                myline2.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
-                myline3.setAttributeNS(null, "style", "stroke-dasharray: 10, 5");
-            }
+            //document.getElementById("AFp").setAttributeNS(null, "style", "stroke:" + c + "; fill: none");
         };
         this.dragObj = function(mx, my) {
             var deltax = 0;
@@ -366,6 +359,7 @@ window.addEventListener("load", function(e) {
         mybtn.classList.add("btn_pressed");
         var line;
         var invalid = false;
+        var divinv = document.getElementById("invalid");
 
         seeConnectors(true);
         drawline = true;
@@ -386,13 +380,20 @@ window.addEventListener("load", function(e) {
                     elementcorreleted = null;
                     if (line.elemento0.mytype == 0 || line.elemento0.mytype == 1) {
                         if (!line.elemento0.UMLvalid(0)) {      //linea in uscita
-                            console.log("invalid connection start, UMLControlFlow");
+                            divinv.style.display = "block";
+                            setTimeout(function() {divinv.style.display = "none";}, 2500);
                             invalid = true;
                         }
                     }
+                    else if (line.elemento0.mytype == "finnode" || line.elemento0.mytype == "finflow") {
+                        divinv.style.display = "block";
+                        setTimeout(function() {divinv.style.display = "none";}, 2500);
+                        invalid = true;
+                    }
                 }
                 else {
-                    console.log("invalid connection start, UMLControlFlow");
+                    divinv.style.display = "block";
+                    setTimeout(function() {divinv.style.display = "none";}, 2500);
                     invalid = true;
                 }
             }
@@ -420,12 +421,26 @@ window.addEventListener("load", function(e) {
                 }
                 else if (line.elemento0 != null && elementcorreleted != null) {
                     correlate(e, elementcorreleted);        //AAA
+
+                    if (elementcorreleted.mytype == "note" || line.elemento0.mytype == "note") {
+                        line.removeme();
+                        divinv.style.display = "block";
+                        setTimeout(function() {divinv.style.display = "none";}, 2500);
+                        return;
+                    }
+                    else if (elementcorreleted.mytype == "initial") {
+                        line.removeme();
+                        divinv.style.display = "block";
+                        setTimeout(function() {divinv.style.display = "none";}, 2500);
+                        return;
+                    }
                     line.elemento1 = elementcorreleted;
                     elementcorreleted = null;
                     if (line.elemento1.mytype == 0 || line.elemento1.mytype == 1) {
                         if (!line.elemento1.UMLvalid(1)) {   //linea in ingresso
                             line.removeme();
-                            console.log("invalid connection end, UMLControlFlow");
+                            divinv.style.display = "block";
+                            setTimeout(function() {divinv.style.display = "none";}, 2500);
                             return;
                         }
                     }
@@ -442,17 +457,16 @@ window.addEventListener("load", function(e) {
                         line.myline3.setAttributeNS(null, "marker-end", "url(#arrowFlow)");
                         line.addText();
                         line.addclientrect();
-
                         //AAA attenzione i nomi sono invertiti
                         line.elemento0.addLineIN(svgline);
                         line.elemento1.addLineOut(svgline);
-                        if (line.elemento0.mytype == "note" || line.elemento1.mytype == "note")
-                            line.setStyle("dashed");
                         svgline = null;
                     }
                 }
                 else {
                     line.removeme();
+                    divinv.style.display = "block";
+                    setTimeout(function() {divinv.style.display = "none";}, 2500);
                     console.log("invalid connection end, UMLControlFlow");
                 }
             }

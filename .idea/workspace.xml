@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f36387d-e487-4e34-8f77-6a7a47c641e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btnAnn.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btnOrizz.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btnView.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/btnD1.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/btnD2.js" afterPath="$PROJECT_DIR$/btnAct.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btnLink.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/provahtml.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn11.js" afterPath="$PROJECT_DIR$/btn11.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn110_11_12.js" afterPath="$PROJECT_DIR$/btn110_11_12.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn12.js" afterPath="$PROJECT_DIR$/btn12.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn13_4_9.js" afterPath="$PROJECT_DIR$/btn13_4_9.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn14-old.js" afterPath="$PROJECT_DIR$/btn14-old.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn15_6.js" afterPath="$PROJECT_DIR$/btn15_6.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn17_8.js" afterPath="$PROJECT_DIR$/btn17_8.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnAct.js" afterPath="$PROJECT_DIR$/btnAct.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnAnn.js" afterPath="$PROJECT_DIR$/btnAnn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnView.js" afterPath="$PROJECT_DIR$/btnView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn_gen.js" afterPath="$PROJECT_DIR$/btn_gen.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnall.js" afterPath="$PROJECT_DIR$/btnall.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/provahtml.html" afterPath="$PROJECT_DIR$/provahtml.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/provahtml1.html" afterPath="$PROJECT_DIR$/provahtml1.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/style.css" afterPath="$PROJECT_DIR$/style.css" />
     </list>
@@ -38,21 +36,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="provahtml.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/provahtml.html">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.25">
-              <caret line="80" column="115" selection-start-line="80" selection-start-column="115" selection-end-line="80" selection-end-column="115" />
+            <state vertical-scroll-proportion="-31.916666">
+              <caret line="82" column="88" selection-start-line="82" selection-start-column="88" selection-end-line="82" selection-end-column="88" />
               <folding>
-                <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,18 +60,18 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.125">
-              <caret line="166" column="12" selection-start-line="166" selection-start-column="12" selection-end-line="166" selection-end-column="12" />
+            <state vertical-scroll-proportion="-16.916666">
+              <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="btn_gen.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="btn_gen.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btn_gen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3596059">
-              <caret line="286" column="13" selection-start-line="286" selection-start-column="13" selection-end-line="286" selection-end-column="13" />
+            <state vertical-scroll-proportion="-12.870968">
+              <caret line="472" column="48" selection-start-line="472" selection-start-column="48" selection-end-line="472" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -81,8 +80,8 @@
       <file leaf-file-name="btnall.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btnall.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.0">
-              <caret line="179" column="99" selection-start-line="179" selection-start-column="99" selection-end-line="179" selection-end-column="99" />
+            <state vertical-scroll-proportion="-15.709678">
+              <caret line="503" column="44" selection-start-line="503" selection-start-column="44" selection-end-line="503" selection-end-column="44" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -90,24 +89,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="btnOrizz.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btnOrizz.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="btn11.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="btn11.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/btn11.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.612904">
-              <caret line="279" column="68" selection-start-line="279" selection-start-column="68" selection-end-line="279" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.4811166">
+              <caret line="435" column="21" selection-start-line="435" selection-start-column="21" selection-end-line="435" selection-end-column="21" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="btn13_4_9.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.096774">
+              <caret line="31" column="19" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,16 +147,11 @@
         <option value="$PROJECT_DIR$/btntxt.js" />
         <option value="$PROJECT_DIR$/btn110_11.js" />
         <option value="$PROJECT_DIR$/btn13_4_9.js" />
-        <option value="$PROJECT_DIR$/btn13_4_9.js" />
         <option value="$PROJECT_DIR$/btn15_6.js" />
         <option value="$PROJECT_DIR$/btn17_8.js" />
-        <option value="$PROJECT_DIR$/btn12.js" />
-        <option value="$PROJECT_DIR$/btn12.js" />
         <option value="$PROJECT_DIR$/btn110_11_12.js" />
         <option value="$PROJECT_DIR$/btn15_6.js" />
         <option value="$PROJECT_DIR$/btn17_8.js" />
-        <option value="$PROJECT_DIR$/btn11.js" />
-        <option value="$PROJECT_DIR$/btn11.js" />
         <option value="$PROJECT_DIR$/btnD2.js" />
         <option value="$PROJECT_DIR$/btnD2.js" />
         <option value="$PROJECT_DIR$/btnView.js" />
@@ -165,15 +159,22 @@
         <option value="$PROJECT_DIR$/btnAct.js" />
         <option value="$PROJECT_DIR$/btnD1.js" />
         <option value="$PROJECT_DIR$/btnD1.js" />
-        <option value="$PROJECT_DIR$/btn_gen.js" />
-        <option value="$PROJECT_DIR$/btn_gen.js" />
-        <option value="$PROJECT_DIR$/btnall.js" />
-        <option value="$PROJECT_DIR$/btnall.js" />
         <option value="$PROJECT_DIR$/btnOrizz.js" />
         <option value="$PROJECT_DIR$/provahtml.html" />
         <option value="$PROJECT_DIR$/provahtml.html" />
+        <option value="$PROJECT_DIR$/btn12.js" />
+        <option value="$PROJECT_DIR$/btn12.js" />
+        <option value="$PROJECT_DIR$/btnall.js" />
+        <option value="$PROJECT_DIR$/btnall.js" />
+        <option value="$PROJECT_DIR$/btn13_4_9.js" />
+        <option value="$PROJECT_DIR$/btn11.js" />
+        <option value="$PROJECT_DIR$/btnLink.js" />
+        <option value="$PROJECT_DIR$/btn_gen.js" />
+        <option value="$PROJECT_DIR$/btn_gen.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/btn11.js" />
       </list>
     </option>
   </component>
@@ -365,14 +366,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/btn_gen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/btnall.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -401,20 +394,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="44" column="66" selection-start-line="44" selection-start-column="66" selection-end-line="44" selection-end-column="66" />
           <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -463,20 +457,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -535,20 +530,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
           <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -607,20 +603,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
           <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -679,20 +676,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -731,26 +729,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2578125">
-          <caret line="11" column="54" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/btn17_8.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3359375">
           <caret line="359" column="40" selection-start-line="359" selection-start-column="40" selection-end-line="359" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn15_6.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1328125">
-          <caret line="252" column="40" selection-start-line="252" selection-start-column="40" selection-end-line="252" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -768,26 +750,6 @@
         <state vertical-scroll-proportion="-0.9496753">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn12.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7635468">
-          <caret line="120" column="38" selection-start-line="120" selection-start-column="38" selection-end-line="120" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn11.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.612904">
-          <caret line="279" column="68" selection-start-line="279" selection-start-column="68" selection-end-line="279" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -817,55 +779,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/btn15_6.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.90625">
+          <caret line="252" column="40" selection-start-line="252" selection-start-column="40" selection-end-line="252" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/btnOrizz.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="1.921875">
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provahtml.html">
+    <entry file="file://$PROJECT_DIR$/btnLink.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.25">
-          <caret line="80" column="115" selection-start-line="80" selection-start-column="115" selection-end-line="80" selection-end-column="115" />
-          <folding>
-            <element signature="n#style#0;n#circle#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#path#0;n#marker#1;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="158" column="14" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btnall.js">
+    <entry file="file://$PROJECT_DIR$/btn12.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.0">
-          <caret line="179" column="99" selection-start-line="179" selection-start-column="99" selection-end-line="179" selection-end-column="99" />
+        <state vertical-scroll-proportion="-1.0625">
+          <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
+    <entry file="file://$PROJECT_DIR$/btnall.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.125">
-          <caret line="166" column="12" selection-start-line="166" selection-start-column="12" selection-end-line="166" selection-end-column="12" />
-          <folding />
+        <state vertical-scroll-proportion="-15.709678">
+          <caret line="503" column="44" selection-start-line="503" selection-start-column="44" selection-end-line="503" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btn_gen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3596059">
-          <caret line="286" column="13" selection-start-line="286" selection-start-column="13" selection-end-line="286" selection-end-column="13" />
+        <state vertical-scroll-proportion="-12.870968">
+          <caret line="472" column="48" selection-start-line="472" selection-start-column="48" selection-end-line="472" selection-end-column="48" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.916666">
+          <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.916666">
+          <caret line="82" column="88" selection-start-line="82" selection-start-column="88" selection-end-line="82" selection-end-column="88" />
+          <folding>
+            <element signature="n#style#0;n#path#0;n#marker#0;n#defs#0;n#svg#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.096774">
+          <caret line="31" column="19" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btn11.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4811166">
+          <caret line="435" column="21" selection-start-line="435" selection-start-column="21" selection-end-line="435" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

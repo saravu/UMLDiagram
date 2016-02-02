@@ -27,22 +27,11 @@ button::-moz-focus-inner {
     bottom: 0;
     width: 100%;
     height: 100%;
-    font-size: 90%;     /*TODO fix tra moz e chrome */
+    font-size: 90%;
     background-image: url("img/sfondob.png");
     /*background-position: center;
     background-size: cover;*/
 }
-
-/* #canvas_container text{
-    cursor: default;
-} */
-
-/*line:hover {
-    stroke: red;
-}
-line:active {
-    stroke: green;
-}*/
 
 .diagram_btn {
     position: absolute;
@@ -50,12 +39,10 @@ line:active {
     height: 30px;
     border-style: none;
     background-color: pink;
-    /*background-image: url('img/test.png');
-    background-repeat: no-repeat;
-    background-position: center;*/
     color: mediumblue;
     font-family: monospace, monospace;
     font-size: 13px;
+    cursor: pointer;
 }
 .diagram_btn:hover {
     border: 1px solid cornflowerblue;
@@ -105,6 +92,7 @@ line:active {
     color: mediumblue;
     font-family: monospace, monospace;
     font-size: 13px;
+    cursor: pointer;
 }
 .mybuttonall:hover {
     border: 1px solid #c6c6c6;
@@ -142,6 +130,10 @@ line:active {
     height: 45px;
     top: 110px;
     left: 60px; }
+#link {
+    height: 45px;
+    top: 165px;
+    left: 7px; }
 #hand {
     height: 45px;
     top: 110px;
@@ -182,12 +174,13 @@ line:active {
     height: 45px;
     border-style: none;
     background-color: royalblue;
-    /*background-image: url('img/test.png');*/
+    /*background-image: url('img/test.png');
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;*/
     color: white;
     font-family: monospace, monospace;
     font-size: 13px;
+    cursor: pointer;
 }
 .mybutton:hover {
      border: 1px solid #c6c6c6;
@@ -254,9 +247,8 @@ line:active {
 
 
 #container_vert {
-    width:120px;
-    height:100%;
-    background: white;
+    width: 120px;
+    height: 100%;
     position:absolute;
     top:0;
     left:0;
@@ -272,6 +264,32 @@ line:active {
     background-color: royalblue;
     border-top: 1px solid blueviolet;
     border-bottom: 2px solid blueviolet;
+}
+
+#invalid {
+    position: absolute;
+    width: 180px;
+    height: 35px;
+    top: 70px;
+    left: 130px;
+    background-color: red;
+    opacity: 0.6;
+    font-family: monospace;
+    font-size: 12px;
+    color: whitesmoke;
+}
+
+#path {
+    position: absolute;
+    width: 160px;
+    height: 35px;
+    top: 70px;
+    left: 130px;
+    background-color: red;
+    opacity: 0.6;
+    font-family: monospace;
+    font-size: 12px;
+    color: whitesmoke;
 }
 
 #setProp {

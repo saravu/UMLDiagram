@@ -241,29 +241,6 @@ window.addEventListener("load", function(e){
             }
             this.setRes();
             this.setText();
-            /*
-            //TODO aggiornare anche l'attacco delle linee agli obj -- mettere connettori??
-            var l;
-            for (i = 0; i<this.linesIN.length; i++) {
-                l = this.linesIN[i];
-                lx = l.initX;
-                ly = l.initY;
-                if (l.initX < myx || l.initX > myx + myw)
-                    lx = lx + deltaw;
-                if (l.initY < myy || l.initY > myy + myh)
-                    ly = ly + deltah;
-                l.setPosition(lx, ly, l.endX, l.endY);
-            }
-            for (i = 0; i<this.linesOUT.length; i++) {
-                l = this.linesOUT[i];
-                lx = l.endX;
-                ly = l.endY;
-                if (l.endX < myx || l.endX > myx + myw)
-                    lx = lx + deltaw;
-                if (l.endY < myy || l.endY > myy + myh)
-                    ly = ly + deltah;
-                l.setPosition(l.initX, l.initY, lx, ly);
-            } */
         };
 
         this.addLineIN = function(l) {

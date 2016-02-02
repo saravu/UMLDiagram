@@ -432,8 +432,10 @@ window.addEventListener("load", function(e) {
         this.myfig = null;
         this.mytype = "note";
         this.mytext = null;
-        this.linesIN = new Array();     //TODO solo out?
+        this.linesIN = new Array();
+        this.numconnIn = new Array();
         this.linesOUT = new Array();
+        this.numconnOut = new Array();
         var r1, r2, r3, r4 = null;
         this.myRes = new Array();
 
@@ -489,12 +491,16 @@ window.addEventListener("load", function(e) {
         this.updateNote = function(x, y, w, h) {
             if (!fixed) {
                 c1 = new Connection(_this);
+                c1.setN(1);
                 mysvg.appendChild(c1.myfig);
                 c2 = new Connection(_this);
+                c2.setN(2);
                 mysvg.appendChild(c2.myfig);
                 c3 = new Connection(_this);
+                c3.setN(3);
                 mysvg.appendChild(c3.myfig);
                 c4 = new Connection(_this);
+                c4.setN(4);
                 mysvg.appendChild(c4.myfig);
 
                 r1 = new Resize(this, 1);
@@ -522,18 +528,65 @@ window.addEventListener("load", function(e) {
                 " " + (myx + myw - 10).toString() + "," + (myy + 10).toString() + " " + (myx + myw - 10).toString() + "," + myy.toString() +
                 " " + (myx).toString() + "," + (myy).toString() + " " + (myx).toString() + "," + (myy + myh).toString() +
                 " " + (myx + myw).toString() + "," + (myy + myh).toString() + " " + (myx + myw).toString() + "," + (myy + 10).toString());
+
             this.setConn();
         };
+
         this.setConn = function () {
             c1.updateConnection(myx + myw/2 - cdim/2, myy - cdim/2);
             c2.updateConnection(myx + myw/2 - cdim/2, myy + myh - cdim/2);
             c3.updateConnection(myx - cdim/2, myy + myh/2 - cdim/2);
-            c4.updateConnection(myx + myw - cdim/2, myy + myh/2 - cdim/2)
+            c4.updateConnection(myx + myw - cdim/2, myy + myh/2 - cdim/2);
+            var i;
+            var l;
+            for (i=0; i<this.linesIN.length; i++) {
+                l =  this.linesIN[i];
+                switch (this.numconnIn[i]) {
+                    case 1: {
+                        l.setPosition(c1.x, c1.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 2: {
+                        l.setPosition(c2.x, c2.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 3: {
+                        l.setPosition(c3.x, c3.y, l.endX, l.endY);
+                        break;
+                    }
+                    case 4: {
+                        l.setPosition(c4.x, c4.y, l.endX, l.endY);
+                        break;
+                    }
+                }
+            }
+            for (i=0; i<this.linesOUT.length; i++) {
+                l =  this.linesOUT[i];
+                switch (this.numconnOut[i]) {
+                    case 1: {
+                        l.setPosition(l.initX, l.initY, c1.x, c1.y);
+                        break;
+                    }
+                    case 2: {
+                        l.setPosition(l.initX, l.initY, c2.x, c2.y);
+                        break;
+                    }
+                    case 3: {
+                        l.setPosition(l.initX, l.initY, c3.x, c3.y);
+                        break;
+                    }
+                    case 4: {
+                        l.setPosition(l.initX, l.initY, c4.x, c4.y);
+                        break;
+                    }
+                }
+            }
+
         };
 
         this.setText = function() {
             tx = myx + 3;
-            ty = myy + 10;
+            ty = myy + 13;
             mytext.setAttributeNS(null, "x", tx.toString());
             mytext.setAttributeNS(null, "y", ty.toString());
         };
@@ -600,19 +653,23 @@ window.addEventListener("load", function(e) {
 
         this.addLineIN = function(l) {
             this.linesIN.push(l);
+            this.numconnIn.push(Cdown);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
+            this.numconnOut.push(Cup);
         };
         this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
                 this.linesIN.splice(i, 1);
+                this.numconnIn.splice(i, 1);
             }
             else {
                 i = this.linesOUT.indexOf(l);
                 if (i > -1) {
                     this.linesOUT.splice(i, 1);
+                    this.numconnOut.splice(i, 1);
                 }
             }
         };
@@ -632,14 +689,6 @@ window.addEventListener("load", function(e) {
             deltax = (mx - myx) + offx;
             deltay = (my - myy) + offy;
             this.dragNote(deltax, deltay);
-            for (i = 0; i<this.linesIN.length; i++) {
-                l = this.linesIN[i];
-                l.setPosition(l.initX + deltax, l.initY + deltay, l.endX, l.endY);
-            }
-            for (i = 0; i<this.linesOUT.length; i++) {
-                l = this.linesOUT[i];
-                l.setPosition(l.initX, l.initY, l.endX + deltax, l.endY + deltay);
-            }
         };
 
         this.removeme = function() {
@@ -681,7 +730,6 @@ window.addEventListener("load", function(e) {
                 if (fixed) {
                     f = new Note();
                 }
-                f.mytype = 1;
                 f.newNote(mMx, mMy);
                 drawing = true;
             }

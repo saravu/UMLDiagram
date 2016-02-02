@@ -470,7 +470,7 @@ function scaleSvg(s, x, y) {
             else if (k == 68 || k == 39) {    //D
                 translateSvg(10, 0);
             }
-            else if (k == 90) {    //Z - zoom in        TODO 0 o 1 ??
+            else if (k == 90) {    //Z - zoom in
                 scaleSvg(1.1, 0, 0);
             }
             else if (k == 88) {    //X - zoom out

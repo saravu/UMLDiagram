@@ -10,6 +10,7 @@
     <script type="text/javascript" src="btn_gen.js"></script>
 
     <script type="text/javascript" src="btnall.js"></script>
+    <script type="text/javascript" src="btnLink.js"></script>
     <script type="text/javascript" src="btn11.js"></script>
     <script type="text/javascript" src="btn12.js"></script>
     <script type="text/javascript" src="btn13_4_9.js"></script>
@@ -26,9 +27,6 @@
     <div id="canvas_container">
         <svg pointer-events="visiblePainted" id="mysvg" width="100%" height="100%" transform="matrix(1, 0, 0, 1, 0, 0)">
             <defs>
-                <marker id="markerCircle" markerWidth="8" markerHeight="8" refX="5" refY="5">
-                    <circle cx="5" cy="5" r="3" style="stroke: none; fill:mediumblue;"/>
-                </marker>
                 <marker id="arrowFlow" markerWidth="13" markerHeight="13" refX="8" refY="6" orient="auto">
                     <path id="AFp" d="M2,2 L10,6 L2,10" style="stroke:mediumblue; fill:none" />
                 </marker>
@@ -39,8 +37,8 @@
        <div id="container_vert">
 
            <div id="all" style="display: none">
-               <button id="p" type="button" class="mybuttonall" title="Pointer (P)" accesskey="p">punt</button>
-               <button id="canc" type="button" class="mybuttonall" title="Delete (C)" accesskey="c" style = "display: none">C</button>
+               <button id="p" type="button" class="mybuttonall" title="Pointer">punt</button>
+               <button id="canc" type="button" class="mybuttonall" title="Delete (Canc)" style = "display: none">C</button>
            </div>
 
             <div id="DAtt" style = "display: none">
@@ -59,18 +57,19 @@
             </div>
 
            <div id="Dann" style="display: none">
-               <button id="txt" type="button" class="mybuttonall" title="Add text (T)" accesskey="t">Text</button>
-               <button id="note" type="button" class="mybuttonall" title="Add note (M)" accesskey="m">Note</button>
+               <button id="txt" type="button" class="mybuttonall" title="Add text">Text</button>
+               <button id="note" type="button" class="mybuttonall" title="Add note">Note</button>
+               <button id="link" type="button" class="mybuttonall" title="Note Link">Link</button>
            </div>
 
            <div id="Dview" style="display: none">
-               <button id="hand" type="button" class="mybuttonall" title="Hand (H)" accesskey="h">Hand</button>
-               <button id="up" type="button" class="mybuttonall" title="Up (W)" accesskey="w">W</button>
-               <button id="left" type="button" class="mybuttonall" title="Left (A)" accesskey="a">A</button>
-               <button id="down" type="button" class="mybuttonall" title="Down (S)" accesskey="s">S</button>
-               <button id="right" type="button" class="mybuttonall" title="Right (D)" accesskey="d">D</button>
-               <button id="zin" type="button" class="mybuttonall" title="Zoom in (+)" accesskey="+">Z+</button>
-               <button id="zout" type="button" class="mybuttonall" title="Zoom out (-)" accesskey="-">Z-</button>
+               <button id="hand" type="button" class="mybuttonall" title="Hand">Hand</button>
+               <button id="up" type="button" class="mybuttonall" title="Up (W)">W</button>
+               <button id="left" type="button" class="mybuttonall" title="Left (A)">A</button>
+               <button id="down" type="button" class="mybuttonall" title="Down (S)">S</button>
+               <button id="right" type="button" class="mybuttonall" title="Right (D)">D</button>
+               <button id="zin" type="button" class="mybuttonall" title="Zoom in (Z)">Z+</button>
+               <button id="zout" type="button" class="mybuttonall" title="Zoom out (X)">Z-</button>
            </div>
 
         </div>
@@ -78,13 +77,20 @@
         <div id="container_orizz">
             <p style="font-size: 15px; margin: 20px 10px; color: midnightblue"><b>UML Activity</b></p>
 
-            <button id="btnD1" type="button" class="diagram_btn" title="New Activity Diagram (N)" accesskey="n">New</button>
-            <button id="btnAct" type="button" class="diagram_btn" title="Activities buttons (B)" accesskey="b">Activities</button>
-            <button id="btnAnn" type="button" class="diagram_btn" title="Annotations (O)" accesskey="o">Annotation</button>
-            <button id="btnView" type="button" class="diagram_btn" title="Transform View (V)" accesskey="v">View</button>
+            <button id="btnD1" type="button" class="diagram_btn" title="New Activity Diagram">New</button>
+            <button id="btnAct" type="button" class="diagram_btn" title="Activity buttons">Activities</button>
+            <button id="btnAnn" type="button" class="diagram_btn" title="Annotations">Annotation</button>
+            <button id="btnView" type="button" class="diagram_btn" title="Transform View">View</button>
 
         </div>
 
+    </div>
+
+    <div id="invalid" style="display: none">
+        <p><b>Invalid UML Control Flow</b></p>
+    </div>
+    <div id="path" style="display: none">
+        <p><b>Invalid UML Note Link</b></p>
     </div>
 
     <div id="setProp">

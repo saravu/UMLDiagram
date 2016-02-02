@@ -171,30 +171,6 @@ window.addEventListener("load", function(e){
         };
 
         function onmouseenterbar() {
-           /* switch (circle.mytype) {
-                case "initial": {
-                    if (btninnode.classList.contains("btn_pressed")) {
-                        deletelastsvgel("circle", fixed);
-                        fixed = true;
-                    }
-                    break; }
-                case "finnode": {
-                    if (btninnode.classList.contains("btn_pressed")) {
-                        deletelastsvgel("circle", fixed);
-                        //per il cerchio interno
-                        var circles = document.getElementsByTagName("circle");
-                        if (circles.length > 0 && !fixed) {
-                            var last_c = circles[circles.length - 1];
-                            last_c.parentNode.removeChild(last_c);
-                        }
-                        fixed = true;
-                    }
-                    break; }
-                case "finflow": {
-
-                    break;
-                }
-            }*/
             if (btninnode.classList.contains("btn_pressed")) {
                 deletelastsvgel("circle", fixed);
                 fixed = true;
