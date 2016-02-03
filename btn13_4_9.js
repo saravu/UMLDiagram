@@ -16,13 +16,11 @@ window.addEventListener("load", function(e){
 
     function InitialNode() {
         var _this = this;
-        var mycircle = null;
-        var mytext = null;
+        var mycircle = null
         var myx, myy, tx, ty;
         var r = 10;
         var offx, offy;
         var c1, c2, c3, c4 = null;
-
         this.myfig = null;
         this.mytext = null;
         this.linesIN = new Array();
@@ -126,6 +124,23 @@ window.addEventListener("load", function(e){
             }
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+        };
+
         this.removeme = function() {
             mycircle.parentNode.removeChild(mycircle);
             c1.removeme();
@@ -180,14 +195,13 @@ window.addEventListener("load", function(e){
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
 
     }
-    btninnode.onclick=("click", click_btn13);
+    btninnode.onclick=(click_btn13);
 
 
     function FinalNode() {
         var _this = this;
         var myest = null;
         var myint = null;
-        var mytext = null;
         var myx, myy;
         var c1, c2, c3, c4 = null;
         var offx, offy;
@@ -319,6 +333,27 @@ window.addEventListener("load", function(e){
             }
         };
 
+        this.toFront = function() {
+            if (myest!=null) {
+                mysvg.removeChild(myest);
+                mysvg.appendChild(myest);
+            }
+            if (myint!=null) {
+                mysvg.removeChild(myint);
+                mysvg.appendChild(myint);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+        };
+
         this.removeme = function() {
             myest.parentNode.removeChild(myest);
             myint.parentNode.removeChild(myint);
@@ -376,14 +411,13 @@ window.addEventListener("load", function(e){
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
 
     }
-    btnfinnode.onclick=("click", click_btn14);
+    btnfinnode.onclick=(click_btn14);
 
 
     function FinalFlow() {
         var _this = this;
         var myc = null;
         var p1, p2, p3, p4 = null;
-        var mytext = null;
         var myx, myy;
         var c1, c2, c3, c4 = null;
         var offx, offy;
@@ -525,6 +559,31 @@ window.addEventListener("load", function(e){
             }
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+                mysvg.removeChild(p1);
+                mysvg.appendChild(p1);
+                mysvg.removeChild(p2);
+                mysvg.appendChild(p2);
+                mysvg.removeChild(p3);
+                mysvg.appendChild(p3);
+                mysvg.removeChild(p4);
+                mysvg.appendChild(p4);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+        };
+
         this.removeme = function() {
             myc.parentNode.removeChild(myc);
             p1.parentNode.removeChild(p1);
@@ -589,7 +648,7 @@ window.addEventListener("load", function(e){
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
 
     }
-    btnfinflow.onclick=("click", click_btn19);
+    btnfinflow.onclick=(click_btn19);
 
 });
 

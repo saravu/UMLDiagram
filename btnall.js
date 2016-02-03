@@ -62,7 +62,7 @@ window.addEventListener("load", function(e) {
 
     }
 
-    p.onclick=("click", click_btnp);
+    p.onclick=(click_btnp);
 
 //cancellazione
     function click_btnc() {
@@ -75,7 +75,7 @@ window.addEventListener("load", function(e) {
         }
     }
 
-    c.onclick=("click", click_btnc);
+    c.onclick=(click_btnc);
 
 
 //mano per spostare vista
@@ -120,7 +120,7 @@ window.addEventListener("load", function(e) {
 
     }
 
-    h.onclick=("click", click_btnh);
+    h.onclick=(click_btnh);
 
 //sposta vista su
     function click_btnw() {
@@ -140,7 +140,7 @@ window.addEventListener("load", function(e) {
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
     }
 
-    w.onclick=("click", click_btnw);
+    w.onclick=(click_btnw);
 
 //sposta vista sinistra
     function click_btna() {
@@ -160,7 +160,7 @@ window.addEventListener("load", function(e) {
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
     }
 
-    a.onclick=("click", click_btna);
+    a.onclick=(click_btna);
 
 //sposta vista giu
     function click_btns() {
@@ -180,7 +180,7 @@ window.addEventListener("load", function(e) {
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
     }
 
-    s.onclick=("click", click_btns);
+    s.onclick=(click_btns);
 
 //sposta vista destra
     function click_btnd() {
@@ -200,7 +200,7 @@ window.addEventListener("load", function(e) {
         document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
     }
 
-    d.onclick=("click", click_btnd);
+    d.onclick=(click_btnd);
 
 //zoom in
     function click_btnzi() {
@@ -237,7 +237,7 @@ window.addEventListener("load", function(e) {
 
     }
 
-    zi.onclick=("click", click_btnzi);
+    zi.onclick=(click_btnzi);
 
 //zoom out
     function click_btnzo() {
@@ -274,7 +274,7 @@ window.addEventListener("load", function(e) {
 
     }
 
-    zo.onclick=("click", click_btnzo);
+    zo.onclick=(click_btnzo);
 
 //testo
     function Text() {
@@ -364,6 +364,13 @@ window.addEventListener("load", function(e) {
             this.dragText(myx + deltax, myy + deltay);
         };
 
+        this.toFront = function() {
+            if (this.mytext!=null) {
+                mysvg.removeChild(this.mytext);
+                mysvg.appendChild(this.mytext);
+            }
+        };
+
         this.removeme = function() {
             if (mytext != null)  {
                 mytext.parentNode.removeChild(mytext);
@@ -418,7 +425,7 @@ window.addEventListener("load", function(e) {
 
     }
 
-    t.onclick=("click", click_btntext);
+    t.onclick=(click_btntext);
 
 
 //note
@@ -691,6 +698,37 @@ window.addEventListener("load", function(e) {
             this.dragNote(deltax, deltay);
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            if (this.mytext!=null) {
+                mysvg.removeChild(this.mytext);
+                mysvg.appendChild(this.mytext);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+            if (this.myRes != null) {
+                mysvg.removeChild(r1.myfig);
+                mysvg.appendChild(r1.myfig);
+                mysvg.removeChild(r2.myfig);
+                mysvg.appendChild(r2.myfig);
+                mysvg.removeChild(r3.myfig);
+                mysvg.appendChild(r3.myfig);
+                mysvg.removeChild(r4.myfig);
+                mysvg.appendChild(r4.myfig);
+            }
+        };
+
         this.removeme = function() {
             myf.parentNode.removeChild(myf);
             if (mytext != null) mytext.parentNode.removeChild(mytext);
@@ -757,6 +795,6 @@ window.addEventListener("load", function(e) {
 
     }
 
-    note.onclick=("click", click_btnnote);
+    note.onclick=(click_btnnote);
 
 });

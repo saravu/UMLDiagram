@@ -188,6 +188,33 @@ window.addEventListener("load", function(e) {
             }
         };
 
+        this.toFront = function() {
+            if (this.myline1!=null) {
+                mysvg.removeChild(this.myline1);
+                mysvg.appendChild(this.myline1);
+            }
+            if (this.myline2!=null) {
+                mysvg.removeChild(this.myline2);
+                mysvg.appendChild(this.myline2);
+            }
+            if (this.myline3!=null) {
+                mysvg.removeChild(this.myline3);
+                mysvg.appendChild(this.myline3);
+            }
+            if (bcr1!=null) {
+                mysvg.removeChild(bcr1);
+                mysvg.appendChild(bcr1);
+            }
+            if (bcr2!=null) {
+                mysvg.removeChild(bcr2);
+                mysvg.appendChild(bcr2);
+            }
+            if (bcr1!=null) {
+                mysvg.removeChild(bcr3);
+                mysvg.appendChild(bcr3);
+            }
+        };
+
         this.removeme = function() {
             if (mypath!=null) mypath.parentNode.removeChild(mypath);
             if (bcr1!=null) bcr1.parentNode.removeChild(bcr1);
@@ -312,6 +339,6 @@ window.addEventListener("load", function(e) {
 
     }
 
-    mybtn.onclick=("click", click_btnLink);
+    mybtn.onclick=(click_btnLink);
 
 });

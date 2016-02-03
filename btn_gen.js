@@ -330,6 +330,7 @@ function scaleSvg(s, x, y) {
                 hideResize();
             }
             elementsel = t;
+            elementsel.toFront();
             elementsel.setColor(selectioncolor);
             drag = true;
             var pt = transformPoint(e.clientX, e.clientY);

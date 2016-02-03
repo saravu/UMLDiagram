@@ -245,12 +245,37 @@ window.addEventListener("load", function(e){
             updateLine(myf, myx1, myy1, myx2, myy2);
             this.drawIO(ni, no);
         };
-
         this.dragObj = function(mx, my) {
             var deltax, deltay, i, l;
             deltax = (mx - myx1) + offx;
             deltay = (my - myy1) + offy;
             this.dragFJ(deltax, deltay);
+        };
+
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            var i, l, c;
+            var n = myin.length;
+            for (i=0; i<n; i++) {
+                l = myin[i];
+                c = connIn[i].myfig;
+                mysvg.removeChild(l);
+                mysvg.appendChild(l);
+                mysvg.removeChild(c);
+                mysvg.appendChild(c);
+            }
+            n = myout.length;
+            for (i=0; i<n; i++) {
+                l = myout[i];
+                c = connOut[i].myfig;
+                mysvg.removeChild(l);
+                mysvg.appendChild(l);
+                mysvg.removeChild(c);
+                mysvg.appendChild(c);
+            }
         };
 
         this.removeI = function() {
@@ -427,9 +452,9 @@ window.addEventListener("load", function(e){
 
     }
 
-    btnFork.onclick=("click", click_btn15);
+    btnFork.onclick=(click_btn15);
 
-    btnJoin.onclick=("click", click_btn16);
+    btnJoin.onclick=(click_btn16);
 
 });
 

@@ -313,6 +313,37 @@ window.addEventListener("load", function(e) {
             this.dragSig(deltax, deltay);
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            if (this.mytext!=null) {
+                mysvg.removeChild(this.mytext);
+                mysvg.appendChild(this.mytext);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+            if (this.myRes != null) {
+                mysvg.removeChild(r1.myfig);
+                mysvg.appendChild(r1.myfig);
+                mysvg.removeChild(r2.myfig);
+                mysvg.appendChild(r2.myfig);
+                mysvg.removeChild(r3.myfig);
+                mysvg.appendChild(r3.myfig);
+                mysvg.removeChild(r4.myfig);
+                mysvg.appendChild(r4.myfig);
+            }
+        };
+
         this.removeme = function() {
             myf.parentNode.removeChild(myf);
             if (mytext != null) mytext.parentNode.removeChild(mytext);
@@ -427,9 +458,9 @@ window.addEventListener("load", function(e) {
 
     }
 
-    btnSndSig.onclick=("click", click_btn110);
+    btnSndSig.onclick=(click_btn110);
 
-    btnRcvSig.onclick=("click", click_btn111);
+    btnRcvSig.onclick=(click_btn111);
 
 
 //timer
@@ -558,6 +589,37 @@ window.addEventListener("load", function(e) {
             }
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            if (this.mytext!=null) {
+                mysvg.removeChild(this.mytext);
+                mysvg.appendChild(this.mytext);
+            }
+            if (c1 != null) {
+                mysvg.removeChild(c1.myfig);
+                mysvg.appendChild(c1.myfig);
+                mysvg.removeChild(c2.myfig);
+                mysvg.appendChild(c2.myfig);
+                mysvg.removeChild(c3.myfig);
+                mysvg.appendChild(c3.myfig);
+                mysvg.removeChild(c4.myfig);
+                mysvg.appendChild(c4.myfig);
+            }
+            if (this.myRes != null) {
+                mysvg.removeChild(r1.myfig);
+                mysvg.appendChild(r1.myfig);
+                mysvg.removeChild(r2.myfig);
+                mysvg.appendChild(r2.myfig);
+                mysvg.removeChild(r3.myfig);
+                mysvg.appendChild(r3.myfig);
+                mysvg.removeChild(r4.myfig);
+                mysvg.appendChild(r4.myfig);
+            }
+        };
+
         this.removeme = function() {
             myf.parentNode.removeChild(myf);
             if (mytext != null) mytext.parentNode.removeChild(mytext);
@@ -621,5 +683,5 @@ window.addEventListener("load", function(e) {
 
     }
 
-    btnTimer.onclick=("click", click_btn112);
+    btnTimer.onclick=(click_btn112);
 });

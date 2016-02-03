@@ -27,7 +27,7 @@ window.addEventListener("load", function(e) {
         reset_svg();
     }
 
-    newsvg.onclick = ("click", click_btnD1);
+    newsvg.onclick = (click_btnD1);
 
 
 //mostra bottoni attività
@@ -48,7 +48,7 @@ window.addEventListener("load", function(e) {
         };
     }
 
-    act.onclick = ("click", click_btnAct);
+    act.onclick = (click_btnAct);
 
 
 //mostra bottoni annotazioni
@@ -69,7 +69,7 @@ window.addEventListener("load", function(e) {
         };
     }
 
-    ann.onclick = ("click", click_btnAnn);
+    ann.onclick = (click_btnAnn);
 
 
 //mostra bottoni modifica vista
@@ -91,6 +91,6 @@ window.addEventListener("load", function(e) {
         };
     }
 
-    view.onclick = ("click", click_btnV);
+    view.onclick = (click_btnV);
 
 });

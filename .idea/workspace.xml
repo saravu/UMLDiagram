@@ -2,20 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f36387d-e487-4e34-8f77-6a7a47c641e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/btnLink.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/provahtml.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn11.js" afterPath="$PROJECT_DIR$/btn11.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn110_11_12.js" afterPath="$PROJECT_DIR$/btn110_11_12.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn12.js" afterPath="$PROJECT_DIR$/btn12.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn13_4_9.js" afterPath="$PROJECT_DIR$/btn13_4_9.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn14-old.js" afterPath="$PROJECT_DIR$/btn14-old.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn15_6.js" afterPath="$PROJECT_DIR$/btn15_6.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn17_8.js" afterPath="$PROJECT_DIR$/btn17_8.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnAct.js" afterPath="$PROJECT_DIR$/btnAct.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnAnn.js" afterPath="$PROJECT_DIR$/btnAnn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnLink.js" afterPath="$PROJECT_DIR$/btnLink.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnOrizz.js" afterPath="$PROJECT_DIR$/btnOrizz.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnView.js" afterPath="$PROJECT_DIR$/btnView.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btn_gen.js" afterPath="$PROJECT_DIR$/btn_gen.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/btnall.js" afterPath="$PROJECT_DIR$/btnall.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/provahtml1.html" afterPath="$PROJECT_DIR$/provahtml1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/style.css" afterPath="$PROJECT_DIR$/style.css" />
     </list>
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,18 +61,18 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.916666">
+            <state vertical-scroll-proportion="-41.291668">
               <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="btn_gen.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="btn_gen.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/btn_gen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.870968">
-              <caret line="472" column="48" selection-start-line="472" selection-start-column="48" selection-end-line="472" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.28407225">
+              <caret line="332" column="33" selection-start-line="332" selection-start-column="33" selection-end-line="332" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -80,8 +81,8 @@
       <file leaf-file-name="btnall.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btnall.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.709678">
-              <caret line="503" column="44" selection-start-line="503" selection-start-column="44" selection-end-line="503" selection-end-column="44" />
+            <state vertical-scroll-proportion="-176.12903">
+              <caret line="366" column="35" selection-start-line="366" selection-start-column="35" selection-end-line="366" selection-end-column="35" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -89,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="btn11.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="btn11.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/btn11.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4811166">
-              <caret line="435" column="21" selection-start-line="435" selection-start-column="21" selection-end-line="435" selection-end-column="21" />
+            <state vertical-scroll-proportion="-15.258064">
+              <caret line="317" column="13" selection-start-line="317" selection-start-column="13" selection-end-line="317" selection-end-column="13" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -101,12 +102,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="btn13_4_9.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
+      <file leaf-file-name="btn12.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/btn12.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.096774">
-              <caret line="31" column="19" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="19" />
-              <folding />
+            <state vertical-scroll-proportion="-8.0">
+              <caret line="306" column="29" selection-start-line="306" selection-start-column="29" selection-end-line="306" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#41#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -146,12 +149,6 @@
         <option value="$PROJECT_DIR$/btn14-old.js" />
         <option value="$PROJECT_DIR$/btntxt.js" />
         <option value="$PROJECT_DIR$/btn110_11.js" />
-        <option value="$PROJECT_DIR$/btn13_4_9.js" />
-        <option value="$PROJECT_DIR$/btn15_6.js" />
-        <option value="$PROJECT_DIR$/btn17_8.js" />
-        <option value="$PROJECT_DIR$/btn110_11_12.js" />
-        <option value="$PROJECT_DIR$/btn15_6.js" />
-        <option value="$PROJECT_DIR$/btn17_8.js" />
         <option value="$PROJECT_DIR$/btnD2.js" />
         <option value="$PROJECT_DIR$/btnD2.js" />
         <option value="$PROJECT_DIR$/btnView.js" />
@@ -159,22 +156,28 @@
         <option value="$PROJECT_DIR$/btnAct.js" />
         <option value="$PROJECT_DIR$/btnD1.js" />
         <option value="$PROJECT_DIR$/btnD1.js" />
-        <option value="$PROJECT_DIR$/btnOrizz.js" />
         <option value="$PROJECT_DIR$/provahtml.html" />
         <option value="$PROJECT_DIR$/provahtml.html" />
-        <option value="$PROJECT_DIR$/btn12.js" />
-        <option value="$PROJECT_DIR$/btn12.js" />
-        <option value="$PROJECT_DIR$/btnall.js" />
-        <option value="$PROJECT_DIR$/btnall.js" />
-        <option value="$PROJECT_DIR$/btn13_4_9.js" />
-        <option value="$PROJECT_DIR$/btn11.js" />
-        <option value="$PROJECT_DIR$/btnLink.js" />
-        <option value="$PROJECT_DIR$/btn_gen.js" />
-        <option value="$PROJECT_DIR$/btn_gen.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/btnOrizz.js" />
+        <option value="$PROJECT_DIR$/btn_gen.js" />
+        <option value="$PROJECT_DIR$/btn_gen.js" />
+        <option value="$PROJECT_DIR$/btn12.js" />
+        <option value="$PROJECT_DIR$/btn12.js" />
         <option value="$PROJECT_DIR$/btn11.js" />
+        <option value="$PROJECT_DIR$/btn11.js" />
+        <option value="$PROJECT_DIR$/btn15_6.js" />
+        <option value="$PROJECT_DIR$/btn15_6.js" />
+        <option value="$PROJECT_DIR$/btn17_8.js" />
+        <option value="$PROJECT_DIR$/btn17_8.js" />
+        <option value="$PROJECT_DIR$/btn110_11_12.js" />
+        <option value="$PROJECT_DIR$/btnall.js" />
+        <option value="$PROJECT_DIR$/btnall.js" />
+        <option value="$PROJECT_DIR$/btnLink.js" />
+        <option value="$PROJECT_DIR$/btn13_4_9.js" />
+        <option value="$PROJECT_DIR$/btn13_4_9.js" />
       </list>
     </option>
   </component>
@@ -729,22 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btn17_8.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3359375">
-          <caret line="359" column="40" selection-start-line="359" selection-start-column="40" selection-end-line="359" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn110_11_12.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.278125">
-          <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/provahtml1.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.9496753">
@@ -771,70 +758,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/btnOrizz.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8752053">
+          <caret line="93" column="20" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/btnView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="29" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.609375">
+          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btn17_8.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="390" column="26" selection-start-line="390" selection-start-column="21" selection-end-line="390" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btn15_6.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.90625">
-          <caret line="252" column="40" selection-start-line="252" selection-start-column="40" selection-end-line="252" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.23481117">
+          <caret line="258" column="13" selection-start-line="258" selection-start-column="13" selection-end-line="258" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btnOrizz.js">
+    <entry file="file://$PROJECT_DIR$/btn110_11_12.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.921875">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state vertical-scroll-proportion="-4.2479477">
+          <caret line="225" column="24" selection-start-line="225" selection-start-column="18" selection-end-line="225" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btnLink.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="158" column="14" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn12.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.0625">
-          <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btnall.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.709678">
-          <caret line="503" column="44" selection-start-line="503" selection-start-column="44" selection-end-line="503" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/btn_gen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.870968">
-          <caret line="472" column="48" selection-start-line="472" selection-start-column="48" selection-end-line="472" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.916666">
-          <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.6288998">
+          <caret line="200" column="21" selection-start-line="200" selection-start-column="21" selection-end-line="200" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -858,21 +825,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
+    <entry file="file://$PROJECT_DIR$/btn12.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.096774">
-          <caret line="31" column="19" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="-8.0">
+          <caret line="306" column="29" selection-start-line="306" selection-start-column="29" selection-end-line="306" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/btn11.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4811166">
-          <caret line="435" column="21" selection-start-line="435" selection-start-column="21" selection-end-line="435" selection-end-column="21" />
+        <state vertical-scroll-proportion="-15.258064">
+          <caret line="317" column="13" selection-start-line="317" selection-start-column="13" selection-end-line="317" selection-end-column="13" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btn13_4_9.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28125">
+          <caret line="573" column="13" selection-start-line="573" selection-start-column="13" selection-end-line="573" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btnall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-176.12903">
+          <caret line="366" column="35" selection-start-line="366" selection-start-column="35" selection-end-line="366" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-41.291668">
+          <caret line="182" column="20" selection-start-line="182" selection-start-column="20" selection-end-line="182" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/btn_gen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28407225">
+          <caret line="332" column="33" selection-start-line="332" selection-start-column="33" selection-end-line="332" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

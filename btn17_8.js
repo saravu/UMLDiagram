@@ -360,6 +360,46 @@ window.addEventListener("load", function(e){
             this.dragDM(deltax, deltay);
         };
 
+        this.toFront = function() {
+            if (this.myfig!=null) {
+                mysvg.removeChild(this.myfig);
+                mysvg.appendChild(this.myfig);
+            }
+            if (this.mytext!=null) {
+                mysvg.removeChild(this.mytext);
+                mysvg.appendChild(this.mytext);
+            }
+            var i, l, c;
+            var n = myin.length;
+            for (i=0; i<n; i++) {
+                l = myin[i];
+                c = connIn[i].myfig;
+                mysvg.removeChild(l);
+                mysvg.appendChild(l);
+                mysvg.removeChild(c);
+                mysvg.appendChild(c);
+            }
+            n = myout.length;
+            for (i=0; i<n; i++) {
+                l = myout[i];
+                c = connOut[i].myfig;
+                mysvg.removeChild(l);
+                mysvg.appendChild(l);
+                mysvg.removeChild(c);
+                mysvg.appendChild(c);
+            }
+            if (this.myRes != null) {
+                mysvg.removeChild(r1.myfig);
+                mysvg.appendChild(r1.myfig);
+                mysvg.removeChild(r2.myfig);
+                mysvg.appendChild(r2.myfig);
+                mysvg.removeChild(r3.myfig);
+                mysvg.appendChild(r3.myfig);
+                mysvg.removeChild(r4.myfig);
+                mysvg.appendChild(r4.myfig);
+            }
+        };
+
         this.removeI = function() {
             var el, idx;
             for(idx=0; idx<myin.length; idx++) {
@@ -511,8 +551,8 @@ window.addEventListener("load", function(e){
 
     }
 
-    btnDec.onclick=("click", click_btn17);
+    btnDec.onclick=(click_btn17);
 
-    btnMerge.onclick=("click", click_btn18);
+    btnMerge.onclick=(click_btn18);
 
 });
