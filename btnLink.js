@@ -189,17 +189,9 @@ window.addEventListener("load", function(e) {
         };
 
         this.toFront = function() {
-            if (this.myline1!=null) {
-                mysvg.removeChild(this.myline1);
-                mysvg.appendChild(this.myline1);
-            }
-            if (this.myline2!=null) {
-                mysvg.removeChild(this.myline2);
-                mysvg.appendChild(this.myline2);
-            }
-            if (this.myline3!=null) {
-                mysvg.removeChild(this.myline3);
-                mysvg.appendChild(this.myline3);
+            if (this.mypath!=null) {
+                mysvg.removeChild(this.mypath);
+                mysvg.appendChild(this.mypath);
             }
             if (bcr1!=null) {
                 mysvg.removeChild(bcr1);
