@@ -97,7 +97,7 @@ window.addEventListener("load", function(e) {
                     lin3y2 = y2;
                 }
             }
-            path = "M" + lin1x1 + " " + lin1y1 + " L" + lin1x2 + " " +  lin1y2 + " L" + lin3x1 + " " +  lin3y1 + " L" + lin3x2 + " " +  lin3y2;
+            path = "M" + lin1x1 + " " + lin1y1 + " L" + lin1x2 + " " +  lin1y2 + " L" + lin3x1 + " " +  lin3y1 + " L" + (lin3x2-1) + " " +  (lin3y2-1);
             mypath.setAttributeNS(null, "d", path);
             if (bcr1 != null) updateRect(bcr1, Math.min(lin1x1, lin1x2)-5, Math.min(lin1y1, lin1y2)-5, (lin1x2-lin1x1+10), (lin1y2-lin1y1+10));
             if (bcr2 != null) updateRect(bcr2, Math.min(lin3x1, lin1x2)-5, Math.min(lin1y2, lin3y1)-5, (lin3x1-lin1x2+10), (lin3y1-lin1y2+10));
@@ -156,7 +156,6 @@ window.addEventListener("load", function(e) {
 
         this.setColor = function(c) {
             mypath.setAttributeNS(null, "stroke", c);
-            //document.getElementById("AFp").setAttributeNS(null, "style", "stroke:" + c + "; fill: none");
         };
         this.setStyle = function(s) {
             if (s=="dashed") {
@@ -204,6 +203,11 @@ window.addEventListener("load", function(e) {
             if (bcr1!=null) {
                 mysvg.removeChild(bcr3);
                 mysvg.appendChild(bcr3);
+            }
+
+            if (elementsel == this) {
+                if (this.elemento0 != null) this.elemento0.toFront();
+                if (this.elemento1 != null) this.elemento1.toFront();
             }
         };
 

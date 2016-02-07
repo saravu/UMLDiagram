@@ -1,13 +1,9 @@
-body {
+body{
     margin: 0;
-    min-width:700px;
-    width: auto !important;
-    min-height: 450px;
-    height: auto !important;
     -moz-user-select:none;
     -webkit-user-select:none;
     user-select:none;
-    font-family: arial, arial;
+    font-family: monospace, monospace;
     font-size: 14px;
 }
 
@@ -33,42 +29,14 @@ button::-moz-focus-inner {
     height: 100%;
     font-size: 90%;
     background-image: url("img/sfondob.png");
-    overflow: hidden;
+    /*background-position: center;
+    background-size: cover;*/
 }
 
-.diagram_btn, .mybutton, .mybuttonall, .box_btn {
-    background-color: darkblue;
+.diagram_btn, .mybutton, .mybuttonall {
+    background-color: #673AB7;
     color: #E0E0E0;
     cursor: pointer;
-    font-family: arial;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-.mybutton:hover, .diagram_btn:hover, .mybuttonall:hover, .box_btn:hover {
-    border: 1px solid #a0a0a0;
-    background-color: lightsteelblue;
-    color: darkblue;
-}
-.mybutton:active, .diagram_btn:active, .mybuttonall:active, .box_btn:active {
-    border: 1px solid #c6c6c6;
-    background-color: lightsteelblue;
-    color: darkblue;
-}
-.mybutton.btn_pressed, .diagram_btn.diagram_btn_pressed, .mybuttonall.btn_pressed {
-    border: 1px solid #c6c6c6;
-    background-color: lightseagreen;
-    color: darkblue;
-}
-.mybutton.btn_pressed:hover, .diagram_btn.diagram_btn_pressed:hover, .mybuttonall.btn_pressed:hover {
-    border: 1px solid #a0a0a0;
-    background-color: steelblue;
-    color: darkblue;
-}
-.mybutton.btn_pressed:active, .diagram_btn.diagram_btn_pressed:active, .mybuttonall.btn_pressed:active {
-    border: 1px solid #c6c6c6;
-    background-color: lightseagreen;
-    color: darkblue;
 }
 
 .diagram_btn {
@@ -76,8 +44,34 @@ button::-moz-focus-inner {
     top: 20%;
     height: 30px;
     border-style: none;
-    font-size: 16px;
+    font-family: monospace, monospace;
+    font-size: 13px;
 }
+.diagram_btn:hover {
+    border: 1px solid #9E9E9E;
+    background-color: #7E57C2;
+}
+.diagram_btn:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
+}
+.diagram_btn.diagram_btn_pressed {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #673AB7;
+}
+.diagram_btn.diagram_btn_pressed:hover {
+    /*border: 1px solid cornflowerblue;*/
+    background-color: #7E57C2;
+    color: #E0E0E0;
+}
+.diagram_btn.diagram_btn_pressed:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
+}
+
 #btnD1 {
     left: 175px;
     width: 55px;
@@ -94,17 +88,38 @@ button::-moz-focus-inner {
     left: 490px;
     width: 55px;
 }
-#btnExport {
-    left: 90%;
-    width: 100px;
-}
+
 
 .mybuttonall {
     position: absolute;
     width: 45px;
     height: 30px;
     border-style: none;
+    font-family: monospace, monospace;
     font-size: 13px;
+}
+.mybuttonall:hover {
+    border: 1px solid #9E9E9E;
+    background-color: #7E57C2;
+}
+.mybuttonall:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
+}
+.mybuttonall.btn_pressed {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #673AB7;
+}
+.mybuttonall.btn_pressed:hover {
+    background-color: #7E57C2;
+    color: #E0E0E0;
+}
+.mybuttonall.btn_pressed:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
 }
 #p {
     top: 70px;
@@ -165,8 +180,36 @@ button::-moz-focus-inner {
     width: 45px;
     height: 45px;
     border-style: none;
+    /*background-image: url('img/test.png');
+    background-repeat: no-repeat;
+    background-position: center;*/
+    font-family: monospace, monospace;
     font-size: 13px;
 }
+.mybutton:hover {
+    border: 1px solid #9E9E9E;
+    background-color: #7E57C2;
+ }
+.mybutton:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
+}
+.mybutton.btn_pressed {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #673AB7;
+}
+.mybutton.btn_pressed:hover {
+    background-color: #7E57C2;
+    color: #E0E0E0;
+}
+.mybutton.btn_pressed:active {
+    border: 1px solid #757575;
+    background-color: #B39DDB;
+    color: #757575;
+}
+
 #btn11 {
     left: 7px;
     top: 110px;  }
@@ -206,24 +249,24 @@ button::-moz-focus-inner {
 
 
 #container_orizz, #container_vert {
-    background-color: #e7e7e7;
+    background-color: #E0E0E0;
 }
 #container_vert {
     width: 120px;
     height: 100%;
     position:absolute;
-    top: 0;
-    left: 0;
-    border-right: 2px solid darkblue;
+    top:0;
+    left:0;
+    border-right: 2px solid #673AB7;
 }
 #container_orizz {
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-top: 1px solid darkblue;
-    border-bottom: 2px solid darkblue;
+    width:100%;
+    height:50px;
+    position:absolute;
+    top:0;
+    left:0;
+    border-top: 1px solid #673AB7;
+    border-bottom: 2px solid #673AB7;
 }
 
 #invalid {
@@ -232,21 +275,20 @@ button::-moz-focus-inner {
     height: 35px;
     top: 70px;
     left: 130px;
-    padding-left: 10px;
-    background-color: darkblue;
+    background-color: #673AB7;
     opacity: 0.6;
     font-family: monospace;
     font-size: 12px;
     color: #E0E0E0;
 }
+
 #path {
     position: absolute;
     width: 160px;
     height: 35px;
     top: 70px;
     left: 130px;
-    padding-left: 12px;
-    background-color: darkblue;
+    background-color: #673AB7;
     opacity: 0.6;
     font-family: monospace;
     font-size: 12px;
@@ -273,8 +315,8 @@ button::-moz-focus-inner {
     opacity: 0.5;
 }
 #mybox {
-    background-color: #e7e7e7;
-    border: 1px solid darkblue;
+    background-color: #E0E0E0;
+    border: 1px solid #777777;
     margin-left: auto;
     margin-right: auto;
     width: 350px;
@@ -283,38 +325,17 @@ button::-moz-focus-inner {
     position: absolute;
     left: 37%;
     top: 37%;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-.boxbtn {
-    margin-top: 20px;
-    text-align: right;
 }
 .box_btn {
-    border: 1px solid #c6c6c6;
-    background-color: lightsteelblue;
-    color: darkblue;
     margin-top: 20px;
-    height: 25px;
-    font-size: 14px;
-}
-.box_btn:hover {
-    border: 1px solid #a0a0a0;
-    background-color: steelblue;
-    color: #E0E0E0;
-}
-.box_btn:active {
-    border: 1px solid #c6c6c6;
-    background-color: steelblue;
-    color: #E0E0E0;
+    text-align: right;
 }
 
 #textbox {
     position:absolute;
     background-color: transparent;
     border: none;
-    width: 300px;
+    width:200px;
     font-family: monospace;
     font-size: 95%;
 }

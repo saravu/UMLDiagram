@@ -3,8 +3,8 @@
  */
     var svgNS = "http://www.w3.org/2000/svg";
     var mysvg = null;
-    var standardcolor = "mediumblue";
-    var selectioncolor = "red";
+    var standardcolor = "darkblue";
+    var selectioncolor = "lightseagreen";
     var stdw = 70;
     var stdh = 30;
     var fsz = 12;
@@ -54,7 +54,6 @@
         var t = mysvg.getAttribute("transform");
         mysvg.setAttribute("transform", "");
         mysvg.setAttribute("transform", t);
-
 //non funziona su Chrome!
     }
 //scalatura
@@ -149,19 +148,19 @@ function scaleSvg(s, x, y) {
             var i = connections.indexOf(this);
             if (i > -1) {
                 connections.splice(i, 1);
+                myconn.parentNode.removeChild(myconn);
             }
-            myconn.parentNode.removeChild(myconn);
         };
     }
 
-//oggetto per ridimesonare rect, rombo, signal, lineFJ?
+//oggetto per ridimesionare rect, rombo, sign
     function Resize(el, n) {
         this.myelement = el;
         var _this = this;
         var myr = document.createElementNS(svgNS, "rect");
         myr.setAttributeNS(null, "stroke", standardcolor);
         myr.setAttributeNS(null, "fill", "white");
-        myr.setAttributeNS(null, "style", "stroke-width:2;opacity:0");
+        myr.setAttributeNS(null, "style", "opacity:0");
         myr.setAttributeNS(null, "width", cdim.toString());
         myr.setAttributeNS(null, "height", cdim.toString());
         var myx, myy;
@@ -179,7 +178,7 @@ function scaleSvg(s, x, y) {
                 elementsel = _this.myelement;
                 resize = true;
                 numresize = _this.mynum;
-                myr.setAttributeNS(null, "fill", "red");
+                myr.setAttributeNS(null, "fill", selectioncolor);
                 e.stopPropagation();
             };
             myr.onmouseup = function (e) {
@@ -187,7 +186,7 @@ function scaleSvg(s, x, y) {
                 e.stopPropagation();
             };
             myr.onmouseover = function(e) {
-                myr.setAttributeNS(null, "fill", "red");
+                myr.setAttributeNS(null, "fill", selectioncolor);
             };
             myr.onmouseout = function(e) {
                 myr.setAttributeNS(null, "fill", "white");
@@ -245,15 +244,16 @@ function scaleSvg(s, x, y) {
         }
         setCursorByID("mysvg", "default");
     }
+
     function reset_svg() {
         if (mysvg.childElementCount > 1) {
             clearSvg(function(t, i, o) {
                 if (clearsvg) {
-                    while (mysvg.childElementCount > 1) {   //AAA num di defs in cima
+                    while (mysvg.childElementCount > 1) {   //AAA num di defs
                         mysvg.removeChild(mysvg.lastChild);
                     }
+                    connections = new Array();
                     mysvg.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");
-                    //mysvg.lastChild.setAttribute("transform", "matrix(1, 0, 0, 1, 0, 0)");        ???
                     var newsvg = document.getElementById("btnD1");
                     var mypanelN = document.getElementById("DAtt");
                     reset_btn(mypanelN);
@@ -269,6 +269,7 @@ function scaleSvg(s, x, y) {
         }
         else clearsvg = true;
     }
+
     function reset_btn(div) {
         seeConnectors(false);
         var children = div.getElementsByTagName("button");
@@ -278,6 +279,7 @@ function scaleSvg(s, x, y) {
         document.getElementById("canc").style.display = "none";
         reset_var();
     }
+
     function reset_btnD(div) {
         //reset_svg();
         //if (clearsvg) {
@@ -297,7 +299,38 @@ function scaleSvg(s, x, y) {
         clearsvg = false;
     }
 
-//modificare?? posso cancellare direttamente l'obj --- !!! attenzione erroriiii TODO
+//per autorepeat per WASD
+    function autorepeat(btn, action, start, speedup) {
+        var t;
+        var _start = start;
+
+        var repeat = function () {
+            action();
+            t = setTimeout(repeat, start);
+            start = Math.max((start/speedup), 100);
+        };
+
+        btn.onmousedown = function() {
+            reset_btn(document.getElementById("DAtt"));
+            reset_btn(document.getElementById("Dann"));
+            reset_btn(document.getElementById("Dview"));
+            reset_btn(btn.parentNode);
+            mysvg.onmousedown = function(e) { };
+            mysvg.onmousemove = function(e) { };
+            mysvg.onmouseup = function(e) { };
+            function onmouseenterbar(e) {}
+            document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
+            document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
+
+            start = _start;
+            repeat();
+        };
+        btn.onmouseup = function () {
+            clearTimeout(t);
+        }
+    }
+
+
     function deletelastsvgel(typefig, fixed) {
         var figs = document.getElementsByTagName(typefig);
         if (figs.length > 0 && !fixed) {
@@ -340,20 +373,27 @@ function scaleSvg(s, x, y) {
         }
     }
 
-//correlazione elemento: chiamare SOLO sui connettori/lineUP!!! TODO
+//correlazione elemento
     function correlate(e, t) {
         if (drawline) {
             elementcorreleted = t;
         }
         correlated = true;
     }
+//visualizza connettori linee
     function seeConnectors(v) {
+        var c;
         for(var i = 0; i<connections.length; i++) {
-            connections[i].visible(v);
+            c = connections[i];
+            if (v) {
+                mysvg.removeChild(c.myfig);
+                mysvg.appendChild(c.myfig);
+            }
+            c.visible(v);
         }
     }
 
-//standard aggiorna linea
+//standard: aggiorna linea
     function updateLine(l, x1, y1, x2, y2) {
         l.setAttributeNS(null, "x1", x1.toString());
         l.setAttributeNS(null, "y1", y1.toString());
@@ -365,8 +405,7 @@ function scaleSvg(s, x, y) {
 //cambiare lo stile del cursore
     function setCursorByID(id, cursorStyle) {
         var elem;
-        if (document.getElementById &&
-            (elem=document.getElementById(id)) ) {
+        if (elem=document.getElementById(id)) {
             if (elem.style) elem.style.cursor=cursorStyle;
         }
     }
@@ -456,7 +495,7 @@ function scaleSvg(s, x, y) {
             if (callback != null) annulla();
         }
         else if (k == 13) {      //enter
-            if (callback != null) conferma();       //il controllo ci vuole??
+            if (callback != null) conferma();
         }
         else if (!document.getElementById("txt").classList.contains("btn_pressed") && callback == null) {
             if (k == 87 || k == 38) {    //W
@@ -475,7 +514,6 @@ function scaleSvg(s, x, y) {
                 scaleSvg(1.1, 0, 0);
             }
             else if (k == 88) {    //X - zoom out
-                //sul centro
                 scaleSvg(1/1.1, 0, 0);
             }
         }

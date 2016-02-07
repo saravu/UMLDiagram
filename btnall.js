@@ -9,15 +9,18 @@ window.addEventListener("load", function(e) {
     var c = document.getElementById("canc");
     var h = document.getElementById("hand");
     var w = document.getElementById("up");
+    autorepeat(w, function() { translateSvg(0, -10) }, 1000, 2);
     var a = document.getElementById("left");
+    autorepeat(a, function() { translateSvg(-10, 0) }, 1000, 2);
     var s = document.getElementById("down");
+    autorepeat(s, function() { translateSvg(0, 10) }, 1000, 2);
     var d = document.getElementById("right");
+    autorepeat(d, function() { translateSvg(10, 0) }, 1000, 2);
     var zi = document.getElementById("zin");
     var zo = document.getElementById("zout");
     var t = document.getElementById("txt");
     var note = document.getElementById("note");
     var mDx, mDy, mMx, mMy = 0;
-    //var scalecount = 1.0;
     var pt = null;
 
 //selezione
@@ -99,12 +102,10 @@ window.addEventListener("load", function(e) {
 
         mysvg.onmousemove = function(e) {
             if (translate) {
-                //var ptDown = transform_point(panX, panY);
                 pt = transformPoint(e.clientX, e.clientY);
                 deltaX = pt.x - mDx;
                 deltaY = pt.y - mDy;
                 translateSvg(deltaX, deltaY);
-               // panX = evt.clientX;                panY = evt.clientY;
             }
         };
 
@@ -122,86 +123,6 @@ window.addEventListener("load", function(e) {
 
     h.onclick=(click_btnh);
 
-//sposta vista su
-    function click_btnw() {
-        reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("Dann"));
-        reset_btn(document.getElementById("Dview"));
-        reset_btn(w.parentNode);
-        //autorepeat??
-
-        translateSvg(0, -10);
-
-        mysvg.onmousedown = function(e) { };
-        mysvg.onmousemove = function(e) { };
-        mysvg.onmouseup = function(e) { };
-        function onmouseenterbar(e) {}
-        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
-        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
-    }
-
-    w.onclick=(click_btnw);
-
-//sposta vista sinistra
-    function click_btna() {
-        reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("Dann"));
-        reset_btn(document.getElementById("Dview"));
-        reset_btn(a.parentNode);
-        //autorepeat??
-
-        translateSvg(-10, 0);
-
-        mysvg.onmousedown = function(e) { };
-        mysvg.onmousemove = function(e) { };
-        mysvg.onmouseup = function(e) { };
-        function onmouseenterbar(e) {}
-        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
-        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
-    }
-
-    a.onclick=(click_btna);
-
-//sposta vista giu
-    function click_btns() {
-        reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("Dann"));
-        reset_btn(document.getElementById("Dview"));
-        reset_btn(s.parentNode);
-        //autorepeat??
-
-        translateSvg(0, 10);
-
-        mysvg.onmousedown = function(e) { };
-        mysvg.onmousemove = function(e) { };
-        mysvg.onmouseup = function(e) { };
-        function onmouseenterbar(e) {}
-        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
-        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
-    }
-
-    s.onclick=(click_btns);
-
-//sposta vista destra
-    function click_btnd() {
-        reset_btn(document.getElementById("DAtt"));
-        reset_btn(document.getElementById("Dann"));
-        reset_btn(document.getElementById("Dview"));
-        reset_btn(d.parentNode);
-        //autorepeat??
-
-        translateSvg(10, 0);
-
-        mysvg.onmousedown = function(e) { };
-        mysvg.onmousemove = function(e) { };
-        mysvg.onmouseup = function(e) { };
-        function onmouseenterbar(e) {}
-        document.getElementById("container_vert").addEventListener("mouseenter", onmouseenterbar);
-        document.getElementById("container_orizz").addEventListener("mouseenter", onmouseenterbar);
-    }
-
-    d.onclick=(click_btnd);
-
 //zoom in
     function click_btnzi() {
         reset_btn(document.getElementById("DAtt"));
@@ -211,7 +132,7 @@ window.addEventListener("load", function(e) {
         zi.classList.add("btn_pressed");
         var scale = false;
 
-        //setCursorByID("mysvg", "zoom");
+        mysvg.style = "cursor: -webkit-zoom-in; cursor: -moz-zoom-in ";
 
         mysvg.onmousedown = function(e) {
             scale = true;
@@ -219,11 +140,7 @@ window.addEventListener("load", function(e) {
             scaleSvg(1.1, pt.x, pt.y);
         };
 
-        mysvg.onmousemove = function(e) {
-            if (scale) {
-
-            }
-        };
+        mysvg.onmousemove = function(e) { };
 
         mysvg.onmouseup = function(e) {
             scale = false;
@@ -248,7 +165,7 @@ window.addEventListener("load", function(e) {
         zo.classList.add("btn_pressed");
         var scale = false;
 
-        //setCursorByID("mysvg", "zoom");
+        mysvg.style = "cursor: -webkit-zoom-out; cursor: -moz-zoom-out ";
 
         mysvg.onmousedown = function(e) {
             scale = true;
@@ -257,9 +174,6 @@ window.addEventListener("load", function(e) {
         };
 
         mysvg.onmousemove = function(e) {
-            if (scale) {
-
-            }
         };
 
         mysvg.onmouseup = function(e) {
@@ -286,6 +200,7 @@ window.addEventListener("load", function(e) {
 
         this.myfig = null;
         this.mytext = null;
+        this.mytbox = null;
         this.mytype = "text";
         this.linesIN = new Array();
         this.linesOUT = new Array();
@@ -306,7 +221,8 @@ window.addEventListener("load", function(e) {
             mytbox.style.top = (myy+"px");
             mytbox.textAnchor = "start";
             mytbox.style.fontSize = 12+"px";
-            mytbox.focus();             //  TODO?!
+            setTimeout(function () {mytbox.focus(); }, 0);
+            this.mytbox = mytbox;
             mytbox.addEventListener("keydown", function(evt) {
                 if (evt.keyCode == 13) {
                     _this.setText();
@@ -322,6 +238,9 @@ window.addEventListener("load", function(e) {
             this.setColor(standardcolor);
             mytext.setAttributeNS(null, "text-anchor", "start");
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
+            pt = transformPoint(myx, myy);
+            myx = pt.x;
+            myy = pt.y;
             mytext.setAttributeNS(null, "x", myx.toString());
             mytext.setAttributeNS(null, "y", (myy+12).toString());
             mysvg.appendChild(mytext);
@@ -372,9 +291,7 @@ window.addEventListener("load", function(e) {
         };
 
         this.removeme = function() {
-            if (mytext != null)  {
-                mytext.parentNode.removeChild(mytext);
-            }
+            if (mytext != null)  mytext.parentNode.removeChild(mytext);
         };
 
     }
@@ -383,6 +300,7 @@ window.addEventListener("load", function(e) {
         reset_btn(document.getElementById("DAtt"));
         reset_btn(document.getElementById("Dann"));
         reset_btn(document.getElementById("Dview"));
+        reset_btn(document.getElementById("all"));
         reset_btn(t.parentNode);
         t.classList.add("btn_pressed");
         var mytxt = null;
@@ -392,23 +310,21 @@ window.addEventListener("load", function(e) {
         mysvg.onmousedown = function(e) {
             if (t.classList.contains("btn_pressed")) {
                 if (mytxt != null && mytxt.myfig == null) {
+                    if (mytxt.mytbox.value.length > 0)
+                        mytxt.setText();
                     mytxt.deleteinput();
                 }
-                //TODO?? non funziona perchè è nel body
-                pt = transformPoint(e.clientX, e.clientY);
-                mDx = pt.x;
-                mDy = pt.y;
+                mDx = e.clientX;
+                mDy = e.clientY;
                 mytxt = new Text();
                 mytxt.newText(mDx, mDy);
             }
         };
 
         mysvg.onmousemove = function(e) {
-
         };
 
         mysvg.onmouseup = function(e) {
-
         };
 
         function onmouseenterbar() {
@@ -433,7 +349,8 @@ window.addEventListener("load", function(e) {
     function Note() {
         var _this = this;
         var myf = null;
-        var mytext = null;          //TODO multiline??!!
+        var mytext = null;
+        var mytextlenght = 0;
         var c1, c2, c3, c4 = null;
 
         this.myfig = null;
@@ -456,6 +373,8 @@ window.addEventListener("load", function(e) {
             if (selection) {
                 setProp(true, false, false, function (t, i, o) {
                     mytext.textContent = t;
+                    mytextlenght = mytext.textContent.length;
+                    _this.updateNote(myx, myy, mytextlenght*9, myh);
                 });
             }
         }
@@ -520,13 +439,12 @@ window.addEventListener("load", function(e) {
                 mysvg.appendChild(r4.myfig);
                 this.myRes.push(r1, r2, r3, r4);
 
-                myf.setAttributeNS(null, "style", "opacity:1");
+                myf.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
                 fixed = true;
             }
-            if (w >= stdw) {
-                myx = x;
-                myw = w;
-            }
+            var minw = Math.max(w, stdw, mytextlenght*9);
+            myx = x;
+            myw = minw;
             if (h >= stdh) {
                 myy = y;
                 myh = h;
@@ -537,6 +455,7 @@ window.addEventListener("load", function(e) {
                 " " + (myx + myw).toString() + "," + (myy + myh).toString() + " " + (myx + myw).toString() + "," + (myy + 10).toString());
 
             this.setConn();
+            this.setRes();
         };
 
         this.setConn = function () {
@@ -603,6 +522,7 @@ window.addEventListener("load", function(e) {
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "note: ";
+            mytextlenght = mytext.textContent.length;
             this.mytext = mytext;
             mysvg.appendChild(mytext);
 
@@ -654,7 +574,6 @@ window.addEventListener("load", function(e) {
                     break;
                 }
             }
-            this.setRes();
             this.setText();
         };
 
@@ -688,7 +607,6 @@ window.addEventListener("load", function(e) {
 
         this.dragNote = function(dx, dy) {
             this.updateNote(myx + dx, myy + dy, myw, myh);
-            this.setRes();
             this.setText();
         };
         this.dragObj = function(mx, my) {
@@ -707,16 +625,6 @@ window.addEventListener("load", function(e) {
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
-            }
             if (this.myRes != null) {
                 mysvg.removeChild(r1.myfig);
                 mysvg.appendChild(r1.myfig);
@@ -726,6 +634,16 @@ window.addEventListener("load", function(e) {
                 mysvg.appendChild(r3.myfig);
                 mysvg.removeChild(r4.myfig);
                 mysvg.appendChild(r4.myfig);
+            }
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -753,6 +671,7 @@ window.addEventListener("load", function(e) {
         reset_btn(document.getElementById("DAtt"));
         reset_btn(document.getElementById("Dann"));
         reset_btn(document.getElementById("Dview"));
+        reset_btn(document.getElementById("all"));
         reset_btn(note.parentNode);
         note.classList.add("btn_pressed");
         var f = null;

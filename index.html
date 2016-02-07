@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xml:lang="en" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -28,7 +27,7 @@
         <svg pointer-events="visiblePainted" id="mysvg" width="100%" height="100%" transform="matrix(1, 0, 0, 1, 0, 0)">
             <defs>
                 <marker id="arrowFlow" markerWidth="13" markerHeight="13" refX="8" refY="6" orient="auto">
-                    <path id="AFp" d="M2,2 L10,6 L2,10" style="stroke:mediumblue; fill:none" />
+                    <path id="AFp" d="M2,2 L10,6 L2,10" style="stroke:darkblue; fill:none" />
                 </marker>
             </defs>
 
@@ -37,22 +36,22 @@
        <div id="container_vert">
 
            <div id="all" style="display: none">
-               <button id="p" type="button" class="mybuttonall" title="Pointer">punt</button>
+               <button id="p" type="button" class="mybuttonall" title="Pointer">Punt</button>
                <button id="canc" type="button" class="mybuttonall" title="Delete (Canc)" style = "display: none">C</button>
            </div>
 
             <div id="DAtt" style = "display: none">
-                <button id="btn11" type="button" class="mybutton" title="Control flow">flow</button>
-                <button id="btn12" type="button" class="mybutton" title="Action">act</button>
-                <button id="btn13" type="button" class="mybutton" title="Initial node">start</button>
-                <button id="btn14" type="button" class="mybutton" title="Final node">end</button>
-                <button id="btn15" type="button" class="mybutton" title="Fork">fork</button>
-                <button id="btn16" type="button" class="mybutton" title="Join">join</button>
-                <button id="btn17" type="button" class="mybutton" title="Decision">dec</button>
-                <button id="btn18" type="button" class="mybutton" title="Merge">merge</button>
-                <button id="btn19" type="button" class="mybutton" title="Final flow">final</button>
-                <button id="btn110" type="button" class="mybutton" title="Send signal">SndSig</button>
-                <button id="btn111" type="button" class="mybutton" title="Receive signal">RcvSig</button>
+                <button id="btn11" type="button" class="mybutton" title="Control flow">Flow</button>
+                <button id="btn12" type="button" class="mybutton" title="Action">Act</button>
+                <button id="btn13" type="button" class="mybutton" title="Initial node">Start</button>
+                <button id="btn14" type="button" class="mybutton" title="Final node">End</button>
+                <button id="btn15" type="button" class="mybutton" title="Fork">Fork</button>
+                <button id="btn16" type="button" class="mybutton" title="Join">Join</button>
+                <button id="btn17" type="button" class="mybutton" title="Decision">Dec</button>
+                <button id="btn18" type="button" class="mybutton" title="Merge">Merge</button>
+                <button id="btn19" type="button" class="mybutton" title="Final flow">Final</button>
+                <button id="btn110" type="button" class="mybutton" title="Receive signal">RcvSig</button>
+                <button id="btn111" type="button" class="mybutton" title="Send signal">SndSig</button>
                 <button id="btn112" type="button" class="mybutton" title="Timer">Timer</button>
             </div>
 
@@ -75,12 +74,13 @@
         </div>
 
         <div id="container_orizz">
-            <p style="font-size: 15px; margin: 20px 10px; color: midnightblue"><b>UML Activity</b></p>
+            <p style="font-family: arial; font-size: 18px; margin: 20px 10px; color: darkblue"><b>UML Activity</b></p>
 
             <button id="btnD1" type="button" class="diagram_btn" title="New Activity Diagram">New</button>
             <button id="btnAct" type="button" class="diagram_btn" title="Activity buttons">Activities</button>
-            <button id="btnAnn" type="button" class="diagram_btn" title="Annotations">Annotation</button>
+            <button id="btnAnn" type="button" class="diagram_btn" title="Annotations">Annotations</button>
             <button id="btnView" type="button" class="diagram_btn" title="Transform View">View</button>
+            <button id="btnExport" type="button" class="diagram_btn" title="Export SVG">Export SVG</button>
 
         </div>
 
@@ -102,10 +102,10 @@
             <table>
                 <tr id="text">
                     <td>Testo:</td>
-                    <td><input type="text" id="textval" maxlength="25" /></td>
+                    <td><input type="text" id="textval" maxlength="40" /></td>
                 </tr>
                 <tr id="Input">
-                    <td>N Input:</td>
+                    <td>n° Input:</td>
                     <td>
                         <select id="selectIn">
                             <option value="2">2</option>
@@ -116,7 +116,7 @@
                     </td>
                 </tr>
                 <tr id="Output">
-                    <td>N Output:</td>
+                    <td>n° Output:</td>
                     <td>
                         <select id="selectOut">
                             <option value="2">2</option>
@@ -127,7 +127,7 @@
                     </td>
                 </tr>
             </table>
-            <div class="box_btn">
+            <div class="boxbtn">
                 <button id="delete" type="button" class="box_btn" title="Annulla">Back</button>
                 <button id="ok" type="button" class="box_btn" title="Conferma">OK</button>
             </div>

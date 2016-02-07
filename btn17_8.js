@@ -15,6 +15,7 @@ window.addEventListener("load", function(e){
         var _this = this;
         var myf = null;
         var mytext = null;
+        var mytextlenght = 0;
         var myin= new Array();
         var myout= new Array();
         var connOut = new Array();
@@ -44,6 +45,9 @@ window.addEventListener("load", function(e){
                     {
                         setProp(true, false, true, function (t, i, o) {
                             mytext.textContent = t;
+                            mytextlenght = mytext.textContent.length;
+                            _this.updateDM(myx, myy, mytextlenght*13, myd);
+                            _this.setText();
                             _this.removeO();
                             _this.removeI();
                             no = o;
@@ -55,6 +59,9 @@ window.addEventListener("load", function(e){
                     {
                         setProp(true, true, false, function (t, i, o) {
                             mytext.textContent = t;
+                            mytextlenght = mytext.textContent.length;
+                            _this.updateDM(myx, myy, mytextlenght*13, myd);
+                            _this.setText();
                             _this.removeO();
                             _this.removeI();
                             ni = i;
@@ -114,21 +121,22 @@ window.addEventListener("load", function(e){
                 this.myRes.push(r1, r2, r3, r4);
 
                 fixed = true;
-                myf.setAttributeNS(null, "style", "opacity:1");
+                myf.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
             }
-            if (D >= stdw) {
-                myx = x;
-                myD = D;
-            }
+            var minD = Math.max(D, stdw, mytextlenght*13);
+            myx = x;
+            myD = minD;
             if (d >= stdh) {
                 myy = y;
                 myd = d;
             }
             myf.setAttributeNS(null, "points", myx.toString()+","+myy.toString()+" "+(myx+myD/2).toString()+","+(myy-myd/2).toString()+
                 " "+(myx+myD).toString()+","+myy.toString()+" "+(myx+myD/2).toString()+","+(myy+myd/2).toString());
+
+            this.setRes();
         };
 
-        //QUI massimo 5 (?) attenzione!
+        //QUI massimo 5, attenzione!
         this.drawIO = function(i, o) {
             ni = parseInt(i);
             no = parseInt(o);
@@ -225,34 +233,36 @@ window.addEventListener("load", function(e){
                 setout(myx+(myD)/2, myy+(myd/2), myx+(myD)/2, myy+(myd/2)+10);
             }
             idx = 0;
-            var i, l;
-            for (i=0; i<this.linesIN.length; i++) {
-                l =  this.linesIN[i];
-                if (parseInt(this.numconnIn[i])>(no-1)) {
+            var l;
+            for (idx=0; idx<this.linesIN.length; idx++) {
+                l =  this.linesIN[idx];
+                if (parseInt(this.numconnIn[idx])>(no-1)) {
                     l.removeme()
                 }
                 else {
-                    conn = connOut[parseInt(this.numconnIn[i])];
+                    conn = connOut[parseInt(this.numconnIn[idx])];
                     l.setPosition(conn.x, conn.y, l.endX, l.endY);
                 }
             }
-            for (i=0; i<this.linesOUT.length; i++) {
-                l =  this.linesOUT[i];
-                if (parseInt(this.numconnOut[i])>(ni-1)) {
+            for (idx=0; idx<this.linesOUT.length; idx++) {
+                l =  this.linesOUT[idx];
+                if (parseInt(this.numconnOut[idx])>(ni-1)) {
                     l.removeme()
                 }
                 else {
-                    conn = connIn[parseInt(this.numconnOut[i])];
+                    conn = connIn[parseInt(this.numconnOut[idx])];
                     l.setPosition(l.initX, l.initY, conn.x, conn.y);
                 }
             }
         };
 
         this.setText = function() {
-            tx = myx + myD/5;
-            ty = myy;
-            mytext.setAttributeNS(null, "x", tx.toString());
-            mytext.setAttributeNS(null, "y", ty.toString());
+            if (mytext != null) {
+                tx = myx + myD / 5;
+                ty = myy;
+                mytext.setAttributeNS(null, "x", tx.toString());
+                mytext.setAttributeNS(null, "y", ty.toString());
+            }
         };
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
@@ -260,6 +270,7 @@ window.addEventListener("load", function(e){
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "cond";
+            mytextlenght = mytext.textContent.length;
             this.mytext = mytext;
             mysvg.appendChild(mytext);
 
@@ -308,8 +319,8 @@ window.addEventListener("load", function(e){
                 }
             }
             this.drawIO(ni, no);
-            this.setRes();
             this.setText();
+            this.setColor(selectioncolor);
         };
 
         this.addLineIN = function(l) {
@@ -350,7 +361,6 @@ window.addEventListener("load", function(e){
         this.dragDM = function(dx, dy) {
             this.updateDM(myx + dx, myy + dy, myD, myd);
             this.drawIO(ni, no);
-            this.setRes();
             this.setText();
         };
         this.dragObj = function(mx, my) {
@@ -369,24 +379,26 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
             }
-            var i, l, c;
+            var i, l;
             var n = myin.length;
             for (i=0; i<n; i++) {
                 l = myin[i];
-                c = connIn[i].myfig;
                 mysvg.removeChild(l);
                 mysvg.appendChild(l);
-                mysvg.removeChild(c);
-                mysvg.appendChild(c);
             }
             n = myout.length;
             for (i=0; i<n; i++) {
                 l = myout[i];
-                c = connOut[i].myfig;
                 mysvg.removeChild(l);
                 mysvg.appendChild(l);
-                mysvg.removeChild(c);
-                mysvg.appendChild(c);
+            }
+            if (elementsel == this) {
+                n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
             if (this.myRes != null) {
                 mysvg.removeChild(r1.myfig);

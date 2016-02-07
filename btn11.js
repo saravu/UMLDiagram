@@ -255,7 +255,6 @@ window.addEventListener("load", function(e) {
             myline2.setAttributeNS(null, "stroke", c);
             myline3.setAttributeNS(null, "stroke", c);
             if (mytext!=null) mytext.setAttributeNS(null, "fill", c);
-            //document.getElementById("AFp").setAttributeNS(null, "style", "stroke:" + c + "; fill: none");
         };
         this.dragObj = function(mx, my) {
             var deltax = 0;
@@ -319,6 +318,10 @@ window.addEventListener("load", function(e) {
             if (this.mytext!=null) {
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
+            }
+            if (elementsel == this) {
+                if (this.elemento0 != null) this.elemento0.toFront();
+                if (this.elemento1 != null) this.elemento1.toFront();
             }
         };
 
@@ -451,7 +454,7 @@ window.addEventListener("load", function(e) {
                     invalid = false;
                 }
                 else if (line.elemento0 != null && elementcorreleted != null) {
-                    correlate(e, elementcorreleted);        //AAA
+                    correlate(e, elementcorreleted);
 
                     if (elementcorreleted.mytype == "note" || line.elemento0.mytype == "note") {
                         line.removeme();
@@ -481,7 +484,7 @@ window.addEventListener("load", function(e) {
                     mMy = connsel.y;
                     if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                         line.removeme();
-                        //line.remove();    // TODO come rimuovere obj?! GC da solo?
+                        //line.remove();
                     }
                     else {
                         line.setPosition(mDx, mDy, mMx, mMy);
@@ -498,7 +501,6 @@ window.addEventListener("load", function(e) {
                     line.removeme();
                     divinv.style.display = "block";
                     setTimeout(function() {divinv.style.display = "none";}, 2500);
-                    console.log("invalid connection end, UMLControlFlow");
                 }
             }
         };
@@ -510,8 +512,6 @@ window.addEventListener("load", function(e) {
                     deletelastsvgel("line", false);
                     deletelastsvgel("line", false);
                     deletelastsvgel("line", false);
-                    //line.removeme();
-                    //line.myline1.setAttributeNS(null, "style", "opacity:1");line.myline2.setAttributeNS(null, "style", "opacity:1");line.myline3.setAttributeNS(null, "style", "opacity:1");
                     drawing = false;
                     invalid = false;
                 }

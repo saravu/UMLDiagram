@@ -6,7 +6,6 @@ window.addEventListener("load", function(e){
 
     var mybtn = document.getElementById("btn12");
     var mMx, mMy = 0;
-    //var idA = 0;
     var fixed = true;
     var drawing = false;
     var pt = null;
@@ -37,7 +36,7 @@ window.addEventListener("load", function(e){
                 fixed = false;
                 myrect.setAttributeNS(null, "stroke", standardcolor);
                 myrect.setAttributeNS(null, "fill", "white");
-                myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:0.3");
+                myrect.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 myrect.setAttributeNS(null, "rx", "10");
                 myrect.setAttributeNS(null, "ry", "10");
 
@@ -65,10 +64,10 @@ window.addEventListener("load", function(e){
             };
             myrect.ondblclick = function(e) {
                 setProp(true, false, false, function(t, i, o) {
-                                                mytext.textContent = t;
-                                               // mytextlenght = mytext.getComputedStyle.length;    //TODO text lenght?
+                        mytext.textContent = t;
+                        mytextlenght = mytext.textContent.length;
+                        _this.updateRect(myx, myy, mytextlenght*9, myh);
                                              });
-                //console.log("lunghezzaaaaaa " + mytextlenght);
             };
         };
         this.updateRect = function(x, y, w, h) {
@@ -97,22 +96,23 @@ window.addEventListener("load", function(e){
                 this.myRes.push(r1, r2, r3, r4);
 
                 fixed = true;
-                myrect.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+                myrect.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
             }
 
-            if (w >= stdw) {
-                myx = x;
-                myw = w;
-                myrect.setAttributeNS(null, "x", myx.toString());
-                myrect.setAttributeNS(null, "width", myw.toString());
-            }
+            var minw = Math.max(w, stdw, mytextlenght*9);
+            myx = x;
+            myw = minw;
+            myrect.setAttributeNS(null, "x", myx.toString());
+            myrect.setAttributeNS(null, "width", myw.toString());
             if (h >= stdh) {
                 myy = y;
                 myh = h;
                 myrect.setAttributeNS(null, "y", myy.toString());
                 myrect.setAttributeNS(null, "height", myh.toString());
             }
+
             this.setConn();
+            this.setRes();
         };
         this.setConn = function () {
             c1.updateConnection(myx + myw/2 - cdim/2, myy - cdim/2);
@@ -176,7 +176,7 @@ window.addEventListener("load", function(e){
         this.addText = function() {
             mytext = document.createElementNS(svgNS, "text");
             mytext.textContent = "Action ";
-            //var w = mytext.getComputedStyle().        TODO centrare il testo?
+            mytextlenght = mytext.textContent.length;
             this.setText();
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
@@ -199,6 +199,8 @@ window.addEventListener("load", function(e){
                 drag = false;
                 setProp(true, false, false, function(t, i, o) {
                     mytext.textContent = t;
+                    mytextlenght = mytext.textContent.length;
+                    _this.updateRect(myx, myy, mytextlenght*9, myh);
                 });
             }
         };
@@ -239,7 +241,6 @@ window.addEventListener("load", function(e){
                     break;
                 }
             }
-            this.setRes();
             this.setText();
         };
 
@@ -284,15 +285,6 @@ window.addEventListener("load", function(e){
             deltax = (mx - myx) + offx;
             deltay = (my - myy) + offy;
             this.dragRect(myx + deltax, myy + deltay);
-            /*
-            for (i = 0; i<this.linesIN.length; i++) {
-                l = this.linesIN[i];
-                l.setPosition(l.initX + deltax, l.initY + deltay, l.endX, l.endY);
-            }
-            for (i = 0; i<this.linesOUT.length; i++) {
-                l = this.linesOUT[i];
-                l.setPosition(l.initX, l.initY, l.endX+ deltax, l.endY+ deltay);
-            } */
         };
 
         this.toFront = function() {
@@ -304,16 +296,6 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
-            }
             if (this.myRes != null) {
                 mysvg.removeChild(r1.myfig);
                 mysvg.appendChild(r1.myfig);
@@ -323,6 +305,15 @@ window.addEventListener("load", function(e){
                 mysvg.appendChild(r3.myfig);
                 mysvg.removeChild(r4.myfig);
                 mysvg.appendChild(r4.myfig);
+            }
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -384,7 +375,6 @@ window.addEventListener("load", function(e){
         function onmouseenterbar() {
             if (mybtn.classList.contains("btn_pressed")) {
                 deletelastsvgel("rect", fixed);
-                //if (rect != null) rect.removeme();
                 fixed = true;
             }
         }

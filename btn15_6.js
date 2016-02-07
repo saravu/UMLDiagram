@@ -1,7 +1,9 @@
 /**
  * Created by Sara on 11/12/2015.
  */
+
 //fork - da uno a tanti -
+//join - da tanti a uno - parallelizza
 window.addEventListener("load", function(e){
 
     var btnFork = document.getElementById("btn15");
@@ -180,24 +182,24 @@ window.addEventListener("load", function(e){
                 }
             }
 
-            var i, l;
-            for (i=0; i<this.linesIN.length; i++) {
-                l =  this.linesIN[i];
-                if (parseInt(this.numconnIn[i])>(no-1)) {
+            var l;
+            for (idx=0; idx<this.linesIN.length; idx++) {
+                l =  this.linesIN[idx];
+                if (parseInt(this.numconnIn[idx])>(no-1)) {
                     l.removeme()
                 }
                 else {
-                    conn = connOut[parseInt(this.numconnIn[i])];
+                    conn = connOut[parseInt(this.numconnIn[idx])];
                     l.setPosition(conn.x, conn.y, l.endX, l.endY);
                 }
             }
-            for (i=0; i<this.linesOUT.length; i++) {
-                l =  this.linesOUT[i];
-                if (parseInt(this.numconnOut[i])>(ni-1)) {
+            for (idx=0; idx<this.linesOUT.length; idx++) {
+                l =  this.linesOUT[idx];
+                if (parseInt(this.numconnOut[idx])>(ni-1)) {
                     l.removeme()
                 }
                 else {
-                    conn = connIn[parseInt(this.numconnOut[i])];
+                    conn = connIn[parseInt(this.numconnOut[idx])];
                     l.setPosition(l.initX, l.initY, conn.x, conn.y);
                 }
             }
@@ -257,24 +259,27 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(this.myfig);
                 mysvg.appendChild(this.myfig);
             }
-            var i, l, c;
+            var i, l;
             var n = myin.length;
             for (i=0; i<n; i++) {
                 l = myin[i];
-                c = connIn[i].myfig;
                 mysvg.removeChild(l);
                 mysvg.appendChild(l);
-                mysvg.removeChild(c);
-                mysvg.appendChild(c);
             }
             n = myout.length;
             for (i=0; i<n; i++) {
                 l = myout[i];
-                c = connOut[i].myfig;
                 mysvg.removeChild(l);
                 mysvg.appendChild(l);
-                mysvg.removeChild(c);
-                mysvg.appendChild(c);
+            }
+
+            if (elementsel == this) {
+                n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -303,10 +308,11 @@ window.addEventListener("load", function(e){
             this.removeI();
             this.removeO();
             var n = this.linesIN.length;
-            for(var i = 0; i<n; i++)
+            var i;
+            for(i = 0; i<n; i++)
                 this.linesIN[0].removeme();
             n = this.linesOUT.length;
-            for(var i = 0; i<n; i++)
+            for(i = 0; i<n; i++)
                 this.linesOUT[0].removeme()
         };
 
@@ -368,7 +374,6 @@ window.addEventListener("load", function(e){
                 mMy = pt.y;
                 if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                     f.removeme();
-                    //f.remove(); //rimuovere oggetto??
                 }
                 else {
                     f.setLine(mDx, mDy, mMx, mMy);
@@ -428,12 +433,11 @@ window.addEventListener("load", function(e){
                 mMy = pt.y;
                 if (Math.abs(mDx - mMx) < 10 && Math.abs(mDy - mMy) < 10) {
                     f.removeme();
-                    //f.remove(); //rimuovere oggetto??
                 }
                 else {
                     f.setLine(mDx, mDy, mMx, mMy);
                     f.myfig.setAttributeNS(null, "style", "stroke-width:5; opacity:1");
-                    f.drawIO(2, 1);     //default per fork
+                    f.drawIO(2, 1);     //default per join
                 }
             }
         };
@@ -457,4 +461,3 @@ window.addEventListener("load", function(e){
     btnJoin.onclick=(click_btn16);
 
 });
-

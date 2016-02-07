@@ -7,8 +7,8 @@
 //      timer
 window.addEventListener("load", function(e) {
 
-    var btnSndSig = document.getElementById("btn110");
-    var btnRcvSig = document.getElementById("btn111");
+    var btnRcvs = document.getElementById("btn110");
+    var btnSnds = document.getElementById("btn111");
     var btnTimer = document.getElementById("btn112");
     var mMx, mMy = 0;
     var drawing = false;
@@ -19,9 +19,10 @@ window.addEventListener("load", function(e) {
         var _this = this;
         var myf = null;
         var mytext = null;
+        var mytextlenght = 0;
         var c1, c2, c3, c4 = null;
         this.myfig = null;
-        this.mytype = null;     // 0 = send, 1 = receive
+        this.mytype = null;     // 0 = receive, 1 = send
         this.mytext = null;
         this.linesIN = new Array();
         this.numconnIn = new Array();
@@ -40,6 +41,8 @@ window.addEventListener("load", function(e) {
             if (selection) {
                 setProp(true, false, false, function (t, i, o) {
                     mytext.textContent = t;
+                    mytextlenght = mytext.textContent.length;
+                    _this.updateSig(myx, myy, mytextlenght, myh);
                 });
             }
         }
@@ -58,7 +61,7 @@ window.addEventListener("load", function(e) {
             myy = y;
             switch (this.mytype) {
                 case 0:
-                {  //send signal
+                {  //receive signal
                     puntax = myx + 20;
                     puntay = myy + myh/2;
                     myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
@@ -67,7 +70,7 @@ window.addEventListener("load", function(e) {
                     break;
                 }
                 case 1:
-                { //receive signal
+                { //send signal
                     puntax = myx + myw + 20;
                     puntay = myy + myh/2;
                     myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
@@ -120,19 +123,20 @@ window.addEventListener("load", function(e) {
                 mysvg.appendChild(r4.myfig);
                 this.myRes.push(r1, r2, r3, r4);
 
-                myf.setAttributeNS(null, "style", "opacity:1");
+                myf.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
                 fixed = true;
             }
-            if (w >= stdw) {
-                myx = x;
-                myw = w;
-            }
+            var minw;
+            if (this.mytype == 0) minw = Math.max(w, stdw, mytextlenght*10);
+            else minw = Math.max(w, stdw, mytextlenght*9);
+            myx = x;
+            myw = minw;
             if (h >= stdh) {
                 myy = y;
                 myh = h;
             }
             switch (this.mytype) {
-                case 0: {  //send signal
+                case 0: {  //receive signal
                     puntax = myx + 20;
                     puntay = myy + myh/2;
                     myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
@@ -140,7 +144,7 @@ window.addEventListener("load", function(e) {
                         " " + puntax.toString() + "," + puntay.toString());
                     break;
                 }
-                case 1: { //receive signal
+                case 1: { //send signal
                     puntax = myx + myw + 20;
                     puntay = myy + myh/2;
                     myf.setAttributeNS(null, "points", myx.toString() + "," + myy.toString() + " " + (myx + myw).toString() + "," + myy.toString() +
@@ -150,6 +154,7 @@ window.addEventListener("load", function(e) {
                 }
             }
             this.setConn();
+            this.setRes();
         };
         this.setConn = function () {
             c1.updateConnection(myx + myw/2 - cdim/2, myy - cdim/2);
@@ -222,6 +227,7 @@ window.addEventListener("load", function(e) {
             mytext.setAttributeNS(null, "style", "font-family:" + ffam +"; font-size:" + fsz);
             mytext.setAttributeNS(null, "fill", standardcolor);
             mytext.textContent = "signal";
+            mytextlenght = mytext.textContent.length;
             this.mytext = mytext;
             mysvg.appendChild(mytext);
 
@@ -269,7 +275,6 @@ window.addEventListener("load", function(e) {
                     break;
                 }
             }
-            this.setRes();
             this.setText();
         };
 
@@ -303,7 +308,6 @@ window.addEventListener("load", function(e) {
 
         this.dragSig = function(dx, dy) {
             this.updateSig(myx + dx, myy + dy, myw, myh);
-            this.setRes();
             this.setText();
         };
         this.dragObj = function(mx, my) {
@@ -322,15 +326,15 @@ window.addEventListener("load", function(e) {
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
             if (this.myRes != null) {
                 mysvg.removeChild(r1.myfig);
@@ -366,18 +370,18 @@ window.addEventListener("load", function(e) {
         }
     }
 
-//send signal
+//receive signal
     function click_btn110() {
         reset_btn(document.getElementById("all"));
-        reset_btn(btnSndSig.parentNode);
-        btnSndSig.classList.add("btn_pressed");
+        reset_btn(btnRcvs.parentNode);
+        btnRcvs.classList.add("btn_pressed");
         var f = null;
         setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 
         mysvg.onmousemove = function(e) {
-            if (btnSndSig.classList.contains("btn_pressed")) {
+            if (btnRcvs.classList.contains("btn_pressed")) {
                 pt = transformPoint(e.clientX, e.clientY);
                 mMx = pt.x;
                 mMy = pt.y;
@@ -402,7 +406,7 @@ window.addEventListener("load", function(e) {
         };
 
         function onmouseenterbar(e) {
-            if (btnSndSig.classList.contains("btn_pressed")) {
+            if (btnRcvs.classList.contains("btn_pressed")) {
                 deletelastsvgel("polygon", fixed);
                 fixed = true;
             }
@@ -412,18 +416,18 @@ window.addEventListener("load", function(e) {
 
     }
 
-//receive signal
+//send signal
     function click_btn111() {
         reset_btn(document.getElementById("all"));
-        reset_btn(btnRcvSig.parentNode);
-        btnRcvSig.classList.add("btn_pressed");
+        reset_btn(btnSnds.parentNode);
+        btnSnds.classList.add("btn_pressed");
         var f = null;
         setCursorByID("mysvg", "none");
 
         mysvg.onmousedown = function(e){ };
 
         mysvg.onmousemove = function(e) {
-            if (btnRcvSig.classList.contains("btn_pressed")) {
+            if (btnSnds.classList.contains("btn_pressed")) {
                 pt = transformPoint(e.clientX, e.clientY);
                 mMx = pt.x;
                 mMy = pt.y;
@@ -448,7 +452,7 @@ window.addEventListener("load", function(e) {
         };
 
         function onmouseenterbar(e) {
-            if (btnRcvSig.classList.contains("btn_pressed")) {
+            if (btnSnds.classList.contains("btn_pressed")) {
                 deletelastsvgel("polygon", fixed);
                 fixed = true;
             }
@@ -458,9 +462,9 @@ window.addEventListener("load", function(e) {
 
     }
 
-    btnSndSig.onclick=(click_btn110);
+    btnRcvs.onclick=(click_btn110);
 
-    btnRcvSig.onclick=(click_btn111);
+    btnSnds.onclick=(click_btn111);
 
 
 //timer
@@ -475,20 +479,12 @@ window.addEventListener("load", function(e) {
         this.mytext = null;
         this.linesIN = new Array();
         this.linesOUT = new Array();
+        this.myRes = null;
 
         var myx, myy, puntax, puntay = null;
         var w = 40;
         var h = 30;
         var offx, offy;
-
-        function ondblclickTimer() {
-            drag = false;
-            if (selection) {
-                setProp(true, false, false, function (t, i, o) {
-                    mytext.textContent = t;
-                });
-            }
-        }
 
         this.newTimer = function(x, y) {
             if (fixed) {
@@ -520,7 +516,6 @@ window.addEventListener("load", function(e) {
             };
             myf.ondblclick = function(e) {
                 drag = false;
-                ondblclickTimer();
             };
         };
 
@@ -598,25 +593,15 @@ window.addEventListener("load", function(e) {
                 mysvg.removeChild(this.mytext);
                 mysvg.appendChild(this.mytext);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
-            }
-            if (this.myRes != null) {
-                mysvg.removeChild(r1.myfig);
-                mysvg.appendChild(r1.myfig);
-                mysvg.removeChild(r2.myfig);
-                mysvg.appendChild(r2.myfig);
-                mysvg.removeChild(r3.myfig);
-                mysvg.appendChild(r3.myfig);
-                mysvg.removeChild(r4.myfig);
-                mysvg.appendChild(r4.myfig);
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -666,7 +651,7 @@ window.addEventListener("load", function(e) {
                 mMx = pt.x;
                 mMy = pt.y;
                 f.updateTimer(mMx, mMy);
-                f.myfig.setAttributeNS(null, "style", "opacity:1");
+                f.myfig.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
                 fixed = true;
                 drawing = false;
             }

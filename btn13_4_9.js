@@ -16,7 +16,7 @@ window.addEventListener("load", function(e){
 
     function InitialNode() {
         var _this = this;
-        var mycircle = null
+        var mycircle = null;
         var myx, myy, tx, ty;
         var r = 10;
         var offx, offy;
@@ -33,8 +33,7 @@ window.addEventListener("load", function(e){
             if (fixed) {
                 mycircle = document.createElementNS(svgNS, "circle");
                 fixed = false;
-                mycircle.setAttributeNS(null, "fill", "blue");
-                mycircle.setAttributeNS(null, "style", "stroke-width:2;opacity:0.3");
+                mycircle.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 mycircle.setAttributeNS(null, "r", r.toString());
                 mysvg.appendChild(mycircle);
                 this.myfig = mycircle;
@@ -66,7 +65,7 @@ window.addEventListener("load", function(e){
             mysvg.appendChild(c4.myfig);
             this.setConn();
             fixed = true;
-            mycircle.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            mycircle.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
         };
 
         this.setPoint = function(x, y) {
@@ -82,13 +81,13 @@ window.addEventListener("load", function(e){
             c4.updateConnection(myx - r - cdim/2, myy - cdim/2);
         };
 
-        this.addLineIN = function(l) {        //aggiungo un oggetto Line
+        this.addLineIN = function(l) {
             this.linesIN.push(l);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
         };
-        this.removeLine = function (l) {        //quando cancello la linea, devo rimuoverla dall'array
+        this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
                 this.linesIN.splice(i, 1);
@@ -102,6 +101,7 @@ window.addEventListener("load", function(e){
         };
         this.setColor = function(c) {
             mycircle.setAttributeNS(null, "stroke", c);
+            mycircle.setAttributeNS(null, "fill", c);
         };
 
         this.dragNode = function(x, y) {
@@ -129,15 +129,15 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(this.myfig);
                 mysvg.appendChild(this.myfig);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -177,12 +177,10 @@ window.addEventListener("load", function(e){
         };
 
         mysvg.onmouseup = function(e) {
-            //if (drawing) {
             pt = transformPoint(e.clientX, e.clientY);
             mMx = pt.x;
             mMy = pt.y;
             circle.updateCircle(mMx, mMy);
-            //}
         };
 
         function onmouseenterbar() {
@@ -222,18 +220,16 @@ window.addEventListener("load", function(e){
                 myint = document.createElementNS(svgNS, "circle");
                 fixed = false;
                 //template Action
-                myest.setAttributeNS(null, "stroke", standardcolor);
                 myest.setAttributeNS(null, "fill", "white");
-                myest.setAttributeNS(null, "style", "stroke-width:2;opacity:0.3");
+                myest.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 myest.setAttributeNS(null, "r", re.toString());
                 mysvg.appendChild(myest);
                 this.myfig = myest;
-                myint.setAttributeNS(null, "stroke", standardcolor);
-                myint.setAttributeNS(null, "fill", "blue");
                 myint.setAttributeNS(null, "style", "opacity:0.3");
                 myint.setAttributeNS(null, "r", ri.toString());
                 mysvg.appendChild(myint);
                 this.mypath = myint;
+                this.setColor(standardcolor)
             }
             this.setPoint(x, y);
 
@@ -272,8 +268,8 @@ window.addEventListener("load", function(e){
             mysvg.appendChild(c4.myfig);
             this.setConn();
             fixed = true;
-            myest.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            myint.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            myest.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
+            myint.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
         };
         this.setPoint = function(x, y) {
             myx = x;
@@ -291,13 +287,13 @@ window.addEventListener("load", function(e){
             c4.updateConnection(myx - re - cdim/2, myy - cdim/2);
         };
 
-        this.addLineIN = function(l) {        //aggiungo un oggetto Line
+        this.addLineIN = function(l) {
             this.linesIN.push(l);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
         };
-        this.removeLine = function (l) {        //quando cancello la linea, devo rimuoverla dall'array
+        this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
                 this.linesIN.splice(i, 1);
@@ -311,6 +307,8 @@ window.addEventListener("load", function(e){
         };
         this.setColor = function(c) {
             myest.setAttributeNS(null, "stroke", c);
+            myint.setAttributeNS(null, "stroke", c);
+            myint.setAttributeNS(null, "fill", c);
         };
 
         this.dragNode = function(x, y) {
@@ -342,15 +340,15 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(myint);
                 mysvg.appendChild(myint);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -362,10 +360,11 @@ window.addEventListener("load", function(e){
             c3.removeme();
             c4.removeme();
             var n = this.linesIN.length;
-            for(var i = 0; i<n; i++)
+            var i;
+            for(i = 0; i<n; i++)
                 this.linesIN[0].removeme();
             n = this.linesOUT.length;
-            for(var i = 0; i<n; i++)
+            for(i = 0; i<n; i++)
                 this.linesOUT[0].removeme()
         };
 
@@ -391,12 +390,10 @@ window.addEventListener("load", function(e){
         };
 
         mysvg.onmouseup = function(e) {
-            //if (drawing) {
             pt = transformPoint(e.clientX, e.clientY);
             mMx = pt.x;
             mMy = pt.y;
             c.updateCircle(mMx, mMy);
-            //}
         };
 
         function onmouseenterbar() {
@@ -445,17 +442,17 @@ window.addEventListener("load", function(e){
                 myc.setAttributeNS(null, "r", r.toString());
                 mysvg.appendChild(myc);
                 this.myfig = myc;
-                p1.setAttributeNS(null, "fill", "blue");
-                p1.setAttributeNS(null, "style", "opacity:0.3");
+                p1.setAttributeNS(null, "fill", standardcolor);
+                p1.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 mysvg.appendChild(p1);
-                p2.setAttributeNS(null, "fill", "blue");
-                p2.setAttributeNS(null, "style", "opacity:0.3");
+                p2.setAttributeNS(null, "fill", standardcolor);
+                p2.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 mysvg.appendChild(p2);
-                p3.setAttributeNS(null, "fill", "blue");
-                p3.setAttributeNS(null, "style", "opacity:0.3");
+                p3.setAttributeNS(null, "fill", standardcolor);
+                p3.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 mysvg.appendChild(p3);
-                p4.setAttributeNS(null, "fill", "blue");
-                p4.setAttributeNS(null, "style", "opacity:0.3");
+                p4.setAttributeNS(null, "fill", standardcolor);
+                p4.setAttributeNS(null, "style", "stroke-width:2; opacity:0.3");
                 mysvg.appendChild(p4);
 
                 this.setColor(standardcolor);
@@ -473,15 +470,51 @@ window.addEventListener("load", function(e){
                 drag = false;
                 //correlate(e, _this);
             };
+            p1.onmousedown = function(e) {
+                select(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+            };
+            p1.onmouseup = function(e) {
+                drag = false;
+            };
+            p4.onmousedown = function(e) {
+                select(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+            };
+            p4.onmouseup = function(e) {
+                drag = false;
+            };
+            p3.onmousedown = function(e) {
+                select(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+            };
+            p3.onmouseup = function(e) {
+                drag = false;
+            };
+            p4.onmousedown = function(e) {
+                select(e, _this);
+                pt = transformPoint(e.clientX, e.clientY);
+                offx = myx - pt.x;
+                offy = myy - pt.y;
+            };
+            p4.onmouseup = function(e) {
+                drag = false;
+            };
         };
         this.updateCircle = function(x1, y1) {
             this.setPoint(x1, y1);
             fixed = true;
-            myc.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p1.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p2.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p3.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
-            p4.setAttributeNS(null, "style", "stroke-width:2;opacity:1");
+            myc.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
+            p1.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
+            p2.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
+            p3.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
+            p4.setAttributeNS(null, "style", "stroke-width:2; opacity:1");
             c1 = new Connection(_this);
             mysvg.appendChild(c1.myfig);
             c2 = new Connection(_this);
@@ -514,13 +547,13 @@ window.addEventListener("load", function(e){
             c4.updateConnection(myx - r - cdim/2, myy - cdim/2);
         };
 
-        this.addLineIN = function(l) {        //aggiungo un oggetto Line
+        this.addLineIN = function(l) {
             this.linesIN.push(l);
         };
         this.addLineOut = function (l) {
             this.linesOUT.push(l);
         };
-        this.removeLine = function (l) {        //quando cancello la linea, devo rimuoverla dall'array
+        this.removeLine = function (l) {
             var i = this.linesIN.indexOf(l);
             if (i > -1) {
                 this.linesIN.splice(i, 1);
@@ -572,15 +605,15 @@ window.addEventListener("load", function(e){
                 mysvg.removeChild(p4);
                 mysvg.appendChild(p4);
             }
-            if (c1 != null) {
-                mysvg.removeChild(c1.myfig);
-                mysvg.appendChild(c1.myfig);
-                mysvg.removeChild(c2.myfig);
-                mysvg.appendChild(c2.myfig);
-                mysvg.removeChild(c3.myfig);
-                mysvg.appendChild(c3.myfig);
-                mysvg.removeChild(c4.myfig);
-                mysvg.appendChild(c4.myfig);
+
+            if (elementsel == this) {
+                var i;
+                var n = this.linesIN.length;
+                for (i = 0; i < n; i++)
+                    this.linesIN[0].toFront();
+                n = this.linesOUT.length;
+                for (i = 0; i < n; i++)
+                    this.linesOUT[0].toFront();
             }
         };
 
@@ -595,10 +628,11 @@ window.addEventListener("load", function(e){
             c3.removeme();
             c4.removeme();
             var n = this.linesIN.length;
-            for(var i = 0; i<n; i++)
+            var i;
+            for(i = 0; i<n; i++)
                 this.linesIN[0].removeme();
             n = this.linesOUT.length;
-            for(var i = 0; i<n; i++)
+            for(i = 0; i<n; i++)
                 this.linesOUT[0].removeme()
         };
 
@@ -624,12 +658,10 @@ window.addEventListener("load", function(e){
         };
 
         mysvg.onmouseup = function(e) {
-            //if (drawing) {
             pt = transformPoint(e.clientX, e.clientY);
             mMx = pt.x;
             mMy = pt.y;
             finflow.updateCircle(mMx, mMy);
-            //}
         };
 
         function onmouseenterbar() {
